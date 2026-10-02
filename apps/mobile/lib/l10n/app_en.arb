@@ -80,5 +80,16 @@
   "errorATHLETE_TOO_YOUNG": "Athletes under 14 can't have an account.",
   "errorPERSON_ALREADY_LINKED": "Already has a linked account.",
   "errorFORBIDDEN": "You don't have permission for this action.",
-  "errorBAD_USER_INPUT": "Please check the data you entered."
+  "errorBAD_USER_INPUT": "Please check the data you entered.",
+  "kindTRAINING": "Training",
+  "kindMATCH": "Match",
+  "kindOTHER": "Event",
+  "cancelled": "Cancelled",
+  "openMap": "Open in maps",
+  "noEvents": "No events in the next 30 days.",
+  "versus": "vs {opponent}",
+  "homeMatch": "Home",
+  "awayMatch": "Away",
+  "clubWide": "Whole club",
+  "notes": "Notes"
 }

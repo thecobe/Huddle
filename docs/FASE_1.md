@@ -124,6 +124,14 @@ Ogni traguardo elenca le storie con la piattaforma su cui vengono costruite e un
 
 ### M2 – Calendario
 
+> **Stato (2026-10-02): completato, in attesa della tua revisione e prova su dispositivo.**
+> Verifiche: 68 test API (generazione con cambio dell'ora legale, modifiche di serie che preservano le date
+> modificate a mano, chiusure, permessi di allenatore e genitore, link iCal e revoca), 6 e2e web, 20 test Flutter,
+> 3 test di integrazione su simulatore iOS 27 (rosa, figli, agenda con allenamenti e gara).
+> Scelta: ricorrenze settimanali generate in PostgreSQL con `generate_series` e il fuso della società, senza libreria RRULE.
+> Le date passate non vengono mai modificate da un cambio della serie. Il link iCal personale contiene le squadre
+> proprie e dei figli (per un amministratore senza squadre solo gli eventi di società); per una squadra si usa il link di squadra.
+
 | Storia | Criteri di accettazione | Dove | Dim. |
 |---|---|---|---|
 | Allenamenti ricorrenti | Serie settimanali con giorni, orario e luogo; occorrenze per tutta la stagione; modifica di una data o di tutte le successive; corretto al cambio dell'ora legale. | API, web | L |

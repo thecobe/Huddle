@@ -18,6 +18,7 @@ export class Club {
   @Field(() => String) country: string;
   @Field(() => [String], { description: 'Federazioni ed enti di promozione sportiva di affiliazione' })
   federations: string[];
+  @Field(() => String, { description: 'Fuso orario della società (IANA), per date e orari' }) timezone: string;
   @Field(() => GraphQLISODateTime) createdAt: Date;
 }
 

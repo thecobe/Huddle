@@ -28,6 +28,15 @@ con API in esecuzione:
 pnpm --filter @huddle/api seed:demo   # stampa credenziali, segreto 2FA dell'admin e magic link per l'app
 ```
 
+La demo include allenamenti ricorrenti per due squadre e una gara il sabato successivo.
+
+## Calendario e fuso orario
+
+Gli orari si salvano in UTC; date e ore locali usano `clubs.timezone` (predefinito `Europe/Rome`). Le occorrenze
+degli allenamenti ricorrenti sono generate dal database (`CalendarService.generate`), che gestisce il cambio
+dell'ora legale. Il web converte con `src/lib/zoned.ts`; l'app mostra l'ora del dispositivo.
+I link iCal sono serviti da `GET /calendar/<token>.ics` (in sviluppo Vite inoltra `/calendar` all'API).
+
 Emulatore Android: l'API locale è raggiungibile su `10.0.2.2`, quindi avviare con
 `--dart-define=API_URL=http://10.0.2.2:4000/graphql`.
 

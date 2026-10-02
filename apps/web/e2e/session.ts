@@ -30,3 +30,11 @@ export async function openSeason(page: Page, name = '2026/27') {
   await page.getByRole('button', { name: 'Salva' }).click();
   await page.getByRole('row', { name: new RegExp(name.replace('/', '\\/')) }).getByRole('button', { name: 'Apri', exact: true }).click();
 }
+
+export async function createTeam(page: Page, name: string) {
+  await page.goto('/app/teams');
+  await page.getByRole('button', { name: 'Nuova squadra' }).click();
+  await page.getByLabel('Nome', { exact: true }).fill(name);
+  await page.getByRole('button', { name: 'Salva' }).click();
+  await expect(page.getByRole('heading', { name })).toBeVisible();
+}

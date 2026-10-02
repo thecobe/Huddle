@@ -272,4 +272,39 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get errorBAD_USER_INPUT => 'Controlla i dati inseriti.';
+
+  @override
+  String get kindTRAINING => 'Allenamento';
+
+  @override
+  String get kindMATCH => 'Gara';
+
+  @override
+  String get kindOTHER => 'Evento';
+
+  @override
+  String get cancelled => 'Annullato';
+
+  @override
+  String get openMap => 'Apri nelle mappe';
+
+  @override
+  String get noEvents => 'Nessun evento nei prossimi 30 giorni.';
+
+  @override
+  String versus(String opponent) {
+    return 'vs $opponent';
+  }
+
+  @override
+  String get homeMatch => 'In casa';
+
+  @override
+  String get awayMatch => 'In trasferta';
+
+  @override
+  String get clubWide => 'Tutta la società';
+
+  @override
+  String get notes => 'Note';
 }

@@ -16,6 +16,8 @@ export type PersonGender = 'F' | 'M';
 export type PersonCategory = 'ATHLETE' | 'STAFF' | 'MANAGER' | 'VOLUNTEER' | 'GUARDIAN';
 export type GuardianRelation = 'MOTHER' | 'FATHER' | 'GUARDIAN' | 'OTHER';
 export type PlayerAvailability = 'AVAILABLE' | 'INJURED' | 'SUSPENDED' | 'OTHER';
+export type EventKind = 'TRAINING' | 'MATCH' | 'OTHER';
+export type EventStatus = 'SCHEDULED' | 'CANCELLED';
 export type StaffRole = 'HEAD_COACH' | 'ASSISTANT_COACH' | 'FITNESS_COACH' | 'GOALKEEPER_COACH' | 'TEAM_MANAGER';
 
 type Timestamp = ColumnType<Date, Date | string | undefined, Date | string>;
@@ -213,6 +215,57 @@ export interface TeamStaffTable {
   created_at: CreatedAt;
 }
 
+export interface EventSeriesTable {
+  id: Generated<string>;
+  tenant_id: string;
+  team_id: string;
+  kind: Generated<EventKind>;
+  title: string | null;
+  weekdays: number[];
+  /** HH:MM:SS */
+  start_time: string;
+  duration_minutes: number;
+  location: string | null;
+  starts_on: DateOnly;
+  ends_on: DateOnly;
+  created_by: string | null;
+  created_at: CreatedAt;
+  updated_at: CreatedAt;
+}
+
+export interface EventsTable {
+  id: Generated<string>;
+  tenant_id: string;
+  team_id: string | null;
+  series_id: string | null;
+  series_date: DateOnly | null;
+  detached: Generated<boolean>;
+  kind: EventKind;
+  title: string | null;
+  starts_at: Timestamp;
+  ends_at: Timestamp;
+  location: string | null;
+  notes: string | null;
+  status: Generated<EventStatus>;
+  cancel_reason: string | null;
+  opponent: string | null;
+  is_home: boolean | null;
+  competition: string | null;
+  created_by: string | null;
+  created_at: CreatedAt;
+  updated_at: CreatedAt;
+}
+
+export interface CalendarFeedsTable {
+  id: Generated<string>;
+  tenant_id: string;
+  user_id: string;
+  team_id: string | null;
+  token_hash: string;
+  created_at: CreatedAt;
+  revoked_at: Timestamp | null;
+}
+
 export interface Database {
   users: UsersTable;
   refresh_tokens: RefreshTokensTable;
@@ -229,6 +282,9 @@ export interface Database {
   teams: TeamsTable;
   team_players: TeamPlayersTable;
   team_staff: TeamStaffTable;
+  event_series: EventSeriesTable;
+  events: EventsTable;
+  calendar_feeds: CalendarFeedsTable;
 }
 
 export type UserRow = Selectable<UsersTable>;
@@ -237,3 +293,5 @@ export type SeasonRow = Selectable<SeasonsTable>;
 export type InvitationRow = Selectable<InvitationsTable>;
 export type PersonRow = Selectable<PeopleTable>;
 export type TeamRow = Selectable<TeamsTable>;
+export type EventRow = Selectable<EventsTable>;
+export type EventSeriesRow = Selectable<EventSeriesTable>;

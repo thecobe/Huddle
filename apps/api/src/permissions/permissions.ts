@@ -14,6 +14,8 @@ export enum Permission {
   PeopleManage = 'people.manage',
   TeamView = 'team.view',
   TeamManage = 'team.manage',
+  /** Calendario di tutte le squadre ed eventi di società; lo staff gestisce comunque le proprie squadre. */
+  CalendarManageAll = 'calendar.manage_all',
 }
 
 const ALL_ROLES: MembershipRole[] = [
@@ -40,6 +42,7 @@ export const ROLE_PERMISSIONS: Record<Permission, MembershipRole[]> = {
   // Visibilità poi limitata dall'ambito: squadre proprie, dei figli o in cui si gioca.
   [Permission.TeamView]: ALL_ROLES,
   [Permission.TeamManage]: ['ADMIN', 'SECRETARY', 'SPORTS_DIRECTOR'],
+  [Permission.CalendarManageAll]: ['ADMIN', 'SECRETARY', 'SPORTS_DIRECTOR'],
 };
 
 /** Ruoli dello staff tecnico legati a una squadra. */

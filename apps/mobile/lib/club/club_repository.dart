@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../auth/session.dart';
+import '../graphql/calendar.graphql.dart';
 import '../graphql/people.graphql.dart';
 import '../graphql/schema.graphql.dart';
 import '../graphql/teams.graphql.dart';
@@ -8,6 +9,7 @@ import '../graphql/teams.graphql.dart';
 typedef MyPerson = Fragment$MyPersonFields;
 typedef TeamSummary = Query$MyTeams$teams;
 typedef Roster = Query$TeamRoster$team;
+typedef AgendaEvent = Fragment$AgendaEvent;
 
 /// Dati della società selezionata. I provider dipendono dalla società: cambiandola si ricaricano.
 class ClubRepository {
@@ -37,6 +39,22 @@ class ClubRepository {
     return Query$MyTeams.fromJson(data).teams;
   }
 
+  Future<List<AgendaEvent>> agenda(DateTime from, DateTime to) async {
+    final data = await _ref.read(apiClientProvider).query(
+          documentNodeQueryMyAgenda,
+          variables: Variables$Query$MyAgenda(from: from.toUtc().toIso8601String(), to: to.toUtc().toIso8601String()).toJson(),
+        );
+    return Query$MyAgenda.fromJson(data).myAgenda;
+  }
+
+  Future<AgendaEvent> event(String id) async {
+    final data = await _ref.read(apiClientProvider).query(
+          documentNodeQueryEventDetail,
+          variables: Variables$Query$EventDetail(id: id).toJson(),
+        );
+    return Query$EventDetail.fromJson(data).event;
+  }
+
   Future<Roster> roster(String teamId) async {
     final data = await _ref.read(apiClientProvider).query(
           documentNodeQueryTeamRoster,
@@ -64,4 +82,17 @@ final myTeamsProvider = FutureProvider<List<TeamSummary>>((ref) {
 final rosterProvider = FutureProvider.family<Roster, String>((ref, teamId) {
   _club(ref);
   return ref.read(clubRepositoryProvider).roster(teamId);
+});
+
+/// Agenda dei prossimi 30 giorni (da inizio giornata).
+final agendaProvider = FutureProvider<List<AgendaEvent>>((ref) {
+  _club(ref);
+  final now = DateTime.now();
+  final from = DateTime(now.year, now.month, now.day);
+  return ref.read(clubRepositoryProvider).agenda(from, from.add(const Duration(days: 30)));
+});
+
+final eventProvider = FutureProvider.family<AgendaEvent, String>((ref, id) {
+  _club(ref);
+  return ref.read(clubRepositoryProvider).event(id);
 });

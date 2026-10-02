@@ -583,6 +583,72 @@ abstract class AppLocalizations {
   /// In it, this message translates to:
   /// **'Controlla i dati inseriti.'**
   String get errorBAD_USER_INPUT;
+
+  /// No description provided for @kindTRAINING.
+  ///
+  /// In it, this message translates to:
+  /// **'Allenamento'**
+  String get kindTRAINING;
+
+  /// No description provided for @kindMATCH.
+  ///
+  /// In it, this message translates to:
+  /// **'Gara'**
+  String get kindMATCH;
+
+  /// No description provided for @kindOTHER.
+  ///
+  /// In it, this message translates to:
+  /// **'Evento'**
+  String get kindOTHER;
+
+  /// No description provided for @cancelled.
+  ///
+  /// In it, this message translates to:
+  /// **'Annullato'**
+  String get cancelled;
+
+  /// No description provided for @openMap.
+  ///
+  /// In it, this message translates to:
+  /// **'Apri nelle mappe'**
+  String get openMap;
+
+  /// No description provided for @noEvents.
+  ///
+  /// In it, this message translates to:
+  /// **'Nessun evento nei prossimi 30 giorni.'**
+  String get noEvents;
+
+  /// No description provided for @versus.
+  ///
+  /// In it, this message translates to:
+  /// **'vs {opponent}'**
+  String versus(String opponent);
+
+  /// No description provided for @homeMatch.
+  ///
+  /// In it, this message translates to:
+  /// **'In casa'**
+  String get homeMatch;
+
+  /// No description provided for @awayMatch.
+  ///
+  /// In it, this message translates to:
+  /// **'In trasferta'**
+  String get awayMatch;
+
+  /// No description provided for @clubWide.
+  ///
+  /// In it, this message translates to:
+  /// **'Tutta la società'**
+  String get clubWide;
+
+  /// No description provided for @notes.
+  ///
+  /// In it, this message translates to:
+  /// **'Note'**
+  String get notes;
 }
 
 class _AppLocalizationsDelegate

@@ -14,6 +14,19 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
+    "\n  fragment EventFields on CalendarEvent {\n    id\n    teamId\n    teamName\n    teamColor\n    seriesId\n    detached\n    kind\n    title\n    startsAt\n    endsAt\n    location\n    notes\n    status\n    cancelReason\n    opponent\n    isHome\n    competition\n    canEdit\n  }\n": typeof types.EventFieldsFragmentDoc,
+    "\n  query Calendar($from: DateTime!, $to: DateTime!, $teamId: ID) {\n    events(from: $from, to: $to, teamId: $teamId) {\n      ...EventFields\n    }\n  }\n": typeof types.CalendarDocument,
+    "\n  query CalendarContext {\n    club {\n      id\n      timezone\n    }\n    manageableTeamIds\n    teams(includeArchived: false) {\n      id\n      name\n      seasonName\n      color\n    }\n  }\n": typeof types.CalendarContextDocument,
+    "\n  query Series($teamId: ID) {\n    eventSeries(teamId: $teamId) {\n      id\n      teamId\n      teamName\n      title\n      weekdays\n      startTime\n      durationMinutes\n      location\n      startsOn\n      endsOn\n      upcomingCount\n    }\n  }\n": typeof types.SeriesDocument,
+    "\n  mutation CreateSeries($input: SeriesInput!) {\n    createEventSeries(input: $input) {\n      id\n      upcomingCount\n    }\n  }\n": typeof types.CreateSeriesDocument,
+    "\n  mutation UpdateSeries($id: ID!, $input: SeriesInput!, $fromDate: String) {\n    updateEventSeries(id: $id, input: $input, fromDate: $fromDate) {\n      id\n      upcomingCount\n    }\n  }\n": typeof types.UpdateSeriesDocument,
+    "\n  mutation EndSeries($id: ID!, $fromDate: String!) {\n    endEventSeries(id: $id, fromDate: $fromDate)\n  }\n": typeof types.EndSeriesDocument,
+    "\n  mutation CreateEvent($input: EventInput!) {\n    createEvent(input: $input) {\n      ...EventFields\n    }\n  }\n": typeof types.CreateEventDocument,
+    "\n  mutation UpdateEvent($id: ID!, $input: EventInput!) {\n    updateEvent(id: $id, input: $input) {\n      ...EventFields\n    }\n  }\n": typeof types.UpdateEventDocument,
+    "\n  mutation SetEventCancelled($id: ID!, $cancelled: Boolean!, $reason: String) {\n    setEventCancelled(id: $id, cancelled: $cancelled, reason: $reason) {\n      ...EventFields\n    }\n  }\n": typeof types.SetEventCancelledDocument,
+    "\n  mutation DeleteEvent($id: ID!) {\n    deleteEvent(id: $id)\n  }\n": typeof types.DeleteEventDocument,
+    "\n  mutation CancelRange($input: CancelRangeInput!) {\n    cancelEventsInRange(input: $input)\n  }\n": typeof types.CancelRangeDocument,
+    "\n  mutation CreateFeed($teamId: ID) {\n    createCalendarFeed(teamId: $teamId) {\n      url\n    }\n  }\n": typeof types.CreateFeedDocument,
     "\n  fragment MeFields on Me {\n    id\n    email\n    fullName\n    locale\n    twoFactorEnabled\n    memberships {\n      id\n      role\n      teamId\n      clubId\n      clubName\n    }\n  }\n": typeof types.MeFieldsFragmentDoc,
     "\n  fragment AuthFields on AuthPayload {\n    status\n    accessToken\n    accessTokenExpiresAt\n    challengeToken\n    user {\n      ...MeFields\n    }\n  }\n": typeof types.AuthFieldsFragmentDoc,
     "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      ...AuthFields\n    }\n  }\n": typeof types.LoginDocument,
@@ -73,6 +86,19 @@ type Documents = {
     "\n  mutation RemoveStaff($staffId: ID!) {\n    removeStaff(staffId: $staffId) {\n      ...TeamDetailFields\n    }\n  }\n": typeof types.RemoveStaffDocument,
 };
 const documents: Documents = {
+    "\n  fragment EventFields on CalendarEvent {\n    id\n    teamId\n    teamName\n    teamColor\n    seriesId\n    detached\n    kind\n    title\n    startsAt\n    endsAt\n    location\n    notes\n    status\n    cancelReason\n    opponent\n    isHome\n    competition\n    canEdit\n  }\n": types.EventFieldsFragmentDoc,
+    "\n  query Calendar($from: DateTime!, $to: DateTime!, $teamId: ID) {\n    events(from: $from, to: $to, teamId: $teamId) {\n      ...EventFields\n    }\n  }\n": types.CalendarDocument,
+    "\n  query CalendarContext {\n    club {\n      id\n      timezone\n    }\n    manageableTeamIds\n    teams(includeArchived: false) {\n      id\n      name\n      seasonName\n      color\n    }\n  }\n": types.CalendarContextDocument,
+    "\n  query Series($teamId: ID) {\n    eventSeries(teamId: $teamId) {\n      id\n      teamId\n      teamName\n      title\n      weekdays\n      startTime\n      durationMinutes\n      location\n      startsOn\n      endsOn\n      upcomingCount\n    }\n  }\n": types.SeriesDocument,
+    "\n  mutation CreateSeries($input: SeriesInput!) {\n    createEventSeries(input: $input) {\n      id\n      upcomingCount\n    }\n  }\n": types.CreateSeriesDocument,
+    "\n  mutation UpdateSeries($id: ID!, $input: SeriesInput!, $fromDate: String) {\n    updateEventSeries(id: $id, input: $input, fromDate: $fromDate) {\n      id\n      upcomingCount\n    }\n  }\n": types.UpdateSeriesDocument,
+    "\n  mutation EndSeries($id: ID!, $fromDate: String!) {\n    endEventSeries(id: $id, fromDate: $fromDate)\n  }\n": types.EndSeriesDocument,
+    "\n  mutation CreateEvent($input: EventInput!) {\n    createEvent(input: $input) {\n      ...EventFields\n    }\n  }\n": types.CreateEventDocument,
+    "\n  mutation UpdateEvent($id: ID!, $input: EventInput!) {\n    updateEvent(id: $id, input: $input) {\n      ...EventFields\n    }\n  }\n": types.UpdateEventDocument,
+    "\n  mutation SetEventCancelled($id: ID!, $cancelled: Boolean!, $reason: String) {\n    setEventCancelled(id: $id, cancelled: $cancelled, reason: $reason) {\n      ...EventFields\n    }\n  }\n": types.SetEventCancelledDocument,
+    "\n  mutation DeleteEvent($id: ID!) {\n    deleteEvent(id: $id)\n  }\n": types.DeleteEventDocument,
+    "\n  mutation CancelRange($input: CancelRangeInput!) {\n    cancelEventsInRange(input: $input)\n  }\n": types.CancelRangeDocument,
+    "\n  mutation CreateFeed($teamId: ID) {\n    createCalendarFeed(teamId: $teamId) {\n      url\n    }\n  }\n": types.CreateFeedDocument,
     "\n  fragment MeFields on Me {\n    id\n    email\n    fullName\n    locale\n    twoFactorEnabled\n    memberships {\n      id\n      role\n      teamId\n      clubId\n      clubName\n    }\n  }\n": types.MeFieldsFragmentDoc,
     "\n  fragment AuthFields on AuthPayload {\n    status\n    accessToken\n    accessTokenExpiresAt\n    challengeToken\n    user {\n      ...MeFields\n    }\n  }\n": types.AuthFieldsFragmentDoc,
     "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      ...AuthFields\n    }\n  }\n": types.LoginDocument,
@@ -146,6 +172,58 @@ const documents: Documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment EventFields on CalendarEvent {\n    id\n    teamId\n    teamName\n    teamColor\n    seriesId\n    detached\n    kind\n    title\n    startsAt\n    endsAt\n    location\n    notes\n    status\n    cancelReason\n    opponent\n    isHome\n    competition\n    canEdit\n  }\n"): (typeof documents)["\n  fragment EventFields on CalendarEvent {\n    id\n    teamId\n    teamName\n    teamColor\n    seriesId\n    detached\n    kind\n    title\n    startsAt\n    endsAt\n    location\n    notes\n    status\n    cancelReason\n    opponent\n    isHome\n    competition\n    canEdit\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Calendar($from: DateTime!, $to: DateTime!, $teamId: ID) {\n    events(from: $from, to: $to, teamId: $teamId) {\n      ...EventFields\n    }\n  }\n"): (typeof documents)["\n  query Calendar($from: DateTime!, $to: DateTime!, $teamId: ID) {\n    events(from: $from, to: $to, teamId: $teamId) {\n      ...EventFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query CalendarContext {\n    club {\n      id\n      timezone\n    }\n    manageableTeamIds\n    teams(includeArchived: false) {\n      id\n      name\n      seasonName\n      color\n    }\n  }\n"): (typeof documents)["\n  query CalendarContext {\n    club {\n      id\n      timezone\n    }\n    manageableTeamIds\n    teams(includeArchived: false) {\n      id\n      name\n      seasonName\n      color\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Series($teamId: ID) {\n    eventSeries(teamId: $teamId) {\n      id\n      teamId\n      teamName\n      title\n      weekdays\n      startTime\n      durationMinutes\n      location\n      startsOn\n      endsOn\n      upcomingCount\n    }\n  }\n"): (typeof documents)["\n  query Series($teamId: ID) {\n    eventSeries(teamId: $teamId) {\n      id\n      teamId\n      teamName\n      title\n      weekdays\n      startTime\n      durationMinutes\n      location\n      startsOn\n      endsOn\n      upcomingCount\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateSeries($input: SeriesInput!) {\n    createEventSeries(input: $input) {\n      id\n      upcomingCount\n    }\n  }\n"): (typeof documents)["\n  mutation CreateSeries($input: SeriesInput!) {\n    createEventSeries(input: $input) {\n      id\n      upcomingCount\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateSeries($id: ID!, $input: SeriesInput!, $fromDate: String) {\n    updateEventSeries(id: $id, input: $input, fromDate: $fromDate) {\n      id\n      upcomingCount\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateSeries($id: ID!, $input: SeriesInput!, $fromDate: String) {\n    updateEventSeries(id: $id, input: $input, fromDate: $fromDate) {\n      id\n      upcomingCount\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation EndSeries($id: ID!, $fromDate: String!) {\n    endEventSeries(id: $id, fromDate: $fromDate)\n  }\n"): (typeof documents)["\n  mutation EndSeries($id: ID!, $fromDate: String!) {\n    endEventSeries(id: $id, fromDate: $fromDate)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateEvent($input: EventInput!) {\n    createEvent(input: $input) {\n      ...EventFields\n    }\n  }\n"): (typeof documents)["\n  mutation CreateEvent($input: EventInput!) {\n    createEvent(input: $input) {\n      ...EventFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateEvent($id: ID!, $input: EventInput!) {\n    updateEvent(id: $id, input: $input) {\n      ...EventFields\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateEvent($id: ID!, $input: EventInput!) {\n    updateEvent(id: $id, input: $input) {\n      ...EventFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation SetEventCancelled($id: ID!, $cancelled: Boolean!, $reason: String) {\n    setEventCancelled(id: $id, cancelled: $cancelled, reason: $reason) {\n      ...EventFields\n    }\n  }\n"): (typeof documents)["\n  mutation SetEventCancelled($id: ID!, $cancelled: Boolean!, $reason: String) {\n    setEventCancelled(id: $id, cancelled: $cancelled, reason: $reason) {\n      ...EventFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeleteEvent($id: ID!) {\n    deleteEvent(id: $id)\n  }\n"): (typeof documents)["\n  mutation DeleteEvent($id: ID!) {\n    deleteEvent(id: $id)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CancelRange($input: CancelRangeInput!) {\n    cancelEventsInRange(input: $input)\n  }\n"): (typeof documents)["\n  mutation CancelRange($input: CancelRangeInput!) {\n    cancelEventsInRange(input: $input)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateFeed($teamId: ID) {\n    createCalendarFeed(teamId: $teamId) {\n      url\n    }\n  }\n"): (typeof documents)["\n  mutation CreateFeed($teamId: ID) {\n    createCalendarFeed(teamId: $teamId) {\n      url\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

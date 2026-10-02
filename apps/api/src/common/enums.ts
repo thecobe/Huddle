@@ -72,3 +72,16 @@ export enum StaffRoleEnum {
   TEAM_MANAGER = 'TEAM_MANAGER',
 }
 registerEnumType(StaffRoleEnum, { name: 'StaffRole' });
+
+export enum EventKindEnum {
+  TRAINING = 'TRAINING',
+  MATCH = 'MATCH',
+  OTHER = 'OTHER',
+}
+registerEnumType(EventKindEnum, { name: 'EventKind' });
+
+export enum EventStatusEnum {
+  SCHEDULED = 'SCHEDULED',
+  CANCELLED = 'CANCELLED',
+}
+registerEnumType(EventStatusEnum, { name: 'EventStatus' });

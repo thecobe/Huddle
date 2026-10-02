@@ -173,6 +173,169 @@ class _CopyWithStubImpl$Input$AcceptInvitationInput<TRes>
   }) => _res;
 }
 
+class Input$CancelRangeInput {
+  factory Input$CancelRangeInput({
+    required String fromDate,
+    String? reason,
+    String? teamId,
+    required String toDate,
+  }) => Input$CancelRangeInput._({
+    r'fromDate': fromDate,
+    if (reason != null) r'reason': reason,
+    if (teamId != null) r'teamId': teamId,
+    r'toDate': toDate,
+  });
+
+  Input$CancelRangeInput._(this._$data);
+
+  factory Input$CancelRangeInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$fromDate = data['fromDate'];
+    result$data['fromDate'] = (l$fromDate as String);
+    if (data.containsKey('reason')) {
+      final l$reason = data['reason'];
+      result$data['reason'] = (l$reason as String?);
+    }
+    if (data.containsKey('teamId')) {
+      final l$teamId = data['teamId'];
+      result$data['teamId'] = (l$teamId as String?);
+    }
+    final l$toDate = data['toDate'];
+    result$data['toDate'] = (l$toDate as String);
+    return Input$CancelRangeInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get fromDate => (_$data['fromDate'] as String);
+
+  String? get reason => (_$data['reason'] as String?);
+
+  String? get teamId => (_$data['teamId'] as String?);
+
+  String get toDate => (_$data['toDate'] as String);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$fromDate = fromDate;
+    result$data['fromDate'] = l$fromDate;
+    if (_$data.containsKey('reason')) {
+      final l$reason = reason;
+      result$data['reason'] = l$reason;
+    }
+    if (_$data.containsKey('teamId')) {
+      final l$teamId = teamId;
+      result$data['teamId'] = l$teamId;
+    }
+    final l$toDate = toDate;
+    result$data['toDate'] = l$toDate;
+    return result$data;
+  }
+
+  CopyWith$Input$CancelRangeInput<Input$CancelRangeInput> get copyWith =>
+      CopyWith$Input$CancelRangeInput(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$CancelRangeInput || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$fromDate = fromDate;
+    final lOther$fromDate = other.fromDate;
+    if (l$fromDate != lOther$fromDate) {
+      return false;
+    }
+    final l$reason = reason;
+    final lOther$reason = other.reason;
+    if (_$data.containsKey('reason') != other._$data.containsKey('reason')) {
+      return false;
+    }
+    if (l$reason != lOther$reason) {
+      return false;
+    }
+    final l$teamId = teamId;
+    final lOther$teamId = other.teamId;
+    if (_$data.containsKey('teamId') != other._$data.containsKey('teamId')) {
+      return false;
+    }
+    if (l$teamId != lOther$teamId) {
+      return false;
+    }
+    final l$toDate = toDate;
+    final lOther$toDate = other.toDate;
+    if (l$toDate != lOther$toDate) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$fromDate = fromDate;
+    final l$reason = reason;
+    final l$teamId = teamId;
+    final l$toDate = toDate;
+    return Object.hashAll([
+      l$fromDate,
+      _$data.containsKey('reason') ? l$reason : const {},
+      _$data.containsKey('teamId') ? l$teamId : const {},
+      l$toDate,
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$CancelRangeInput<TRes> {
+  factory CopyWith$Input$CancelRangeInput(
+    Input$CancelRangeInput instance,
+    TRes Function(Input$CancelRangeInput) then,
+  ) = _CopyWithImpl$Input$CancelRangeInput;
+
+  factory CopyWith$Input$CancelRangeInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$CancelRangeInput;
+
+  TRes call({String? fromDate, String? reason, String? teamId, String? toDate});
+}
+
+class _CopyWithImpl$Input$CancelRangeInput<TRes>
+    implements CopyWith$Input$CancelRangeInput<TRes> {
+  _CopyWithImpl$Input$CancelRangeInput(this._instance, this._then);
+
+  final Input$CancelRangeInput _instance;
+
+  final TRes Function(Input$CancelRangeInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? fromDate = _undefined,
+    Object? reason = _undefined,
+    Object? teamId = _undefined,
+    Object? toDate = _undefined,
+  }) => _then(
+    Input$CancelRangeInput._({
+      ..._instance._$data,
+      if (fromDate != _undefined && fromDate != null)
+        'fromDate': (fromDate as String),
+      if (reason != _undefined) 'reason': (reason as String?),
+      if (teamId != _undefined) 'teamId': (teamId as String?),
+      if (toDate != _undefined && toDate != null) 'toDate': (toDate as String),
+    }),
+  );
+}
+
+class _CopyWithStubImpl$Input$CancelRangeInput<TRes>
+    implements CopyWith$Input$CancelRangeInput<TRes> {
+  _CopyWithStubImpl$Input$CancelRangeInput(this._res);
+
+  TRes _res;
+
+  call({String? fromDate, String? reason, String? teamId, String? toDate}) =>
+      _res;
+}
+
 class Input$ClubInput {
   factory Input$ClubInput({
     String? addressLine,
@@ -711,6 +874,330 @@ class _CopyWithStubImpl$Input$CopyTeamsInput<TRes>
 
   call({String? fromSeasonId, bool? includePlayers, String? toSeasonId}) =>
       _res;
+}
+
+class Input$EventInput {
+  factory Input$EventInput({
+    String? competition,
+    required String endsAt,
+    bool? isHome,
+    required Enum$EventKind kind,
+    String? location,
+    String? notes,
+    String? opponent,
+    required String startsAt,
+    String? teamId,
+    String? title,
+  }) => Input$EventInput._({
+    if (competition != null) r'competition': competition,
+    r'endsAt': endsAt,
+    if (isHome != null) r'isHome': isHome,
+    r'kind': kind,
+    if (location != null) r'location': location,
+    if (notes != null) r'notes': notes,
+    if (opponent != null) r'opponent': opponent,
+    r'startsAt': startsAt,
+    if (teamId != null) r'teamId': teamId,
+    if (title != null) r'title': title,
+  });
+
+  Input$EventInput._(this._$data);
+
+  factory Input$EventInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('competition')) {
+      final l$competition = data['competition'];
+      result$data['competition'] = (l$competition as String?);
+    }
+    final l$endsAt = data['endsAt'];
+    result$data['endsAt'] = (l$endsAt as String);
+    if (data.containsKey('isHome')) {
+      final l$isHome = data['isHome'];
+      result$data['isHome'] = (l$isHome as bool?);
+    }
+    final l$kind = data['kind'];
+    result$data['kind'] = fromJson$Enum$EventKind((l$kind as String));
+    if (data.containsKey('location')) {
+      final l$location = data['location'];
+      result$data['location'] = (l$location as String?);
+    }
+    if (data.containsKey('notes')) {
+      final l$notes = data['notes'];
+      result$data['notes'] = (l$notes as String?);
+    }
+    if (data.containsKey('opponent')) {
+      final l$opponent = data['opponent'];
+      result$data['opponent'] = (l$opponent as String?);
+    }
+    final l$startsAt = data['startsAt'];
+    result$data['startsAt'] = (l$startsAt as String);
+    if (data.containsKey('teamId')) {
+      final l$teamId = data['teamId'];
+      result$data['teamId'] = (l$teamId as String?);
+    }
+    if (data.containsKey('title')) {
+      final l$title = data['title'];
+      result$data['title'] = (l$title as String?);
+    }
+    return Input$EventInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String? get competition => (_$data['competition'] as String?);
+
+  String get endsAt => (_$data['endsAt'] as String);
+
+  bool? get isHome => (_$data['isHome'] as bool?);
+
+  Enum$EventKind get kind => (_$data['kind'] as Enum$EventKind);
+
+  String? get location => (_$data['location'] as String?);
+
+  String? get notes => (_$data['notes'] as String?);
+
+  String? get opponent => (_$data['opponent'] as String?);
+
+  String get startsAt => (_$data['startsAt'] as String);
+
+  String? get teamId => (_$data['teamId'] as String?);
+
+  String? get title => (_$data['title'] as String?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('competition')) {
+      final l$competition = competition;
+      result$data['competition'] = l$competition;
+    }
+    final l$endsAt = endsAt;
+    result$data['endsAt'] = l$endsAt;
+    if (_$data.containsKey('isHome')) {
+      final l$isHome = isHome;
+      result$data['isHome'] = l$isHome;
+    }
+    final l$kind = kind;
+    result$data['kind'] = toJson$Enum$EventKind(l$kind);
+    if (_$data.containsKey('location')) {
+      final l$location = location;
+      result$data['location'] = l$location;
+    }
+    if (_$data.containsKey('notes')) {
+      final l$notes = notes;
+      result$data['notes'] = l$notes;
+    }
+    if (_$data.containsKey('opponent')) {
+      final l$opponent = opponent;
+      result$data['opponent'] = l$opponent;
+    }
+    final l$startsAt = startsAt;
+    result$data['startsAt'] = l$startsAt;
+    if (_$data.containsKey('teamId')) {
+      final l$teamId = teamId;
+      result$data['teamId'] = l$teamId;
+    }
+    if (_$data.containsKey('title')) {
+      final l$title = title;
+      result$data['title'] = l$title;
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$EventInput<Input$EventInput> get copyWith =>
+      CopyWith$Input$EventInput(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$EventInput || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$competition = competition;
+    final lOther$competition = other.competition;
+    if (_$data.containsKey('competition') !=
+        other._$data.containsKey('competition')) {
+      return false;
+    }
+    if (l$competition != lOther$competition) {
+      return false;
+    }
+    final l$endsAt = endsAt;
+    final lOther$endsAt = other.endsAt;
+    if (l$endsAt != lOther$endsAt) {
+      return false;
+    }
+    final l$isHome = isHome;
+    final lOther$isHome = other.isHome;
+    if (_$data.containsKey('isHome') != other._$data.containsKey('isHome')) {
+      return false;
+    }
+    if (l$isHome != lOther$isHome) {
+      return false;
+    }
+    final l$kind = kind;
+    final lOther$kind = other.kind;
+    if (l$kind != lOther$kind) {
+      return false;
+    }
+    final l$location = location;
+    final lOther$location = other.location;
+    if (_$data.containsKey('location') !=
+        other._$data.containsKey('location')) {
+      return false;
+    }
+    if (l$location != lOther$location) {
+      return false;
+    }
+    final l$notes = notes;
+    final lOther$notes = other.notes;
+    if (_$data.containsKey('notes') != other._$data.containsKey('notes')) {
+      return false;
+    }
+    if (l$notes != lOther$notes) {
+      return false;
+    }
+    final l$opponent = opponent;
+    final lOther$opponent = other.opponent;
+    if (_$data.containsKey('opponent') !=
+        other._$data.containsKey('opponent')) {
+      return false;
+    }
+    if (l$opponent != lOther$opponent) {
+      return false;
+    }
+    final l$startsAt = startsAt;
+    final lOther$startsAt = other.startsAt;
+    if (l$startsAt != lOther$startsAt) {
+      return false;
+    }
+    final l$teamId = teamId;
+    final lOther$teamId = other.teamId;
+    if (_$data.containsKey('teamId') != other._$data.containsKey('teamId')) {
+      return false;
+    }
+    if (l$teamId != lOther$teamId) {
+      return false;
+    }
+    final l$title = title;
+    final lOther$title = other.title;
+    if (_$data.containsKey('title') != other._$data.containsKey('title')) {
+      return false;
+    }
+    if (l$title != lOther$title) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$competition = competition;
+    final l$endsAt = endsAt;
+    final l$isHome = isHome;
+    final l$kind = kind;
+    final l$location = location;
+    final l$notes = notes;
+    final l$opponent = opponent;
+    final l$startsAt = startsAt;
+    final l$teamId = teamId;
+    final l$title = title;
+    return Object.hashAll([
+      _$data.containsKey('competition') ? l$competition : const {},
+      l$endsAt,
+      _$data.containsKey('isHome') ? l$isHome : const {},
+      l$kind,
+      _$data.containsKey('location') ? l$location : const {},
+      _$data.containsKey('notes') ? l$notes : const {},
+      _$data.containsKey('opponent') ? l$opponent : const {},
+      l$startsAt,
+      _$data.containsKey('teamId') ? l$teamId : const {},
+      _$data.containsKey('title') ? l$title : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$EventInput<TRes> {
+  factory CopyWith$Input$EventInput(
+    Input$EventInput instance,
+    TRes Function(Input$EventInput) then,
+  ) = _CopyWithImpl$Input$EventInput;
+
+  factory CopyWith$Input$EventInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$EventInput;
+
+  TRes call({
+    String? competition,
+    String? endsAt,
+    bool? isHome,
+    Enum$EventKind? kind,
+    String? location,
+    String? notes,
+    String? opponent,
+    String? startsAt,
+    String? teamId,
+    String? title,
+  });
+}
+
+class _CopyWithImpl$Input$EventInput<TRes>
+    implements CopyWith$Input$EventInput<TRes> {
+  _CopyWithImpl$Input$EventInput(this._instance, this._then);
+
+  final Input$EventInput _instance;
+
+  final TRes Function(Input$EventInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? competition = _undefined,
+    Object? endsAt = _undefined,
+    Object? isHome = _undefined,
+    Object? kind = _undefined,
+    Object? location = _undefined,
+    Object? notes = _undefined,
+    Object? opponent = _undefined,
+    Object? startsAt = _undefined,
+    Object? teamId = _undefined,
+    Object? title = _undefined,
+  }) => _then(
+    Input$EventInput._({
+      ..._instance._$data,
+      if (competition != _undefined) 'competition': (competition as String?),
+      if (endsAt != _undefined && endsAt != null) 'endsAt': (endsAt as String),
+      if (isHome != _undefined) 'isHome': (isHome as bool?),
+      if (kind != _undefined && kind != null) 'kind': (kind as Enum$EventKind),
+      if (location != _undefined) 'location': (location as String?),
+      if (notes != _undefined) 'notes': (notes as String?),
+      if (opponent != _undefined) 'opponent': (opponent as String?),
+      if (startsAt != _undefined && startsAt != null)
+        'startsAt': (startsAt as String),
+      if (teamId != _undefined) 'teamId': (teamId as String?),
+      if (title != _undefined) 'title': (title as String?),
+    }),
+  );
+}
+
+class _CopyWithStubImpl$Input$EventInput<TRes>
+    implements CopyWith$Input$EventInput<TRes> {
+  _CopyWithStubImpl$Input$EventInput(this._res);
+
+  TRes _res;
+
+  call({
+    String? competition,
+    String? endsAt,
+    bool? isHome,
+    Enum$EventKind? kind,
+    String? location,
+    String? notes,
+    String? opponent,
+    String? startsAt,
+    String? teamId,
+    String? title,
+  }) => _res;
 }
 
 class Input$InviteMemberInput {
@@ -3039,6 +3526,281 @@ class _CopyWithStubImpl$Input$SeasonInput<TRes>
   call({String? endsOn, String? name, String? startsOn}) => _res;
 }
 
+class Input$SeriesInput {
+  factory Input$SeriesInput({
+    required int durationMinutes,
+    String? endsOn,
+    String? location,
+    required String startTime,
+    String? startsOn,
+    required String teamId,
+    String? title,
+    required List<int> weekdays,
+  }) => Input$SeriesInput._({
+    r'durationMinutes': durationMinutes,
+    if (endsOn != null) r'endsOn': endsOn,
+    if (location != null) r'location': location,
+    r'startTime': startTime,
+    if (startsOn != null) r'startsOn': startsOn,
+    r'teamId': teamId,
+    if (title != null) r'title': title,
+    r'weekdays': weekdays,
+  });
+
+  Input$SeriesInput._(this._$data);
+
+  factory Input$SeriesInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$durationMinutes = data['durationMinutes'];
+    result$data['durationMinutes'] = (l$durationMinutes as int);
+    if (data.containsKey('endsOn')) {
+      final l$endsOn = data['endsOn'];
+      result$data['endsOn'] = (l$endsOn as String?);
+    }
+    if (data.containsKey('location')) {
+      final l$location = data['location'];
+      result$data['location'] = (l$location as String?);
+    }
+    final l$startTime = data['startTime'];
+    result$data['startTime'] = (l$startTime as String);
+    if (data.containsKey('startsOn')) {
+      final l$startsOn = data['startsOn'];
+      result$data['startsOn'] = (l$startsOn as String?);
+    }
+    final l$teamId = data['teamId'];
+    result$data['teamId'] = (l$teamId as String);
+    if (data.containsKey('title')) {
+      final l$title = data['title'];
+      result$data['title'] = (l$title as String?);
+    }
+    final l$weekdays = data['weekdays'];
+    result$data['weekdays'] = (l$weekdays as List<dynamic>)
+        .map((e) => (e as int))
+        .toList();
+    return Input$SeriesInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  int get durationMinutes => (_$data['durationMinutes'] as int);
+
+  String? get endsOn => (_$data['endsOn'] as String?);
+
+  String? get location => (_$data['location'] as String?);
+
+  String get startTime => (_$data['startTime'] as String);
+
+  String? get startsOn => (_$data['startsOn'] as String?);
+
+  String get teamId => (_$data['teamId'] as String);
+
+  String? get title => (_$data['title'] as String?);
+
+  List<int> get weekdays => (_$data['weekdays'] as List<int>);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$durationMinutes = durationMinutes;
+    result$data['durationMinutes'] = l$durationMinutes;
+    if (_$data.containsKey('endsOn')) {
+      final l$endsOn = endsOn;
+      result$data['endsOn'] = l$endsOn;
+    }
+    if (_$data.containsKey('location')) {
+      final l$location = location;
+      result$data['location'] = l$location;
+    }
+    final l$startTime = startTime;
+    result$data['startTime'] = l$startTime;
+    if (_$data.containsKey('startsOn')) {
+      final l$startsOn = startsOn;
+      result$data['startsOn'] = l$startsOn;
+    }
+    final l$teamId = teamId;
+    result$data['teamId'] = l$teamId;
+    if (_$data.containsKey('title')) {
+      final l$title = title;
+      result$data['title'] = l$title;
+    }
+    final l$weekdays = weekdays;
+    result$data['weekdays'] = l$weekdays.map((e) => e).toList();
+    return result$data;
+  }
+
+  CopyWith$Input$SeriesInput<Input$SeriesInput> get copyWith =>
+      CopyWith$Input$SeriesInput(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$SeriesInput || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$durationMinutes = durationMinutes;
+    final lOther$durationMinutes = other.durationMinutes;
+    if (l$durationMinutes != lOther$durationMinutes) {
+      return false;
+    }
+    final l$endsOn = endsOn;
+    final lOther$endsOn = other.endsOn;
+    if (_$data.containsKey('endsOn') != other._$data.containsKey('endsOn')) {
+      return false;
+    }
+    if (l$endsOn != lOther$endsOn) {
+      return false;
+    }
+    final l$location = location;
+    final lOther$location = other.location;
+    if (_$data.containsKey('location') !=
+        other._$data.containsKey('location')) {
+      return false;
+    }
+    if (l$location != lOther$location) {
+      return false;
+    }
+    final l$startTime = startTime;
+    final lOther$startTime = other.startTime;
+    if (l$startTime != lOther$startTime) {
+      return false;
+    }
+    final l$startsOn = startsOn;
+    final lOther$startsOn = other.startsOn;
+    if (_$data.containsKey('startsOn') !=
+        other._$data.containsKey('startsOn')) {
+      return false;
+    }
+    if (l$startsOn != lOther$startsOn) {
+      return false;
+    }
+    final l$teamId = teamId;
+    final lOther$teamId = other.teamId;
+    if (l$teamId != lOther$teamId) {
+      return false;
+    }
+    final l$title = title;
+    final lOther$title = other.title;
+    if (_$data.containsKey('title') != other._$data.containsKey('title')) {
+      return false;
+    }
+    if (l$title != lOther$title) {
+      return false;
+    }
+    final l$weekdays = weekdays;
+    final lOther$weekdays = other.weekdays;
+    if (l$weekdays.length != lOther$weekdays.length) {
+      return false;
+    }
+    for (int i = 0; i < l$weekdays.length; i++) {
+      final l$weekdays$entry = l$weekdays[i];
+      final lOther$weekdays$entry = lOther$weekdays[i];
+      if (l$weekdays$entry != lOther$weekdays$entry) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$durationMinutes = durationMinutes;
+    final l$endsOn = endsOn;
+    final l$location = location;
+    final l$startTime = startTime;
+    final l$startsOn = startsOn;
+    final l$teamId = teamId;
+    final l$title = title;
+    final l$weekdays = weekdays;
+    return Object.hashAll([
+      l$durationMinutes,
+      _$data.containsKey('endsOn') ? l$endsOn : const {},
+      _$data.containsKey('location') ? l$location : const {},
+      l$startTime,
+      _$data.containsKey('startsOn') ? l$startsOn : const {},
+      l$teamId,
+      _$data.containsKey('title') ? l$title : const {},
+      Object.hashAll(l$weekdays.map((v) => v)),
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$SeriesInput<TRes> {
+  factory CopyWith$Input$SeriesInput(
+    Input$SeriesInput instance,
+    TRes Function(Input$SeriesInput) then,
+  ) = _CopyWithImpl$Input$SeriesInput;
+
+  factory CopyWith$Input$SeriesInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$SeriesInput;
+
+  TRes call({
+    int? durationMinutes,
+    String? endsOn,
+    String? location,
+    String? startTime,
+    String? startsOn,
+    String? teamId,
+    String? title,
+    List<int>? weekdays,
+  });
+}
+
+class _CopyWithImpl$Input$SeriesInput<TRes>
+    implements CopyWith$Input$SeriesInput<TRes> {
+  _CopyWithImpl$Input$SeriesInput(this._instance, this._then);
+
+  final Input$SeriesInput _instance;
+
+  final TRes Function(Input$SeriesInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? durationMinutes = _undefined,
+    Object? endsOn = _undefined,
+    Object? location = _undefined,
+    Object? startTime = _undefined,
+    Object? startsOn = _undefined,
+    Object? teamId = _undefined,
+    Object? title = _undefined,
+    Object? weekdays = _undefined,
+  }) => _then(
+    Input$SeriesInput._({
+      ..._instance._$data,
+      if (durationMinutes != _undefined && durationMinutes != null)
+        'durationMinutes': (durationMinutes as int),
+      if (endsOn != _undefined) 'endsOn': (endsOn as String?),
+      if (location != _undefined) 'location': (location as String?),
+      if (startTime != _undefined && startTime != null)
+        'startTime': (startTime as String),
+      if (startsOn != _undefined) 'startsOn': (startsOn as String?),
+      if (teamId != _undefined && teamId != null) 'teamId': (teamId as String),
+      if (title != _undefined) 'title': (title as String?),
+      if (weekdays != _undefined && weekdays != null)
+        'weekdays': (weekdays as List<int>),
+    }),
+  );
+}
+
+class _CopyWithStubImpl$Input$SeriesInput<TRes>
+    implements CopyWith$Input$SeriesInput<TRes> {
+  _CopyWithStubImpl$Input$SeriesInput(this._res);
+
+  TRes _res;
+
+  call({
+    int? durationMinutes,
+    String? endsOn,
+    String? location,
+    String? startTime,
+    String? startsOn,
+    String? teamId,
+    String? title,
+    List<int>? weekdays,
+  }) => _res;
+}
+
 class Input$TeamInput {
   factory Input$TeamInput({
     int? birthYearFrom,
@@ -3501,6 +4263,77 @@ Enum$DevicePlatform fromJson$Enum$DevicePlatform(String value) {
       return Enum$DevicePlatform.WEB;
     default:
       return Enum$DevicePlatform.$unknown;
+  }
+}
+
+enum Enum$EventKind {
+  MATCH,
+  OTHER,
+  TRAINING,
+  $unknown;
+
+  factory Enum$EventKind.fromJson(String value) =>
+      fromJson$Enum$EventKind(value);
+
+  String toJson() => toJson$Enum$EventKind(this);
+}
+
+String toJson$Enum$EventKind(Enum$EventKind e) {
+  switch (e) {
+    case Enum$EventKind.MATCH:
+      return r'MATCH';
+    case Enum$EventKind.OTHER:
+      return r'OTHER';
+    case Enum$EventKind.TRAINING:
+      return r'TRAINING';
+    case Enum$EventKind.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$EventKind fromJson$Enum$EventKind(String value) {
+  switch (value) {
+    case r'MATCH':
+      return Enum$EventKind.MATCH;
+    case r'OTHER':
+      return Enum$EventKind.OTHER;
+    case r'TRAINING':
+      return Enum$EventKind.TRAINING;
+    default:
+      return Enum$EventKind.$unknown;
+  }
+}
+
+enum Enum$EventStatus {
+  CANCELLED,
+  SCHEDULED,
+  $unknown;
+
+  factory Enum$EventStatus.fromJson(String value) =>
+      fromJson$Enum$EventStatus(value);
+
+  String toJson() => toJson$Enum$EventStatus(this);
+}
+
+String toJson$Enum$EventStatus(Enum$EventStatus e) {
+  switch (e) {
+    case Enum$EventStatus.CANCELLED:
+      return r'CANCELLED';
+    case Enum$EventStatus.SCHEDULED:
+      return r'SCHEDULED';
+    case Enum$EventStatus.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$EventStatus fromJson$Enum$EventStatus(String value) {
+  switch (value) {
+    case r'CANCELLED':
+      return Enum$EventStatus.CANCELLED;
+    case r'SCHEDULED':
+      return Enum$EventStatus.SCHEDULED;
+    default:
+      return Enum$EventStatus.$unknown;
   }
 }
 

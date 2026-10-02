@@ -10,11 +10,13 @@ import 'package:integration_test/integration_test.dart';
 
 /// Contro l'API locale con i dati di `pnpm --filter @huddle/api seed:demo`, che stampa i magic link.
 ///
-/// `flutter test integration_test -d ID_SIMULATORE --dart-define-from-file=env/dev.json --dart-define=COACH_LINK=… --dart-define=PARENT_LINK=…`
+/// `flutter test integration_test -d ID_SIMULATORE --dart-define-from-file=env/dev.json --dart-define=COACH_LINK=… --dart-define=PARENT_LINK=… --dart-define=PARENT_LINK_2=…`
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   const coachLink = String.fromEnvironment('COACH_LINK');
   const parentLink = String.fromEnvironment('PARENT_LINK');
+  // I magic link sono monouso: il secondo test del genitore ne usa un altro.
+  const parentLink2 = String.fromEnvironment('PARENT_LINK_2');
 
   /// Avvia l'app in italiano, apre il magic link e attende l'accesso con l'API reale.
   Future<ProviderContainer> signIn(WidgetTester tester, String link) async {
@@ -53,6 +55,16 @@ void main() {
     await waitFor(tester, () => find.text('Under 15').evaluate().isNotEmpty);
     await tester.scrollUntilVisible(find.text('Attiva account'), 200, scrollable: find.byType(Scrollable).first);
     expect(find.text('Attiva account'), findsOneWidget);
+  });
+
+  testWidgets('genitore: agenda con allenamenti e gara della squadra della figlia', (tester) async {
+    await signIn(tester, parentLink2);
+    await tester.tap(find.text('Calendario'));
+    await waitFor(tester, () => find.text('Allenamento').evaluate().isNotEmpty);
+    expect(find.text('vs ASD Rivali'), findsOneWidget);
+    await tester.tap(find.text('vs ASD Rivali'));
+    await waitFor(tester, () => find.text('Apri nelle mappe').evaluate().isNotEmpty);
+    expect(find.text('In trasferta · Campionato provinciale'), findsOneWidget);
   });
 }
 

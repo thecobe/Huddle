@@ -37,6 +37,46 @@ enum AuthStatus {
   TWO_FACTOR_REQUIRED
 }
 
+type CalendarEvent {
+  """L'utente può modificare l'evento"""
+  canEdit: Boolean!
+  cancelReason: String
+  competition: String
+
+  """Modificato rispetto alla serie: non viene più rigenerato"""
+  detached: Boolean!
+  endsAt: DateTime!
+  id: ID!
+  isHome: Boolean
+  kind: EventKind!
+  location: String
+  notes: String
+  opponent: String
+  seriesId: ID
+  startsAt: DateTime!
+  status: EventStatus!
+  teamColor: String
+
+  """Null per gli eventi di tutta la società"""
+  teamId: ID
+  teamName: String
+  title: String
+}
+
+type CalendarFeed {
+  """Mostrato una sola volta: conservarlo o rigenerarlo"""
+  url: String!
+}
+
+input CancelRangeInput {
+  fromDate: String!
+  reason: String
+
+  """Null: tutte le squadre (es. chiusura impianto)"""
+  teamId: ID
+  toDate: String!
+}
+
 type Club {
   addressLine: String
   city: String
@@ -56,6 +96,9 @@ type Club {
 
   """Codice fiscale"""
   taxCode: String
+
+  """Fuso orario della società (IANA), per date e orari"""
+  timezone: String!
 
   """Partita IVA"""
   vatNumber: String
@@ -109,6 +152,53 @@ enum DevicePlatform {
   ANDROID
   IOS
   WEB
+}
+
+input EventInput {
+  competition: String
+  endsAt: DateTime!
+  isHome: Boolean
+  kind: EventKind!
+  location: String
+  notes: String
+  opponent: String
+  startsAt: DateTime!
+
+  """Null per un evento di tutta la società"""
+  teamId: ID
+  title: String
+}
+
+enum EventKind {
+  MATCH
+  OTHER
+  TRAINING
+}
+
+type EventSeries {
+  durationMinutes: Int!
+  endsOn: String!
+  id: ID!
+  kind: EventKind!
+  location: String
+
+  """HH:MM"""
+  startTime: String!
+  startsOn: String!
+  teamId: ID!
+  teamName: String!
+  title: String
+
+  """Occorrenze future in programma"""
+  upcomingCount: Int!
+
+  """Giorni ISO: 1 = lunedì … 7 = domenica"""
+  weekdays: [Int!]!
+}
+
+enum EventStatus {
+  CANCELLED
+  SCHEDULED
 }
 
 """Recapito di un tutore, per chi gestisce la squadra."""
@@ -227,6 +317,9 @@ type Mutation {
 
   """Se la persona ha un account, riceve l'accesso alla squadra."""
   addStaff(personId: ID!, role: StaffRole!, teamId: ID!): TeamDetail!
+
+  """Annulla gli eventi in un periodo; restituisce quanti."""
+  cancelEventsInRange(input: CancelRangeInput!): Int!
   changePassword(currentPassword: String! = "", newPassword: String!): Boolean!
 
   """Importa tutte le righe; rifiuta il file se una riga ha errori."""
@@ -238,15 +331,24 @@ type Mutation {
   """
   copyTeams(input: CopyTeamsInput!): [Team!]!
 
+  """Nuovo link iCal (personale o di squadra); revoca il precedente."""
+  createCalendarFeed(teamId: ID): CalendarFeed!
+
   """Crea una società; l'utente ne diventa amministratore."""
   createClub(input: ClubInput!): Club!
+  createEvent(input: EventInput!): CalendarEvent!
+  createEventSeries(input: SeriesInput!): EventSeries!
   createPerson(input: PersonInput!): Person!
   createSeason(input: SeasonInput!): Season!
   createTeam(input: TeamInput!): TeamDetail!
+
+  """Solo eventi singoli; le occorrenze di una serie si annullano."""
+  deleteEvent(id: ID!): Boolean!
   disableTwoFactor(code: String!): Boolean!
 
   """Attiva il 2FA e restituisce i codici di recupero."""
   enableTwoFactor(code: String!): [String!]!
+  endEventSeries(fromDate: String!, id: ID!): Boolean!
   inviteMember(input: InviteMemberInput!): Invitation!
 
   """
@@ -283,13 +385,23 @@ type Mutation {
   """Restituisce sempre true."""
   requestPasswordReset(email: String!): Boolean!
   resetPassword(newPassword: String!, token: String!): Boolean!
+  revokeCalendarFeed(teamId: ID): Boolean!
   revokeInvitation(id: ID!): Boolean!
+  setEventCancelled(cancelled: Boolean!, id: ID!, reason: String): CalendarEvent!
   setPersonArchived(archived: Boolean!, id: ID!): Person!
   setSeasonStatus(id: ID!, status: SeasonStatus!): Season!
   setTeamArchived(archived: Boolean!, id: ID!): TeamDetail!
   setupTwoFactor: TwoFactorSetup!
   unregisterDevice(token: String!): Boolean!
   updateClub(input: ClubInput!): Club!
+
+  """Modifica una singola occorrenza, che smette di seguire la serie."""
+  updateEvent(id: ID!, input: EventInput!): CalendarEvent!
+
+  """
+  Modifica la serie da `fromDate` (mai prima di oggi); le date modificate a mano restano.
+  """
+  updateEventSeries(fromDate: String, id: ID!, input: SeriesInput!): EventSeries!
   updateMe(input: UpdateMeInput!): Me!
   updatePerson(id: ID!, input: PersonInput!): Person!
 
@@ -467,12 +579,27 @@ type Query {
 
   """Società corrente (header X-Tenant-Id)."""
   club: Club!
+  event(id: ID!): CalendarEvent!
+
+  """Serie ricorrenti attive (non ancora terminate)."""
+  eventSeries(teamId: ID): [EventSeries!]!
+
+  """Eventi delle squadre visibili e di società; al massimo 120 giorni."""
+  events(from: DateTime!, teamId: ID, to: DateTime!): [CalendarEvent!]!
   invitationPreview(token: String!): InvitationPreview!
 
   """Inviti in attesa"""
   invitations: [Invitation!]!
+
+  """Squadre di cui può gestire il calendario; vuoto se nessuna."""
+  manageableTeamIds: [ID!]!
   me: Me!
   members: [Member!]!
+
+  """
+  Agenda personale: proprie squadre, squadre dei figli, eventi di società.
+  """
+  myAgenda(from: DateTime!, to: DateTime!): [CalendarEvent!]!
   myConsents: [Consent!]!
 
   """Esportazione dei dati personali (GDPR art. 15)"""
@@ -565,6 +692,23 @@ enum SeasonStatus {
   CLOSED
   OPEN
   PLANNED
+}
+
+input SeriesInput {
+  durationMinutes: Int!
+
+  """Predefinito: fine della stagione"""
+  endsOn: String
+  location: String
+
+  """HH:MM, ora locale della società"""
+  startTime: String!
+
+  """Predefinito: inizio della stagione o oggi"""
+  startsOn: String
+  teamId: ID!
+  title: String
+  weekdays: [Int!]!
 }
 
 enum StaffRole {

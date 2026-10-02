@@ -270,4 +270,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorBAD_USER_INPUT => 'Please check the data you entered.';
+
+  @override
+  String get kindTRAINING => 'Training';
+
+  @override
+  String get kindMATCH => 'Match';
+
+  @override
+  String get kindOTHER => 'Event';
+
+  @override
+  String get cancelled => 'Cancelled';
+
+  @override
+  String get openMap => 'Open in maps';
+
+  @override
+  String get noEvents => 'No events in the next 30 days.';
+
+  @override
+  String versus(String opponent) {
+    return 'vs $opponent';
+  }
+
+  @override
+  String get homeMatch => 'Home';
+
+  @override
+  String get awayMatch => 'Away';
+
+  @override
+  String get clubWide => 'Whole club';
+
+  @override
+  String get notes => 'Notes';
 }

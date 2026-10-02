@@ -88,6 +88,7 @@ function toModel(r: ClubRow): Club {
     postalCode: r.postal_code,
     country: r.country,
     federations: r.federations,
+    timezone: r.timezone,
     createdAt: r.created_at,
   };
 }

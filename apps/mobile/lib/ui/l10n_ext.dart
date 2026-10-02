@@ -56,3 +56,11 @@ String? availabilityLabel(AppLocalizations l, Enum$PlayerAvailability a) => swit
       Enum$PlayerAvailability.OTHER => l.availabilityOTHER,
       _ => null,
     };
+
+extension EventKindLabel on Enum$EventKind {
+  String label(AppLocalizations l) => switch (this) {
+        Enum$EventKind.TRAINING => l.kindTRAINING,
+        Enum$EventKind.MATCH => l.kindMATCH,
+        _ => l.kindOTHER,
+      };
+}

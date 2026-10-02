@@ -8,6 +8,7 @@ import type { Request, Response } from 'express';
 import { AuditModule } from './audit/audit.module.js';
 import { AccessGuard } from './auth/access.guard.js';
 import { AuthModule } from './auth/auth.module.js';
+import { CalendarModule } from './calendar/calendar.module.js';
 import { ClubsModule } from './clubs/clubs.module.js';
 import { appError } from './common/errors.js';
 import { GqlErrorFilter } from './common/gql-exception.filter.js';
@@ -55,6 +56,7 @@ const env = loadEnv();
     MembersModule,
     PeopleModule,
     TeamsModule,
+    CalendarModule,
     DevicesModule,
   ],
   controllers: [HealthController],

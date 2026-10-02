@@ -1,0 +1,29 @@
+fragment AgendaEvent on CalendarEvent {
+  id
+  teamId
+  teamName
+  teamColor
+  kind
+  title
+  startsAt
+  endsAt
+  location
+  notes
+  status
+  cancelReason
+  opponent
+  isHome
+  competition
+}
+
+query MyAgenda($from: DateTime!, $to: DateTime!) {
+  myAgenda(from: $from, to: $to) {
+    ...AgendaEvent
+  }
+}
+
+query EventDetail($id: ID!) {
+  event(id: $id) {
+    ...AgendaEvent
+  }
+}

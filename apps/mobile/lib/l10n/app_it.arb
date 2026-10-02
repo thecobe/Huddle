@@ -125,5 +125,23 @@
   "errorATHLETE_TOO_YOUNG": "Sotto i 14 anni l'atleta non può avere un account.",
   "errorPERSON_ALREADY_LINKED": "Ha già un account collegato.",
   "errorFORBIDDEN": "Non hai i permessi per questa operazione.",
-  "errorBAD_USER_INPUT": "Controlla i dati inseriti."
+  "errorBAD_USER_INPUT": "Controlla i dati inseriti.",
+  "kindTRAINING": "Allenamento",
+  "kindMATCH": "Gara",
+  "kindOTHER": "Evento",
+  "cancelled": "Annullato",
+  "openMap": "Apri nelle mappe",
+  "noEvents": "Nessun evento nei prossimi 30 giorni.",
+  "versus": "vs {opponent}",
+  "@versus": {
+    "placeholders": {
+      "opponent": {
+        "type": "String"
+      }
+    }
+  },
+  "homeMatch": "In casa",
+  "awayMatch": "In trasferta",
+  "clubWide": "Tutta la società",
+  "notes": "Note"
 }

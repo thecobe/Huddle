@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../auth/session.dart';
 import '../club/club_repository.dart';
+import 'club/agenda_tab.dart';
 import 'club/teams_tab.dart';
 import '../push/push_service.dart';
 import '../ui/l10n_ext.dart';
@@ -36,7 +37,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     final tabs = <({IconData icon, String label, Widget body})>[
       (icon: Icons.home_outlined, label: l.home, body: _Overview(clubName: club.name)),
-      (icon: Icons.calendar_month_outlined, label: l.calendar, body: _Placeholder(text: l.comingSoon)),
+      (icon: Icons.calendar_month_outlined, label: l.calendar, body: const AgendaTab()),
       if (isStaff) (icon: Icons.groups_outlined, label: l.team, body: const TeamsTab()),
       (icon: Icons.person_outline, label: l.profile, body: const _Profile()),
     ];
@@ -105,15 +106,6 @@ class _Overview extends ConsumerWidget {
       ],
     );
   }
-}
-
-class _Placeholder extends StatelessWidget {
-  const _Placeholder({required this.text});
-  final String text;
-
-  @override
-  Widget build(BuildContext context) =>
-      Center(child: Padding(padding: const EdgeInsets.all(32), child: Text(text, textAlign: TextAlign.center)));
 }
 
 class _Profile extends ConsumerWidget {

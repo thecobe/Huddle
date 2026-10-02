@@ -10,7 +10,7 @@ export default defineConfig({
   server: {
     port: 5173,
     // In sviluppo l'API è servita sullo stesso origin: il cookie del refresh token resta first-party.
-    proxy: { '/graphql': 'http://localhost:4000' },
+    proxy: { '/graphql': 'http://localhost:4000', '/calendar': 'http://localhost:4000' },
   },
   test: {
     environment: 'jsdom',

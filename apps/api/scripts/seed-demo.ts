@@ -66,9 +66,12 @@ await gql(`mutation ($c: String!) { enableTwoFactor(code: $c) }`, { c: await gen
 const club = await gql<{ createClub: { id: string } }>(`mutation { createClub(input: { name: "ASD Aurora" }) { id } }`, {}, auth);
 const h = { ...auth, 'x-tenant-id': club.createClub.id };
 
+// Stagione sportiva che contiene oggi: da settembre a giugno.
+const now = new Date();
+const startYear = now.getUTCMonth() >= 6 ? now.getUTCFullYear() : now.getUTCFullYear() - 1;
 const season = await gql<{ createSeason: { id: string } }>(
-  `mutation { createSeason(input: { name: "2026/27", startsOn: "2026-09-01", endsOn: "2027-06-30" }) { id } }`,
-  {},
+  `mutation ($i: SeasonInput!) { createSeason(input: $i) { id } }`,
+  { i: { name: `${startYear}/${String(startYear + 1).slice(2)}`, startsOn: `${startYear}-07-01`, endsOn: `${startYear + 1}-06-30` } },
   h,
 );
 await gql(`mutation ($id: ID!) { setSeasonStatus(id: $id, status: OPEN) { id } }`, { id: season.createSeason.id }, h);
@@ -80,7 +83,7 @@ const team = async (name: string, from: number, to: number) =>
       h,
     )
   ).createTeam.id;
-await team('Under 12', 2014, 2015);
+const u12 = await team('Under 12', 2014, 2015);
 const u15 = await team('Under 15', 2011, 2012);
 
 const rows = [
@@ -102,6 +105,29 @@ const rows = [
   guardianPhone: gP,
 }));
 await gql(`mutation ($r: [PersonImportRow!]!) { commitPeopleImport(rows: $r) { created } }`, { r: rows }, h);
+
+const series = (teamId: string, weekdays: number[], startTime: string) =>
+  gql(`mutation ($i: SeriesInput!) { createEventSeries(input: $i) { id } }`, {
+    i: { teamId, weekdays, startTime, durationMinutes: 90, location: 'Campo comunale, via dello Sport 1' },
+  }, h);
+await series(u15, [1, 3, 5], '18:00');
+await series(u12, [2, 4], '17:00');
+// Gara il prossimo sabato alle 15:00 (UTC+1/+2: l'orario esatto conta poco per i dati demo).
+const saturday = new Date(now);
+saturday.setUTCDate(now.getUTCDate() + ((6 - now.getUTCDay() + 7) % 7 || 7));
+saturday.setUTCHours(13, 0, 0, 0);
+await gql(`mutation ($i: EventInput!) { createEvent(input: $i) { id } }`, {
+  i: {
+    teamId: u15,
+    kind: 'MATCH',
+    opponent: 'ASD Rivali',
+    isHome: false,
+    competition: 'Campionato provinciale',
+    location: 'Stadio comunale di Rivalta',
+    startsAt: saturday.toISOString(),
+    endsAt: new Date(saturday.getTime() + 2 * 3_600_000).toISOString(),
+  },
+}, h);
 
 const coach = await gql<{ createPerson: { id: string } }>(
   `mutation { createPerson(input: { firstName: "Luca", lastName: "Allenatore", phone: "3489990000", categories: [STAFF] }) { id } }`,
@@ -146,7 +172,8 @@ console.log(
       club: 'ASD Aurora',
       admin: { email: adminEmail, password: PASSWORD, totpSecret: setup.setupTwoFactor.secret },
       coach: { email: coachEmail, magicLink: await magicLink(coachEmail) },
-      parent: { email: parentEmail, magicLink: await magicLink(parentEmail) },
+      // I magic link sono monouso: due link per due sessioni di prova del genitore.
+      parent: { email: parentEmail, magicLink: await magicLink(parentEmail), magicLink2: await magicLink(parentEmail) },
     },
     null,
     2,

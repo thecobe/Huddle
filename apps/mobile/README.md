@@ -13,8 +13,9 @@ flutter test --concurrency=1
 Test di integrazione contro l'API locale (magic link reale, da `pnpm dev:api`):
 
 ```bash
-flutter test integration_test -d ID_SIMULATORE --dart-define-from-file=env/dev.json \
-  --dart-define=MAGIC_LINK='huddle://auth/magic?token=…'
+# con l'API e i dati di `pnpm --filter @huddle/api seed:demo`; i link vanno in un file JSON:
+# {"COACH_LINK": "huddle://…", "PARENT_LINK": "huddle://…", "PARENT_LINK_2": "huddle://…"}
+flutter test integration_test -d ID_SIMULATORE --dart-define-from-file=env/dev.json --dart-define-from-file=links.json
 ```
 
 Vedi [docs/SVILUPPO.md](../../docs/SVILUPPO.md) per l'avvio dell'API locale.
