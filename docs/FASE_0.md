@@ -15,6 +15,7 @@ Verificato il 2026-10-02 rieseguendo tutto sullo stato attuale del codice:
 - `apps/api/test/rls.spec.ts`: isolamento verificato direttamente sul database con il ruolo applicativo.
 - `apps/api/test/tenancy.spec.ts`, `auth.spec.ts`: permessi, inviti, 2FA, rotazione sessioni.
 - `apps/mobile/test`: sessione, rinnovo token, redirect per ruolo, deep link, schermata di accesso.
+- CI GitHub Actions verde sul commit `e81d1aa` (job api, web, mobile; run 37003706012).
 - `apps/mobile/integration_test`: su simulatore iOS 27 contro l'API locale, magic link reale → home della società.
 - Genitore (verifica manuale contro l'API): invito, accesso senza password con magic link, vede società e stagioni,
   non vede elenco persone né registro attività, non modifica la società, nessun accesso a un'altra società.
@@ -42,7 +43,6 @@ Verificato il 2026-10-02 rieseguendo tutto sullo stato attuale del codice:
 
 | Voce | Motivo / prossimo passo |
 |---|---|
-| CI mai eseguita su GitHub | Il codice non è ancora committato: il workflow `.github/workflows/ci.yml` non è mai girato. Primo passo dopo il commit. |
 | Testo dell'informativa privacy e dei termini | Registrazione e inviti chiedono di accettarli e salvano la versione accettata, ma i documenti non esistono ancora. Servono i testi (consulenza legale) e una pagina pubblica sul web e nell'app. |
 | Ambiente di staging su cloud UE | Richiede scelta del provider (decisione aperta n. 5) e credenziali. |
 | Gestione dei segreti | Oggi solo file `.env` locali. Da definire con il provider cloud insieme allo staging. |

@@ -73,7 +73,7 @@ Totale fino al lancio commerciale: circa **6 mesi**. Fino a Fase 3 completa: cir
 
 ## 4. Fase 0 – Fondamenta (S1–S3)
 
-> **Stato:** criterio di uscita raggiunto e verificato; restano voci di infrastruttura e conformità elencate in [FASE_0.md](FASE_0.md) (CI da eseguire, testi informativa, staging e segreti, FCM, Sentry client, backup).
+> **Stato:** criterio di uscita raggiunto e verificato; restano voci di infrastruttura e conformità elencate in [FASE_0.md](FASE_0.md) (testi informativa, staging e segreti, FCM, Sentry client, backup).
 
 Obiettivo: tutto ciò che è costoso cambiare dopo. Nessuna funzionalità di dominio oltre a società e utenti.
 
