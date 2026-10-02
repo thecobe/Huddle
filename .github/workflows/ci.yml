@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: huddle_owner
+          POSTGRES_PASSWORD: huddle_owner
+          POSTGRES_DB: huddle
+        ports: ["5433:5432"]
+        options: >-
+          --health-cmd "pg_isready -U huddle_owner -d huddle"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Ruoli e database di test
+        run: PGPASSWORD=huddle_owner psql -h localhost -p 5433 -U huddle_owner -d huddle -f infra/postgres/init.sql
+      - run: pnpm --filter @huddle/api lint
+      - run: pnpm --filter @huddle/api typecheck
+      - run: pnpm --filter @huddle/api test
+      - name: Schema GraphQL aggiornato
+        run: |
+          cp apps/api/.env.test apps/api/.env
+          pnpm --filter @huddle/api schema:emit
+          git diff --exit-code packages/graphql-schema
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Tipi GraphQL generati aggiornati
+        run: |
+          pnpm --filter @huddle/web codegen
+          git diff --exit-code apps/web/src/gql
+      - run: pnpm --filter @huddle/web lint
+      - run: pnpm --filter @huddle/web test
+      - run: pnpm --filter @huddle/web build
+
+  mobile:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.6
+          cache: true
+      - run: flutter pub get
+      - run: flutter gen-l10n
+      - name: Tipi GraphQL generati aggiornati rispetto allo schema dell'API
+        run: |
+          cp ../../packages/graphql-schema/schema.graphql lib/graphql/schema.graphql
+          dart run build_runner build --delete-conflicting-outputs
+          git diff --exit-code lib/graphql
+      - run: flutter analyze
+      - run: flutter test --concurrency=1

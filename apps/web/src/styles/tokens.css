@@ -1,0 +1,88 @@
+/* Design token di Huddle. I componenti usano solo queste variabili. */
+:root {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Inter Tight', var(--font-sans);
+
+  /* Palette: verde campo e accento lime. */
+  --green-50: #f0f7f2;
+  --green-100: #dcefe2;
+  --green-600: #1f7a4d;
+  --green-700: #17633e;
+  --green-800: #135233;
+  --green-900: #14532d;
+  --lime-300: #bef264;
+
+  --bg: #f6f7f5;
+  --surface: #ffffff;
+  --surface-muted: #f1f3f0;
+  --border: #e2e6e1;
+  --border-strong: #c9d0c8;
+  --text: #16201a;
+  --text-muted: #5b6760;
+  --text-subtle: #84908a;
+
+  --primary: var(--green-700);
+  --primary-hover: var(--green-800);
+  --primary-text: #ffffff;
+  --primary-soft: var(--green-50);
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--green-600) 35%, transparent);
+
+  --success: #15803d;
+  --success-soft: #ecfdf3;
+  --warning: #a16207;
+  --warning-soft: #fefce8;
+  --danger: #b42318;
+  --danger-soft: #fef3f2;
+  --info: #1d4ed8;
+  --info-soft: #eff6ff;
+
+  --sidebar-bg: var(--green-900);
+  --sidebar-text: #d7e7dc;
+  --sidebar-active: rgba(255, 255, 255, 0.1);
+  --accent: var(--lime-300);
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 20, 0.06);
+  --shadow: 0 1px 3px rgba(16, 24, 20, 0.08), 0 4px 12px rgba(16, 24, 20, 0.05);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1512;
+    --surface: #161e1a;
+    --surface-muted: #1c2621;
+    --border: #26332c;
+    --border-strong: #35453c;
+    --text: #e8efe9;
+    --text-muted: #a3b1a8;
+    --text-subtle: #7b8a81;
+    --primary: #2f9e66;
+    --primary-hover: #38b374;
+    --primary-soft: #183326;
+    --success-soft: #11291c;
+    --warning-soft: #2b2410;
+    --danger: #f97066;
+    --danger-soft: #2e1614;
+    --info-soft: #14203a;
+    --sidebar-bg: #0b120e;
+    --shadow-sm: none;
+    --shadow: 0 0 0 1px var(--border);
+  }
+}

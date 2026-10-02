@@ -1,0 +1,37 @@
+mutation Login($input: LoginInput!) {
+  login(input: $input) {
+    ...AuthFields
+  }
+}
+
+mutation VerifyTwoFactor($challengeToken: String!, $code: String!) {
+  verifyTwoFactor(challengeToken: $challengeToken, code: $code) {
+    ...AuthFields
+  }
+}
+
+mutation RequestMagicLink($email: String!) {
+  requestMagicLink(email: $email)
+}
+
+mutation ConsumeMagicLink($token: String!) {
+  consumeMagicLink(token: $token) {
+    ...AuthFields
+  }
+}
+
+mutation RefreshSession($refreshToken: String!) {
+  refreshSession(refreshToken: $refreshToken) {
+    ...AuthFields
+  }
+}
+
+mutation Logout($refreshToken: String) {
+  logout(refreshToken: $refreshToken)
+}
+
+query Me {
+  me {
+    ...MeFields
+  }
+}

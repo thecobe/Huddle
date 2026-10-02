@@ -1,0 +1,16 @@
+query InvitationPreview($token: String!) {
+  invitationPreview(token: $token) {
+    clubId
+    clubName
+    email
+    role
+    expiresAt
+    accountExists
+  }
+}
+
+mutation AcceptInvitation($input: AcceptInvitationInput!) {
+  acceptInvitation(input: $input) {
+    ...AuthFields
+  }
+}

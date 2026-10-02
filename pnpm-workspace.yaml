@@ -1,0 +1,10 @@
+packages:
+  - apps/api
+  - apps/web
+  - packages/*
+
+allowBuilds:
+  '@apollo/protobufjs': true
+  '@nestjs/core': true
+  '@swc/core': true
+  esbuild: true

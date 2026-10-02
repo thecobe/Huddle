@@ -1,0 +1,22 @@
+{
+  "name": "huddle",
+  "private": true,
+  "packageManager": "pnpm@12.5.1",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev:infra": "docker compose up -d",
+    "dev:api": "pnpm --filter @huddle/api dev",
+    "dev:web": "pnpm --filter @huddle/web dev",
+    "db:migrate": "pnpm --filter @huddle/api db:migrate",
+    "codegen": "pnpm --filter @huddle/api schema:emit && pnpm --filter @huddle/web codegen && pnpm codegen:mobile",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "build": "pnpm -r build",
+    "dev:mobile": "cd apps/mobile && flutter run --dart-define-from-file=env/dev.json",
+    "test:mobile": "cd apps/mobile && flutter test --concurrency=1",
+    "codegen:mobile": "cp packages/graphql-schema/schema.graphql apps/mobile/lib/graphql/schema.graphql && cd apps/mobile && dart run build_runner build --delete-conflicting-outputs"
+  }
+}

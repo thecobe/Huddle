@@ -1,0 +1,6 @@
+{
+  "name": "@huddle/graphql-schema",
+  "private": true,
+  "description": "Schema GraphQL generato da apps/api (code-first). Non modificare a mano: `pnpm codegen`.",
+  "files": ["schema.graphql"]
+}

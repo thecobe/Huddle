@@ -1,0 +1,12 @@
+targets:
+  $default:
+    builders:
+      graphql_codegen:
+        options:
+          # Solo tipi e parser: le richieste passano da ApiClient (header, rinnovo sessione, errori).
+          clients: []
+          scalars:
+            DateTime:
+              type: String
+            JSON:
+              type: Object

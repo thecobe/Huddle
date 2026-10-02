@@ -1,0 +1,10 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    # Generati da graphql_codegen (lib/graphql/*.graphql) e gen-l10n.
+    - lib/graphql/*.graphql.dart
+    - lib/l10n/app_localizations*.dart
+    - build/**
+    - android/**
+    - ios/**

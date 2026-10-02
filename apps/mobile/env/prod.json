@@ -1,0 +1,4 @@
+{
+  "API_URL": "https://api.huddle.example/graphql",
+  "ENVIRONMENT": "prod"
+}

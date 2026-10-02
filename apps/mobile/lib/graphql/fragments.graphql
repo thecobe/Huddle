@@ -1,0 +1,25 @@
+fragment MeFields on Me {
+  id
+  email
+  fullName
+  locale
+  twoFactorEnabled
+  memberships {
+    id
+    role
+    teamId
+    clubId
+    clubName
+  }
+}
+
+fragment AuthFields on AuthPayload {
+  status
+  accessToken
+  accessTokenExpiresAt
+  refreshToken
+  challengeToken
+  user {
+    ...MeFields
+  }
+}

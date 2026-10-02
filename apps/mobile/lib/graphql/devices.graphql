@@ -1,0 +1,7 @@
+mutation RegisterDevice($input: RegisterDeviceInput!) {
+  registerDevice(input: $input)
+}
+
+mutation UnregisterDevice($token: String!) {
+  unregisterDevice(token: $token)
+}
