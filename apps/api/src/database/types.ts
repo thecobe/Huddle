@@ -12,6 +12,11 @@ export type SeasonStatus = 'PLANNED' | 'OPEN' | 'CLOSED';
 export type AuthTokenPurpose = 'MAGIC_LINK' | 'PASSWORD_RESET' | 'TWO_FACTOR_CHALLENGE';
 export type DevicePlatform = 'IOS' | 'ANDROID' | 'WEB';
 export type ConsentKind = 'PRIVACY_POLICY' | 'TERMS_OF_SERVICE' | 'IMAGE_RELEASE' | 'MARKETING';
+export type PersonGender = 'F' | 'M';
+export type PersonCategory = 'ATHLETE' | 'STAFF' | 'MANAGER' | 'VOLUNTEER' | 'GUARDIAN';
+export type GuardianRelation = 'MOTHER' | 'FATHER' | 'GUARDIAN' | 'OTHER';
+export type PlayerAvailability = 'AVAILABLE' | 'INJURED' | 'SUSPENDED' | 'OTHER';
+export type StaffRole = 'HEAD_COACH' | 'ASSISTANT_COACH' | 'FITNESS_COACH' | 'GOALKEEPER_COACH' | 'TEAM_MANAGER';
 
 type Timestamp = ColumnType<Date, Date | string | undefined, Date | string>;
 type CreatedAt = ColumnType<Date, never, never>;
@@ -78,6 +83,7 @@ export interface ClubsTable {
   postal_code: string | null;
   country: Generated<string>;
   federations: Generated<string[]>;
+  timezone: Generated<string>;
   created_at: CreatedAt;
   updated_at: CreatedAt;
 }
@@ -107,6 +113,7 @@ export interface InvitationsTable {
   email: string;
   role: MembershipRole;
   team_id: string | null;
+  person_id: string | null;
   token_hash: string;
   invited_by: string;
   expires_at: Timestamp;
@@ -140,6 +147,72 @@ export interface ConsentsTable {
   created_at: CreatedAt;
 }
 
+export interface PeopleTable {
+  id: Generated<string>;
+  tenant_id: string;
+  first_name: string;
+  last_name: string;
+  birth_date: DateOnly | null;
+  birth_place: string | null;
+  tax_code: string | null;
+  gender: PersonGender | null;
+  categories: Generated<PersonCategory[]>;
+  email: string | null;
+  phone: string | null;
+  address_line: string | null;
+  city: string | null;
+  province: string | null;
+  postal_code: string | null;
+  notes: string | null;
+  user_id: string | null;
+  archived_at: Timestamp | null;
+  created_at: CreatedAt;
+  updated_at: CreatedAt;
+}
+
+export interface GuardianshipsTable {
+  id: Generated<string>;
+  tenant_id: string;
+  minor_person_id: string;
+  guardian_person_id: string;
+  relation: Generated<GuardianRelation>;
+  created_at: CreatedAt;
+}
+
+export interface TeamsTable {
+  id: Generated<string>;
+  tenant_id: string;
+  season_id: string;
+  name: string;
+  category: string | null;
+  birth_year_from: number | null;
+  birth_year_to: number | null;
+  color: string | null;
+  archived_at: Timestamp | null;
+  created_at: CreatedAt;
+}
+
+export interface TeamPlayersTable {
+  id: Generated<string>;
+  tenant_id: string;
+  team_id: string;
+  person_id: string;
+  jersey_number: number | null;
+  position: string | null;
+  availability: Generated<PlayerAvailability>;
+  availability_note: string | null;
+  created_at: CreatedAt;
+}
+
+export interface TeamStaffTable {
+  id: Generated<string>;
+  tenant_id: string;
+  team_id: string;
+  person_id: string;
+  role: StaffRole;
+  created_at: CreatedAt;
+}
+
 export interface Database {
   users: UsersTable;
   refresh_tokens: RefreshTokensTable;
@@ -151,9 +224,16 @@ export interface Database {
   invitations: InvitationsTable;
   audit_events: AuditEventsTable;
   consents: ConsentsTable;
+  people: PeopleTable;
+  guardianships: GuardianshipsTable;
+  teams: TeamsTable;
+  team_players: TeamPlayersTable;
+  team_staff: TeamStaffTable;
 }
 
 export type UserRow = Selectable<UsersTable>;
 export type ClubRow = Selectable<ClubsTable>;
 export type SeasonRow = Selectable<SeasonsTable>;
 export type InvitationRow = Selectable<InvitationsTable>;
+export type PersonRow = Selectable<PeopleTable>;
+export type TeamRow = Selectable<TeamsTable>;

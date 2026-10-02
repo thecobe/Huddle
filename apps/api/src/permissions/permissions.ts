@@ -10,6 +10,10 @@ export enum Permission {
   MemberInvite = 'member.invite',
   MemberManage = 'member.manage',
   AuditView = 'audit.view',
+  PeopleViewAll = 'people.view_all',
+  PeopleManage = 'people.manage',
+  TeamView = 'team.view',
+  TeamManage = 'team.manage',
 }
 
 const ALL_ROLES: MembershipRole[] = [
@@ -31,7 +35,18 @@ export const ROLE_PERMISSIONS: Record<Permission, MembershipRole[]> = {
   [Permission.MemberInvite]: ['ADMIN', 'SECRETARY'],
   [Permission.MemberManage]: ['ADMIN'],
   [Permission.AuditView]: ['ADMIN'],
+  [Permission.PeopleViewAll]: ['ADMIN', 'SECRETARY', 'SPORTS_DIRECTOR'],
+  [Permission.PeopleManage]: ['ADMIN', 'SECRETARY'],
+  // Visibilità poi limitata dall'ambito: squadre proprie, dei figli o in cui si gioca.
+  [Permission.TeamView]: ALL_ROLES,
+  [Permission.TeamManage]: ['ADMIN', 'SECRETARY', 'SPORTS_DIRECTOR'],
 };
+
+/** Ruoli dello staff tecnico legati a una squadra. */
+export const TEAM_STAFF_ROLES: MembershipRole[] = ['COACH', 'TEAM_MANAGER'];
+
+/** Età minima per un account atleta (D1: età del consenso digitale in Italia). */
+export const MIN_ATHLETE_ACCOUNT_AGE = 14;
 
 /** Ruoli con accesso a dati amministrativi o sanitari: 2FA obbligatorio. */
 export const TWO_FACTOR_ROLES: MembershipRole[] = ['ADMIN', 'SECRETARY'];

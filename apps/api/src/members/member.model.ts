@@ -41,6 +41,13 @@ export class InviteMemberInput {
   @Field(() => String) @IsEmail() email: string;
   @Field(() => MembershipRoleEnum) @IsEnum(MembershipRoleEnum) role: MembershipRoleEnum;
   @Field(() => ID, { nullable: true }) @IsOptional() @IsUUID() teamId?: string | null;
+  @Field(() => ID, {
+    nullable: true,
+    description: "Scheda da collegare all'account. Obbligatoria per il ruolo ATHLETE (dai 14 anni).",
+  })
+  @IsOptional()
+  @IsUUID()
+  personId?: string | null;
 }
 
 @InputType()

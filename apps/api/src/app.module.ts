@@ -20,7 +20,9 @@ import { DevicesModule } from './devices/devices.module.js';
 import { HealthController } from './health/health.controller.js';
 import { MailModule } from './mail/mail.module.js';
 import { MembersModule } from './members/members.module.js';
+import { PeopleModule } from './people/people.module.js';
 import { SeasonsModule } from './seasons/seasons.module.js';
+import { TeamsModule } from './teams/teams.module.js';
 import { UsersModule } from './users/users.module.js';
 
 const env = loadEnv();
@@ -51,6 +53,8 @@ const env = loadEnv();
     ClubsModule,
     SeasonsModule,
     MembersModule,
+    PeopleModule,
+    TeamsModule,
     DevicesModule,
   ],
   controllers: [HealthController],

@@ -1,0 +1,49 @@
+query MyTeams {
+  teams(includeArchived: false) {
+    id
+    name
+    seasonName
+    category
+    color
+    playerCount
+    staffCount
+  }
+}
+
+query TeamRoster($id: ID!) {
+  team(id: $id) {
+    id
+    name
+    seasonName
+    color
+    players {
+      id
+      personId
+      firstName
+      lastName
+      birthDate
+      jerseyNumber
+      position
+      availability
+      availabilityNote
+      email
+      phone
+      guardians {
+        personId
+        name
+        relation
+        email
+        phone
+      }
+    }
+    staff {
+      id
+      personId
+      firstName
+      lastName
+      role
+      email
+      phone
+    }
+  }
+}

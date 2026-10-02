@@ -48,6 +48,29 @@ type Documents = {
     "\n  query MyConsents {\n    myConsents {\n      kind\n      clubId\n      version\n      granted\n      recordedAt\n    }\n  }\n": typeof types.MyConsentsDocument,
     "\n  mutation RecordConsent($kind: ConsentKind!, $granted: Boolean!) {\n    recordConsent(kind: $kind, granted: $granted) {\n      kind\n      granted\n    }\n  }\n": typeof types.RecordConsentDocument,
     "\n  query MyDataExport {\n    myDataExport\n  }\n": typeof types.MyDataExportDocument,
+    "\n  fragment PersonFields on Person {\n    id\n    firstName\n    lastName\n    birthDate\n    birthPlace\n    taxCode\n    gender\n    categories\n    email\n    phone\n    addressLine\n    city\n    province\n    postalCode\n    notes\n    age\n    isMinor\n    hasAccount\n    archivedAt\n    guardians {\n      id\n      relation\n      person {\n        id\n        firstName\n        lastName\n        email\n        phone\n      }\n    }\n    wards {\n      id\n      relation\n      person {\n        id\n        firstName\n        lastName\n      }\n    }\n    teams {\n      teamId\n      teamName\n      seasonName\n      asPlayer\n      staffRole\n      jerseyNumber\n    }\n  }\n": typeof types.PersonFieldsFragmentDoc,
+    "\n  query People($filter: PeopleFilter, $limit: Int!, $offset: Int!) {\n    people(filter: $filter, limit: $limit, offset: $offset) {\n      total\n      items {\n        id\n        firstName\n        lastName\n        birthDate\n        age\n        isMinor\n        categories\n        email\n        phone\n        hasAccount\n        archivedAt\n        teams {\n          teamId\n          teamName\n        }\n      }\n    }\n  }\n": typeof types.PeopleDocument,
+    "\n  query Person($id: ID!) {\n    person(id: $id) {\n      ...PersonFields\n    }\n  }\n": typeof types.PersonDocument,
+    "\n  mutation CreatePerson($input: PersonInput!) {\n    createPerson(input: $input) {\n      id\n    }\n  }\n": typeof types.CreatePersonDocument,
+    "\n  mutation UpdatePerson($id: ID!, $input: PersonInput!) {\n    updatePerson(id: $id, input: $input) {\n      ...PersonFields\n    }\n  }\n": typeof types.UpdatePersonDocument,
+    "\n  mutation SetPersonArchived($id: ID!, $archived: Boolean!) {\n    setPersonArchived(id: $id, archived: $archived) {\n      ...PersonFields\n    }\n  }\n": typeof types.SetPersonArchivedDocument,
+    "\n  mutation AddGuardian($minorId: ID!, $guardianId: ID!, $relation: GuardianRelation!) {\n    addGuardian(minorId: $minorId, guardianId: $guardianId, relation: $relation) {\n      ...PersonFields\n    }\n  }\n": typeof types.AddGuardianDocument,
+    "\n  mutation RemoveGuardian($guardianshipId: ID!) {\n    removeGuardian(guardianshipId: $guardianshipId) {\n      ...PersonFields\n    }\n  }\n": typeof types.RemoveGuardianDocument,
+    "\n  mutation InvitePersonAccount($personId: ID!, $email: String!, $role: MembershipRole!) {\n    invitePersonAccount(personId: $personId, email: $email, role: $role) {\n      id\n    }\n  }\n": typeof types.InvitePersonAccountDocument,
+    "\n  mutation PreviewPeopleImport($rows: [PersonImportRow!]!) {\n    previewPeopleImport(rows: $rows) {\n      index\n      status\n      errors\n      personId\n    }\n  }\n": typeof types.PreviewPeopleImportDocument,
+    "\n  mutation CommitPeopleImport($rows: [PersonImportRow!]!) {\n    commitPeopleImport(rows: $rows) {\n      created\n      updated\n      guardiansLinked\n      addedToTeams\n    }\n  }\n": typeof types.CommitPeopleImportDocument,
+    "\n  fragment TeamFields on Team {\n    id\n    seasonId\n    seasonName\n    name\n    category\n    birthYearFrom\n    birthYearTo\n    color\n    playerCount\n    staffCount\n    archivedAt\n  }\n": typeof types.TeamFieldsFragmentDoc,
+    "\n  query Teams($seasonId: ID, $includeArchived: Boolean!) {\n    teams(seasonId: $seasonId, includeArchived: $includeArchived) {\n      ...TeamFields\n    }\n    seasons {\n      id\n      name\n      status\n    }\n  }\n": typeof types.TeamsDocument,
+    "\n  fragment TeamDetailFields on TeamDetail {\n    id\n    seasonId\n    seasonName\n    name\n    category\n    birthYearFrom\n    birthYearTo\n    color\n    playerCount\n    staffCount\n    archivedAt\n    players {\n      id\n      personId\n      firstName\n      lastName\n      birthDate\n      jerseyNumber\n      position\n      availability\n      email\n      phone\n      guardians {\n        personId\n        name\n        relation\n        email\n        phone\n      }\n    }\n    staff {\n      id\n      personId\n      firstName\n      lastName\n      role\n      email\n      phone\n      hasAccount\n    }\n  }\n": typeof types.TeamDetailFieldsFragmentDoc,
+    "\n  query Team($id: ID!) {\n    team(id: $id) {\n      ...TeamDetailFields\n    }\n  }\n": typeof types.TeamDocument,
+    "\n  mutation CreateTeam($input: TeamInput!) {\n    createTeam(input: $input) {\n      id\n    }\n  }\n": typeof types.CreateTeamDocument,
+    "\n  mutation UpdateTeam($id: ID!, $input: TeamInput!) {\n    updateTeam(id: $id, input: $input) {\n      ...TeamDetailFields\n    }\n  }\n": typeof types.UpdateTeamDocument,
+    "\n  mutation CopyTeams($input: CopyTeamsInput!) {\n    copyTeams(input: $input) {\n      id\n    }\n  }\n": typeof types.CopyTeamsDocument,
+    "\n  mutation AddPlayer($teamId: ID!, $personId: ID!, $input: PlayerInput) {\n    addPlayer(teamId: $teamId, personId: $personId, input: $input) {\n      ...TeamDetailFields\n    }\n  }\n": typeof types.AddPlayerDocument,
+    "\n  mutation UpdatePlayer($rosterId: ID!, $input: PlayerInput!) {\n    updatePlayer(rosterId: $rosterId, input: $input) {\n      ...TeamDetailFields\n    }\n  }\n": typeof types.UpdatePlayerDocument,
+    "\n  mutation RemovePlayer($rosterId: ID!) {\n    removePlayer(rosterId: $rosterId) {\n      ...TeamDetailFields\n    }\n  }\n": typeof types.RemovePlayerDocument,
+    "\n  mutation AddStaff($teamId: ID!, $personId: ID!, $role: StaffRole!) {\n    addStaff(teamId: $teamId, personId: $personId, role: $role) {\n      ...TeamDetailFields\n    }\n  }\n": typeof types.AddStaffDocument,
+    "\n  mutation RemoveStaff($staffId: ID!) {\n    removeStaff(staffId: $staffId) {\n      ...TeamDetailFields\n    }\n  }\n": typeof types.RemoveStaffDocument,
 };
 const documents: Documents = {
     "\n  fragment MeFields on Me {\n    id\n    email\n    fullName\n    locale\n    twoFactorEnabled\n    memberships {\n      id\n      role\n      teamId\n      clubId\n      clubName\n    }\n  }\n": types.MeFieldsFragmentDoc,
@@ -84,6 +107,29 @@ const documents: Documents = {
     "\n  query MyConsents {\n    myConsents {\n      kind\n      clubId\n      version\n      granted\n      recordedAt\n    }\n  }\n": types.MyConsentsDocument,
     "\n  mutation RecordConsent($kind: ConsentKind!, $granted: Boolean!) {\n    recordConsent(kind: $kind, granted: $granted) {\n      kind\n      granted\n    }\n  }\n": types.RecordConsentDocument,
     "\n  query MyDataExport {\n    myDataExport\n  }\n": types.MyDataExportDocument,
+    "\n  fragment PersonFields on Person {\n    id\n    firstName\n    lastName\n    birthDate\n    birthPlace\n    taxCode\n    gender\n    categories\n    email\n    phone\n    addressLine\n    city\n    province\n    postalCode\n    notes\n    age\n    isMinor\n    hasAccount\n    archivedAt\n    guardians {\n      id\n      relation\n      person {\n        id\n        firstName\n        lastName\n        email\n        phone\n      }\n    }\n    wards {\n      id\n      relation\n      person {\n        id\n        firstName\n        lastName\n      }\n    }\n    teams {\n      teamId\n      teamName\n      seasonName\n      asPlayer\n      staffRole\n      jerseyNumber\n    }\n  }\n": types.PersonFieldsFragmentDoc,
+    "\n  query People($filter: PeopleFilter, $limit: Int!, $offset: Int!) {\n    people(filter: $filter, limit: $limit, offset: $offset) {\n      total\n      items {\n        id\n        firstName\n        lastName\n        birthDate\n        age\n        isMinor\n        categories\n        email\n        phone\n        hasAccount\n        archivedAt\n        teams {\n          teamId\n          teamName\n        }\n      }\n    }\n  }\n": types.PeopleDocument,
+    "\n  query Person($id: ID!) {\n    person(id: $id) {\n      ...PersonFields\n    }\n  }\n": types.PersonDocument,
+    "\n  mutation CreatePerson($input: PersonInput!) {\n    createPerson(input: $input) {\n      id\n    }\n  }\n": types.CreatePersonDocument,
+    "\n  mutation UpdatePerson($id: ID!, $input: PersonInput!) {\n    updatePerson(id: $id, input: $input) {\n      ...PersonFields\n    }\n  }\n": types.UpdatePersonDocument,
+    "\n  mutation SetPersonArchived($id: ID!, $archived: Boolean!) {\n    setPersonArchived(id: $id, archived: $archived) {\n      ...PersonFields\n    }\n  }\n": types.SetPersonArchivedDocument,
+    "\n  mutation AddGuardian($minorId: ID!, $guardianId: ID!, $relation: GuardianRelation!) {\n    addGuardian(minorId: $minorId, guardianId: $guardianId, relation: $relation) {\n      ...PersonFields\n    }\n  }\n": types.AddGuardianDocument,
+    "\n  mutation RemoveGuardian($guardianshipId: ID!) {\n    removeGuardian(guardianshipId: $guardianshipId) {\n      ...PersonFields\n    }\n  }\n": types.RemoveGuardianDocument,
+    "\n  mutation InvitePersonAccount($personId: ID!, $email: String!, $role: MembershipRole!) {\n    invitePersonAccount(personId: $personId, email: $email, role: $role) {\n      id\n    }\n  }\n": types.InvitePersonAccountDocument,
+    "\n  mutation PreviewPeopleImport($rows: [PersonImportRow!]!) {\n    previewPeopleImport(rows: $rows) {\n      index\n      status\n      errors\n      personId\n    }\n  }\n": types.PreviewPeopleImportDocument,
+    "\n  mutation CommitPeopleImport($rows: [PersonImportRow!]!) {\n    commitPeopleImport(rows: $rows) {\n      created\n      updated\n      guardiansLinked\n      addedToTeams\n    }\n  }\n": types.CommitPeopleImportDocument,
+    "\n  fragment TeamFields on Team {\n    id\n    seasonId\n    seasonName\n    name\n    category\n    birthYearFrom\n    birthYearTo\n    color\n    playerCount\n    staffCount\n    archivedAt\n  }\n": types.TeamFieldsFragmentDoc,
+    "\n  query Teams($seasonId: ID, $includeArchived: Boolean!) {\n    teams(seasonId: $seasonId, includeArchived: $includeArchived) {\n      ...TeamFields\n    }\n    seasons {\n      id\n      name\n      status\n    }\n  }\n": types.TeamsDocument,
+    "\n  fragment TeamDetailFields on TeamDetail {\n    id\n    seasonId\n    seasonName\n    name\n    category\n    birthYearFrom\n    birthYearTo\n    color\n    playerCount\n    staffCount\n    archivedAt\n    players {\n      id\n      personId\n      firstName\n      lastName\n      birthDate\n      jerseyNumber\n      position\n      availability\n      email\n      phone\n      guardians {\n        personId\n        name\n        relation\n        email\n        phone\n      }\n    }\n    staff {\n      id\n      personId\n      firstName\n      lastName\n      role\n      email\n      phone\n      hasAccount\n    }\n  }\n": types.TeamDetailFieldsFragmentDoc,
+    "\n  query Team($id: ID!) {\n    team(id: $id) {\n      ...TeamDetailFields\n    }\n  }\n": types.TeamDocument,
+    "\n  mutation CreateTeam($input: TeamInput!) {\n    createTeam(input: $input) {\n      id\n    }\n  }\n": types.CreateTeamDocument,
+    "\n  mutation UpdateTeam($id: ID!, $input: TeamInput!) {\n    updateTeam(id: $id, input: $input) {\n      ...TeamDetailFields\n    }\n  }\n": types.UpdateTeamDocument,
+    "\n  mutation CopyTeams($input: CopyTeamsInput!) {\n    copyTeams(input: $input) {\n      id\n    }\n  }\n": types.CopyTeamsDocument,
+    "\n  mutation AddPlayer($teamId: ID!, $personId: ID!, $input: PlayerInput) {\n    addPlayer(teamId: $teamId, personId: $personId, input: $input) {\n      ...TeamDetailFields\n    }\n  }\n": types.AddPlayerDocument,
+    "\n  mutation UpdatePlayer($rosterId: ID!, $input: PlayerInput!) {\n    updatePlayer(rosterId: $rosterId, input: $input) {\n      ...TeamDetailFields\n    }\n  }\n": types.UpdatePlayerDocument,
+    "\n  mutation RemovePlayer($rosterId: ID!) {\n    removePlayer(rosterId: $rosterId) {\n      ...TeamDetailFields\n    }\n  }\n": types.RemovePlayerDocument,
+    "\n  mutation AddStaff($teamId: ID!, $personId: ID!, $role: StaffRole!) {\n    addStaff(teamId: $teamId, personId: $personId, role: $role) {\n      ...TeamDetailFields\n    }\n  }\n": types.AddStaffDocument,
+    "\n  mutation RemoveStaff($staffId: ID!) {\n    removeStaff(staffId: $staffId) {\n      ...TeamDetailFields\n    }\n  }\n": types.RemoveStaffDocument,
 };
 
 /**
@@ -236,6 +282,98 @@ export function graphql(source: "\n  mutation RecordConsent($kind: ConsentKind!,
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query MyDataExport {\n    myDataExport\n  }\n"): (typeof documents)["\n  query MyDataExport {\n    myDataExport\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment PersonFields on Person {\n    id\n    firstName\n    lastName\n    birthDate\n    birthPlace\n    taxCode\n    gender\n    categories\n    email\n    phone\n    addressLine\n    city\n    province\n    postalCode\n    notes\n    age\n    isMinor\n    hasAccount\n    archivedAt\n    guardians {\n      id\n      relation\n      person {\n        id\n        firstName\n        lastName\n        email\n        phone\n      }\n    }\n    wards {\n      id\n      relation\n      person {\n        id\n        firstName\n        lastName\n      }\n    }\n    teams {\n      teamId\n      teamName\n      seasonName\n      asPlayer\n      staffRole\n      jerseyNumber\n    }\n  }\n"): (typeof documents)["\n  fragment PersonFields on Person {\n    id\n    firstName\n    lastName\n    birthDate\n    birthPlace\n    taxCode\n    gender\n    categories\n    email\n    phone\n    addressLine\n    city\n    province\n    postalCode\n    notes\n    age\n    isMinor\n    hasAccount\n    archivedAt\n    guardians {\n      id\n      relation\n      person {\n        id\n        firstName\n        lastName\n        email\n        phone\n      }\n    }\n    wards {\n      id\n      relation\n      person {\n        id\n        firstName\n        lastName\n      }\n    }\n    teams {\n      teamId\n      teamName\n      seasonName\n      asPlayer\n      staffRole\n      jerseyNumber\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query People($filter: PeopleFilter, $limit: Int!, $offset: Int!) {\n    people(filter: $filter, limit: $limit, offset: $offset) {\n      total\n      items {\n        id\n        firstName\n        lastName\n        birthDate\n        age\n        isMinor\n        categories\n        email\n        phone\n        hasAccount\n        archivedAt\n        teams {\n          teamId\n          teamName\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query People($filter: PeopleFilter, $limit: Int!, $offset: Int!) {\n    people(filter: $filter, limit: $limit, offset: $offset) {\n      total\n      items {\n        id\n        firstName\n        lastName\n        birthDate\n        age\n        isMinor\n        categories\n        email\n        phone\n        hasAccount\n        archivedAt\n        teams {\n          teamId\n          teamName\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Person($id: ID!) {\n    person(id: $id) {\n      ...PersonFields\n    }\n  }\n"): (typeof documents)["\n  query Person($id: ID!) {\n    person(id: $id) {\n      ...PersonFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreatePerson($input: PersonInput!) {\n    createPerson(input: $input) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation CreatePerson($input: PersonInput!) {\n    createPerson(input: $input) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdatePerson($id: ID!, $input: PersonInput!) {\n    updatePerson(id: $id, input: $input) {\n      ...PersonFields\n    }\n  }\n"): (typeof documents)["\n  mutation UpdatePerson($id: ID!, $input: PersonInput!) {\n    updatePerson(id: $id, input: $input) {\n      ...PersonFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation SetPersonArchived($id: ID!, $archived: Boolean!) {\n    setPersonArchived(id: $id, archived: $archived) {\n      ...PersonFields\n    }\n  }\n"): (typeof documents)["\n  mutation SetPersonArchived($id: ID!, $archived: Boolean!) {\n    setPersonArchived(id: $id, archived: $archived) {\n      ...PersonFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation AddGuardian($minorId: ID!, $guardianId: ID!, $relation: GuardianRelation!) {\n    addGuardian(minorId: $minorId, guardianId: $guardianId, relation: $relation) {\n      ...PersonFields\n    }\n  }\n"): (typeof documents)["\n  mutation AddGuardian($minorId: ID!, $guardianId: ID!, $relation: GuardianRelation!) {\n    addGuardian(minorId: $minorId, guardianId: $guardianId, relation: $relation) {\n      ...PersonFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation RemoveGuardian($guardianshipId: ID!) {\n    removeGuardian(guardianshipId: $guardianshipId) {\n      ...PersonFields\n    }\n  }\n"): (typeof documents)["\n  mutation RemoveGuardian($guardianshipId: ID!) {\n    removeGuardian(guardianshipId: $guardianshipId) {\n      ...PersonFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation InvitePersonAccount($personId: ID!, $email: String!, $role: MembershipRole!) {\n    invitePersonAccount(personId: $personId, email: $email, role: $role) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation InvitePersonAccount($personId: ID!, $email: String!, $role: MembershipRole!) {\n    invitePersonAccount(personId: $personId, email: $email, role: $role) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation PreviewPeopleImport($rows: [PersonImportRow!]!) {\n    previewPeopleImport(rows: $rows) {\n      index\n      status\n      errors\n      personId\n    }\n  }\n"): (typeof documents)["\n  mutation PreviewPeopleImport($rows: [PersonImportRow!]!) {\n    previewPeopleImport(rows: $rows) {\n      index\n      status\n      errors\n      personId\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CommitPeopleImport($rows: [PersonImportRow!]!) {\n    commitPeopleImport(rows: $rows) {\n      created\n      updated\n      guardiansLinked\n      addedToTeams\n    }\n  }\n"): (typeof documents)["\n  mutation CommitPeopleImport($rows: [PersonImportRow!]!) {\n    commitPeopleImport(rows: $rows) {\n      created\n      updated\n      guardiansLinked\n      addedToTeams\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment TeamFields on Team {\n    id\n    seasonId\n    seasonName\n    name\n    category\n    birthYearFrom\n    birthYearTo\n    color\n    playerCount\n    staffCount\n    archivedAt\n  }\n"): (typeof documents)["\n  fragment TeamFields on Team {\n    id\n    seasonId\n    seasonName\n    name\n    category\n    birthYearFrom\n    birthYearTo\n    color\n    playerCount\n    staffCount\n    archivedAt\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Teams($seasonId: ID, $includeArchived: Boolean!) {\n    teams(seasonId: $seasonId, includeArchived: $includeArchived) {\n      ...TeamFields\n    }\n    seasons {\n      id\n      name\n      status\n    }\n  }\n"): (typeof documents)["\n  query Teams($seasonId: ID, $includeArchived: Boolean!) {\n    teams(seasonId: $seasonId, includeArchived: $includeArchived) {\n      ...TeamFields\n    }\n    seasons {\n      id\n      name\n      status\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment TeamDetailFields on TeamDetail {\n    id\n    seasonId\n    seasonName\n    name\n    category\n    birthYearFrom\n    birthYearTo\n    color\n    playerCount\n    staffCount\n    archivedAt\n    players {\n      id\n      personId\n      firstName\n      lastName\n      birthDate\n      jerseyNumber\n      position\n      availability\n      email\n      phone\n      guardians {\n        personId\n        name\n        relation\n        email\n        phone\n      }\n    }\n    staff {\n      id\n      personId\n      firstName\n      lastName\n      role\n      email\n      phone\n      hasAccount\n    }\n  }\n"): (typeof documents)["\n  fragment TeamDetailFields on TeamDetail {\n    id\n    seasonId\n    seasonName\n    name\n    category\n    birthYearFrom\n    birthYearTo\n    color\n    playerCount\n    staffCount\n    archivedAt\n    players {\n      id\n      personId\n      firstName\n      lastName\n      birthDate\n      jerseyNumber\n      position\n      availability\n      email\n      phone\n      guardians {\n        personId\n        name\n        relation\n        email\n        phone\n      }\n    }\n    staff {\n      id\n      personId\n      firstName\n      lastName\n      role\n      email\n      phone\n      hasAccount\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Team($id: ID!) {\n    team(id: $id) {\n      ...TeamDetailFields\n    }\n  }\n"): (typeof documents)["\n  query Team($id: ID!) {\n    team(id: $id) {\n      ...TeamDetailFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateTeam($input: TeamInput!) {\n    createTeam(input: $input) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation CreateTeam($input: TeamInput!) {\n    createTeam(input: $input) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateTeam($id: ID!, $input: TeamInput!) {\n    updateTeam(id: $id, input: $input) {\n      ...TeamDetailFields\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateTeam($id: ID!, $input: TeamInput!) {\n    updateTeam(id: $id, input: $input) {\n      ...TeamDetailFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CopyTeams($input: CopyTeamsInput!) {\n    copyTeams(input: $input) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation CopyTeams($input: CopyTeamsInput!) {\n    copyTeams(input: $input) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation AddPlayer($teamId: ID!, $personId: ID!, $input: PlayerInput) {\n    addPlayer(teamId: $teamId, personId: $personId, input: $input) {\n      ...TeamDetailFields\n    }\n  }\n"): (typeof documents)["\n  mutation AddPlayer($teamId: ID!, $personId: ID!, $input: PlayerInput) {\n    addPlayer(teamId: $teamId, personId: $personId, input: $input) {\n      ...TeamDetailFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdatePlayer($rosterId: ID!, $input: PlayerInput!) {\n    updatePlayer(rosterId: $rosterId, input: $input) {\n      ...TeamDetailFields\n    }\n  }\n"): (typeof documents)["\n  mutation UpdatePlayer($rosterId: ID!, $input: PlayerInput!) {\n    updatePlayer(rosterId: $rosterId, input: $input) {\n      ...TeamDetailFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation RemovePlayer($rosterId: ID!) {\n    removePlayer(rosterId: $rosterId) {\n      ...TeamDetailFields\n    }\n  }\n"): (typeof documents)["\n  mutation RemovePlayer($rosterId: ID!) {\n    removePlayer(rosterId: $rosterId) {\n      ...TeamDetailFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation AddStaff($teamId: ID!, $personId: ID!, $role: StaffRole!) {\n    addStaff(teamId: $teamId, personId: $personId, role: $role) {\n      ...TeamDetailFields\n    }\n  }\n"): (typeof documents)["\n  mutation AddStaff($teamId: ID!, $personId: ID!, $role: StaffRole!) {\n    addStaff(teamId: $teamId, personId: $personId, role: $role) {\n      ...TeamDetailFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation RemoveStaff($staffId: ID!) {\n    removeStaff(staffId: $staffId) {\n      ...TeamDetailFields\n    }\n  }\n"): (typeof documents)["\n  mutation RemoveStaff($staffId: ID!) {\n    removeStaff(staffId: $staffId) {\n      ...TeamDetailFields\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

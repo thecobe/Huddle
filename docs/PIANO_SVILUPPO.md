@@ -1,6 +1,6 @@
 # 🛠 Huddle – Piano di sviluppo
 
-Piano operativo per web app e mobile app, derivato da [README](../README.md). Traduce la roadmap in fasi, epiche e sprint, con la ripartizione del lavoro tra backend, web e mobile.
+Piano operativo per web app e mobile app, derivato da [README](../README.md). Traduce la roadmap in fasi, epiche e traguardi, con la ripartizione delle funzioni tra web e mobile.
 
 ---
 
@@ -10,8 +10,8 @@ Da confermare o correggere: cambiano tempi e parallelismo, non la sequenza.
 
 | Tema | Assunzione |
 |---|---|
-| Team | 2 backend, 1 frontend web, 2 mobile (Flutter), 1 designer UX/UI part-time, 1 QA part-time, 1 product owner |
-| Cadenza | Sprint di 2 settimane, demo e retrospettiva a fine sprint |
+| Team | Due sviluppatori: Marco e Claude. Nessun ruolo separato per backend, web, mobile, design o QA |
+| Cadenza | Traguardi verticali (API, web e app insieme), ognuno chiuso da revisione e prova su dispositivo |
 | Disciplina di partenza | Calcio (terminologia, ruoli, distinta gara); modello dati generico per estendere ad altri sport |
 | Lingue al lancio | Italiano + inglese (i18n predisposto dal primo giorno) |
 | Clienti pilota | 2–3 società ASD reali coinvolte da fine Fase 1 |
@@ -58,20 +58,21 @@ Da confermare o correggere: cambiano tempi e parallelismo, non la sequenza.
 
 ## 3. Panoramica fasi
 
-| Fase | Durata | Sprint | Rilascio |
-|---|---|---|---|
-| 0 – Fondamenta | 6 settimane | S1–S3 | Ambiente staging, login, società e utenti |
-| 1 – MVP | 14 settimane | S4–S10 | Beta chiusa con società pilota, app su TestFlight / Play test interno |
-| 1b – Hardening e lancio | 4 settimane | S11–S12 | Pubblicazione store, prima versione commerciale |
-| 2 – Amministrazione | 10–12 settimane | S13–S18 | Pagamenti, moduli firmati, impianti |
-| 3 – Area tecnica avanzata | 12 settimane | S19–S24 | Esercizi, programmazione, valutazioni, statistiche |
-| 4 – Estensioni | continuativa | S25+ | Moduli a priorità variabile |
+| Fase | Contenuto | Rilascio |
+|---|---|---|
+| 0 – Fondamenta | Monorepo, isolamento per società, autenticazione, permessi, tre app | Completata, vedi [FASE_0.md](FASE_0.md) |
+| 1 – MVP | Traguardi M1–M6 | Uso reale con una società pilota da dopo M3 |
+| 1b – Hardening e lancio | Correzioni dal pilota, sicurezza, accessibilità, store | Pubblicazione sugli store |
+| 2 – Amministrazione | Quote, pagamenti, moduli firmati, impianti | |
+| 3 – Area tecnica avanzata | Esercizi, programmazione, valutazioni, statistiche | |
+| 4 – Estensioni | Moduli a priorità variabile | |
 
-Totale fino al lancio commerciale: circa **6 mesi**. Fino a Fase 3 completa: circa **12 mesi**.
+Le durate originali (6 mesi al lancio, 12 alla Fase 3) presupponevano un team di sette persone e non valgono più.
+I tempi si ricalibrano dopo il primo traguardo della Fase 1, sulla velocità misurata.
 
 ---
 
-## 4. Fase 0 – Fondamenta (S1–S3)
+## 4. Fase 0 – Fondamenta
 
 > **Stato:** criterio di uscita raggiunto e verificato; restano voci di infrastruttura e conformità elencate in [FASE_0.md](FASE_0.md) (testi informativa, staging e segreti, FCM, Sentry client, backup).
 
@@ -87,7 +88,9 @@ Obiettivo: tutto ciò che è costoso cambiare dopo. Nessuna funzionalità di dom
 
 ---
 
-## 5. Fase 1 – MVP (S4–S10)
+## 5. Fase 1 – MVP
+
+> Piano dettagliato con modello dati, storie, traguardi e divisione del lavoro: [FASE_1.md](FASE_1.md).
 
 Scope dal README: anagrafiche, squadre, certificati medici, calendario allenamenti e gare, presenze, convocazioni con conferma, chat di squadra, bacheca, app mobile base.
 
@@ -104,23 +107,17 @@ Scope dal README: anagrafiche, squadre, certificati medici, calendario allenamen
 | E7 | Comunicazione | Chat di squadra e canali, bacheca con conferma lettura, regole tutela minori (niente 1-a-1 adulto–minore, genitori visibili) | Web + app |
 | E8 | Notifiche | Centro notifiche in-app, preferenze per tipo di evento | App + web |
 
-### Piano sprint
+### Traguardi
 
-| Sprint | Backend | Web | Mobile |
-|---|---|---|---|
-| **S4** | E1 anagrafiche, legami familiari, import CSV | E1 liste, schede, import guidato | Dettaglio profilo personale e figli |
-| **S5** | E2 tesseramenti, certificati, job scadenze; E3 squadre | E2 gestione certificati e scadenziario; E3 squadre e rose | E3 rosa squadra (staff); upload certificato (famiglie) |
-| **S6** | E4 calendario con ricorrenze ed eccezioni, iCal | E4 calendario società e squadre | E4 calendario personale e di squadra |
-| **S7** | E5 presenze + API di sincronizzazione offline | E5 report presenze | E5 appello offline-first (drift + outbox) |
-| **S8** | E6 convocazioni, regole convocabilità, promemoria | E6 convocazioni e distinta PDF | E6 creazione convocazione (staff), conferma (famiglie) |
-| **S9** | E7 chat (subscriptions), bacheca, moderazione | E7 bacheca e comunicazioni broadcast | E7 chat e bacheca, notifiche push |
-| **S10** | E8 preferenze notifiche, ottimizzazioni query | Dashboard essenziale segreteria | E8 centro notifiche; build beta su TestFlight / Play test interno |
+Con due sviluppatori la fase procede per traguardi verticali invece che per sprint paralleli:
+M1 anagrafiche e squadre, M2 calendario, M3 presenze, P pronti per il pilota, M4 certificati e notifiche,
+M5 convocazioni, M6 comunicazione. Dettaglio in [FASE_1.md](FASE_1.md).
 
 **Uscita Fase 1:** società pilota gestisce una settimana reale (allenamenti, presenze, una convocazione per gara, comunicazioni) senza Excel né WhatsApp.
 
 ---
 
-## 6. Fase 1b – Hardening e lancio (S11–S12)
+## 6. Fase 1b – Hardening e lancio
 
 - Correzioni dal feedback delle società pilota.
 - Test di carico (picchi tipici: venerdì sera, convocazioni del weekend), test di sicurezza e penetration test esterno.
@@ -135,7 +132,7 @@ Scope dal README: anagrafiche, squadre, certificati medici, calendario allenamen
 
 ---
 
-## 7. Fase 2 – Amministrazione (S13–S18)
+## 7. Fase 2 – Amministrazione
 
 | Epica | Backend | Web | Mobile |
 |---|---|---|---|
@@ -150,7 +147,7 @@ Nota: i pagamenti per servizi sportivi passano dal sito o da un link esterno ove
 
 ---
 
-## 8. Fase 3 – Area tecnica avanzata (S19–S24)
+## 8. Fase 3 – Area tecnica avanzata
 
 | Epica | Contenuto | Piattaforme |
 |---|---|---|
@@ -187,11 +184,11 @@ Ordine proposto, da rivedere con i dati d'uso:
 - testi tradotti in italiano e inglese;
 - funzionante su web desktop, web mobile, iOS e Android dove previsto;
 - voce nel log di audit per operazioni su pagamenti e dati sanitari;
-- revisione del codice da almeno una persona.
+- codice scritto da Claude rivisto e approvato da Marco.
 
 **Flussi E2E da proteggere sempre:** login e 2FA, convocazione → conferma → distinta, appello offline → sincronizzazione, pagamento → ricevuta (da Fase 2).
 
-**Rilasci:** web e API in continuous delivery su staging, rilascio in produzione a fine sprint. App mobile: build interne a ogni merge, rilascio store ogni 2–4 settimane, feature flag per attivare moduli per singola società.
+**Rilasci:** web e API in continuous delivery su staging, rilascio in produzione a fine traguardo. App mobile: build interne a ogni merge, rilascio store ogni 2–4 settimane, feature flag per attivare moduli per singola società.
 
 ---
 
@@ -215,13 +212,13 @@ Ordine proposto, da rivedere con i dati d'uso:
 | Sincronizzazione offline complessa | Limitare l'offline a presenze ed eventi di gara; regole di conflitto semplici (ultimo scrittore vince per campo, log dei conflitti) |
 | Dati sanitari e minori | RLS, cifratura, audit log, DPIA prima del lancio, consulenza legale su informative |
 | Revisione degli store | Coinvolgere presto TestFlight / Play test, verificare regole su pagamenti e account di minori |
-| Scope creep dalle società pilota | Backlog unico gestito dal product owner, richieste valutate a fine fase |
+| Scope creep dalle società pilota | Backlog unico gestito da Marco, richieste valutate a fine traguardo |
 
 ---
 
 ## 13. Decisioni aperte
 
-1. Composizione reale del team e budget: determina se le fasi 2 e 3 possono procedere in parallelo.
+1. Budget per servizi esterni (cloud, store, Firebase, Sentry, SMS) e per la consulenza legale.
 2. Disciplina sportiva di partenza (calcio o multi-sport fin da subito).
 3. Modello di prezzo (per atleta, per squadra, a fasce) e se i pagamenti delle quote prevedono commissioni per la piattaforma.
 4. Provider di firma elettronica (firma semplice interna o servizio esterno).

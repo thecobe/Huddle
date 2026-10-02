@@ -16,7 +16,16 @@
   "verifyingLink": "Verifica del link in corso…",
   "invitationTitle": "Sei stato invitato",
   "invitationBody": "{club} ti ha invitato su Huddle come {role}.",
-  "@invitationBody": { "placeholders": { "club": { "type": "String" }, "role": { "type": "String" } } },
+  "@invitationBody": {
+    "placeholders": {
+      "club": {
+        "type": "String"
+      },
+      "role": {
+        "type": "String"
+      }
+    }
+  },
   "acceptTerms": "Accetto l'informativa privacy e i termini di servizio",
   "acceptInvitation": "Accetta invito",
   "clubsTitle": "Le tue società",
@@ -26,7 +35,13 @@
   "team": "Squadra",
   "profile": "Profilo",
   "welcome": "Ciao, {name}",
-  "@welcome": { "placeholders": { "name": { "type": "String" } } },
+  "@welcome": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "comingSoon": "Calendario, convocazioni e chat di squadra arrivano con il prossimo rilascio.",
   "officeHint": "La gestione della società (persone, stagioni, dati legali) è disponibile dal sito web.",
   "yourRoles": "I tuoi ruoli",
@@ -45,5 +60,70 @@
   "errorINVALID_TWO_FACTOR_CODE": "Codice non valido.",
   "errorTOO_MANY_REQUESTS": "Troppi tentativi. Riprova tra un minuto.",
   "errorNETWORK": "Impossibile contattare il server. Controlla la connessione.",
-  "errorUNKNOWN": "Si è verificato un errore. Riprova."
+  "errorUNKNOWN": "Si è verificato un errore. Riprova.",
+  "myData": "I miei dati e dei figli",
+  "myTeams": "Le mie squadre",
+  "noTeamsYet": "Nessuna squadra assegnata.",
+  "contacts": "Recapiti",
+  "phone": "Telefono",
+  "address": "Indirizzo",
+  "city": "Comune",
+  "province": "Provincia",
+  "postalCode": "CAP",
+  "save": "Salva",
+  "saved": "Modifiche salvate",
+  "teamsLabel": "Squadre",
+  "guardiansLabel": "Tutori",
+  "athlete": "Atleta",
+  "yearsOld": "{n} anni",
+  "@yearsOld": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "jerseyNumber": "n. {n}",
+  "@jerseyNumber": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "players": "Atleti",
+  "staff": "Staff",
+  "call": "Chiama",
+  "sendEmail": "Scrivi",
+  "activateAccountTitle": "Account di {name}",
+  "@activateAccountTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "activateAccountHint": "Dai 14 anni puoi attivare un account per tuo figlio: riceverà un'e-mail con il link di accesso.",
+  "activateAccount": "Attiva account",
+  "accountActive": "Ha già un account Huddle.",
+  "invitationSent": "Invito inviato a {email}",
+  "@invitationSent": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "availabilityINJURED": "Infortunato",
+  "availabilitySUSPENDED": "Squalificato",
+  "availabilityOTHER": "Non disponibile",
+  "staffHEAD_COACH": "Allenatore",
+  "staffASSISTANT_COACH": "Vice allenatore",
+  "staffFITNESS_COACH": "Preparatore atletico",
+  "staffGOALKEEPER_COACH": "Preparatore dei portieri",
+  "staffTEAM_MANAGER": "Dirigente accompagnatore",
+  "errorATHLETE_TOO_YOUNG": "Sotto i 14 anni l'atleta non può avere un account.",
+  "errorPERSON_ALREADY_LINKED": "Ha già un account collegato.",
+  "errorFORBIDDEN": "Non hai i permessi per questa operazione.",
+  "errorBAD_USER_INPUT": "Controlla i dati inseriti."
 }

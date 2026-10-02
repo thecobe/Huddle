@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../auth/session.dart';
+import '../club/club_repository.dart';
+import 'club/teams_tab.dart';
 import '../push/push_service.dart';
 import '../ui/l10n_ext.dart';
 
@@ -35,7 +37,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final tabs = <({IconData icon, String label, Widget body})>[
       (icon: Icons.home_outlined, label: l.home, body: _Overview(clubName: club.name)),
       (icon: Icons.calendar_month_outlined, label: l.calendar, body: _Placeholder(text: l.comingSoon)),
-      if (isStaff) (icon: Icons.groups_outlined, label: l.team, body: _Placeholder(text: l.comingSoon)),
+      if (isStaff) (icon: Icons.groups_outlined, label: l.team, body: const TeamsTab()),
       (icon: Icons.person_outline, label: l.profile, body: const _Profile()),
     ];
     final index = _tab.clamp(0, tabs.length - 1);
@@ -121,10 +123,30 @@ class _Profile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
     final user = ref.watch(sessionProvider).user;
+    final people = ref.watch(myPeopleProvider);
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
         ListTile(title: Text(user?.fullName ?? ''), subtitle: Text(user?.email ?? '')),
+        const Divider(),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+          child: Text(l.myData, style: Theme.of(context).textTheme.titleSmall),
+        ),
+        ...switch (people) {
+          AsyncData(:final value) => [
+              for (final p in value)
+                ListTile(
+                  leading: const Icon(Icons.person_outline),
+                  title: Text('${p.firstName} ${p.lastName}'),
+                  subtitle: Text(p.teams.map((t) => t.teamName).join(', ')),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => context.push('/home/person/${p.id}'),
+                ),
+            ],
+          AsyncError(:final error) => [ListTile(title: Text(errorMessage(l, error)))],
+          _ => [const Padding(padding: EdgeInsets.all(16), child: LinearProgressIndicator())],
+        },
         const Divider(),
         ListTile(
           leading: const Icon(Icons.logout),

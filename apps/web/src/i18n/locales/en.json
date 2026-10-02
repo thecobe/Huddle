@@ -15,7 +15,9 @@
     "language": "Language",
     "copy": "Copy"
   },
-  "brand": { "tagline": "Your club, in one place." },
+  "brand": {
+    "tagline": "Your club, in one place."
+  },
   "auth": {
     "login": {
       "title": "Sign in",
@@ -44,14 +46,21 @@
       "code": "Code",
       "submit": "Verify"
     },
-    "magic": { "verifying": "Checking your link…", "failed": "This link is invalid or has expired." },
+    "magic": {
+      "verifying": "Checking your link…",
+      "failed": "This link is invalid or has expired."
+    },
     "forgot": {
       "title": "Recover password",
       "subtitle": "We'll email you a link to choose a new one.",
       "submit": "Send link",
       "sent": "If the address is registered, you'll shortly receive an email."
     },
-    "reset": { "title": "New password", "submit": "Set password", "done": "Password updated. You can now sign in." }
+    "reset": {
+      "title": "New password",
+      "submit": "Set password",
+      "done": "Password updated. You can now sign in."
+    }
   },
   "invitation": {
     "title": "You're invited",
@@ -73,7 +82,7 @@
   "nav": {
     "club": "Club",
     "seasons": "Seasons",
-    "members": "People",
+    "members": "Access and invitations",
     "audit": "Activity log",
     "security": "Security",
     "privacy": "Privacy",
@@ -81,7 +90,9 @@
     "switchClub": "Switch club",
     "logout": "Sign out",
     "account": "Account",
-    "menu": "Menu"
+    "menu": "Menu",
+    "people": "People",
+    "teams": "Teams"
   },
   "home": {
     "title": "Welcome, {name}",
@@ -106,7 +117,14 @@
     "contacts": "Contacts and address",
     "readOnly": "Only administrators can edit these details."
   },
-  "sports": { "FOOTBALL": "Football", "FUTSAL": "Futsal", "VOLLEYBALL": "Volleyball", "BASKETBALL": "Basketball", "RUGBY": "Rugby", "OTHER": "Other" },
+  "sports": {
+    "FOOTBALL": "Football",
+    "FUTSAL": "Futsal",
+    "VOLLEYBALL": "Volleyball",
+    "BASKETBALL": "Basketball",
+    "RUGBY": "Rugby",
+    "OTHER": "Other"
+  },
   "seasons": {
     "title": "Seasons",
     "subtitle": "Only one season can be open at a time.",
@@ -119,11 +137,15 @@
     "open": "Open",
     "close": "Close",
     "empty": "No seasons yet. Create the first one to get started.",
-    "statuses": { "PLANNED": "Planned", "OPEN": "Open", "CLOSED": "Closed" }
+    "statuses": {
+      "PLANNED": "Planned",
+      "OPEN": "Open",
+      "CLOSED": "Closed"
+    }
   },
   "members": {
-    "title": "People",
-    "subtitle": "Staff, athletes and families with access to the club.",
+    "title": "Access and invitations",
+    "subtitle": "Accounts with access to Huddle for this club.",
     "invite": "Invite",
     "inviteTitle": "Invite someone",
     "inviteHint": "They'll get an email with a sign-in link. The invitation expires after 7 days.",
@@ -160,7 +182,24 @@
       "member.invited": "Invitation sent",
       "member.invitation_revoked": "Invitation revoked",
       "member.invitation_accepted": "Invitation accepted",
-      "member.removed": "Person removed"
+      "member.removed": "Person removed",
+      "person.created": "Person created",
+      "person.updated": "Record updated",
+      "person.contacts_updated": "Contacts updated",
+      "person.archived": "Person archived",
+      "person.restored": "Person restored",
+      "person.guardian_added": "Guardian linked",
+      "person.guardian_removed": "Guardian unlinked",
+      "person.imported": "People import",
+      "team.created": "Team created",
+      "team.updated": "Team updated",
+      "team.archived": "Team archived",
+      "team.restored": "Team restored",
+      "team.season_copied": "Teams copied to new season",
+      "team.player_added": "Athlete added to roster",
+      "team.player_removed": "Athlete removed from roster",
+      "team.staff_added": "Staff added",
+      "team.staff_removed": "Staff removed"
     }
   },
   "security": {
@@ -187,7 +226,9 @@
     "changePassword": "Update password",
     "passwordChanged": "Password updated"
   },
-  "profile": { "title": "Profile" },
+  "profile": {
+    "title": "Profile"
+  },
   "privacy": {
     "title": "Privacy and personal data",
     "consents": "Consents",
@@ -222,6 +263,188 @@
     "LAST_ADMIN": "You can't remove the last administrator.",
     "TOO_MANY_REQUESTS": "Too many attempts. Try again in a minute.",
     "NETWORK": "Can't reach the server. Check your connection.",
-    "UNKNOWN": "Something went wrong. Please try again."
+    "UNKNOWN": "Something went wrong. Please try again.",
+    "TAX_CODE_TAKEN": "A person with this tax code already exists.",
+    "JERSEY_TAKEN": "Shirt number already used in this team.",
+    "ALREADY_EXISTS": "Already exists.",
+    "ATHLETE_TOO_YOUNG": "Athletes under 14 can't have an account.",
+    "PERSON_ALREADY_LINKED": "This record is already linked to an account."
+  },
+  "people": {
+    "title": "People",
+    "subtitle": "Athletes, staff, managers, volunteers and guardians of the club.",
+    "new": "New person",
+    "import": "Import",
+    "search": "Search by name, email or tax code",
+    "allCategories": "All categories",
+    "allTeams": "All teams",
+    "showArchived": "Show archived",
+    "empty": "No people found.",
+    "age": "Age",
+    "years": "{n} years",
+    "account": "Account",
+    "hasAccount": "Active",
+    "noAccount": "None",
+    "archived": "Archived",
+    "pageOf": "{from}–{to} of {total}",
+    "prev": "Previous",
+    "next": "Next",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "birthDate": "Date of birth",
+    "birthPlace": "Place of birth",
+    "taxCode": "Tax code",
+    "gender": "Sex",
+    "categories": "Categories",
+    "notes": "Private notes",
+    "personal": "Personal details",
+    "contacts": "Contacts",
+    "minor": "Minor",
+    "genders": {
+      "F": "Female",
+      "M": "Male"
+    },
+    "categoryLabels": {
+      "ATHLETE": "Athlete",
+      "STAFF": "Coaching staff",
+      "MANAGER": "Manager",
+      "VOLUNTEER": "Volunteer",
+      "GUARDIAN": "Guardian"
+    },
+    "relations": {
+      "MOTHER": "Mother",
+      "FATHER": "Father",
+      "GUARDIAN": "Guardian",
+      "OTHER": "Other"
+    },
+    "guardians": "Guardians",
+    "noGuardians": "No guardian linked.",
+    "addGuardian": "Add guardian",
+    "relation": "Relationship",
+    "wards": "Minors in their care",
+    "teams": "Teams",
+    "noTeams": "Not in any team.",
+    "player": "Athlete",
+    "archive": "Archive",
+    "restore": "Restore",
+    "created": "Person created",
+    "accountTitle": "Huddle account",
+    "accountActive": "This person signs in to Huddle with their own account.",
+    "accountInvite": "Invite to activate an account",
+    "accountInviteHint": "They'll get an email with a sign-in link. The account will be linked to this record.",
+    "accountRole": "Role",
+    "invited": "Invitation sent to {email}",
+    "athleteTooYoung": "Under 14 athletes don't have an account: their guardians follow them.",
+    "pickPerson": "Search for a person…",
+    "noResults": "No results"
+  },
+  "teams": {
+    "title": "Teams",
+    "subtitle": "Teams and rosters by season.",
+    "season": "Season",
+    "new": "New team",
+    "name": "Name",
+    "category": "Category",
+    "birthYears": "Birth years",
+    "from": "from",
+    "to": "to",
+    "color": "Colour",
+    "players": "Athletes",
+    "staff": "Staff",
+    "empty": "No teams in this season.",
+    "copy": "Copy from previous season",
+    "copyFrom": "Copy from",
+    "copyPlayers": "Copy athletes too",
+    "copyHint": "Copies teams and staff into the selected season; teams that already exist are skipped.",
+    "addPlayer": "Add athlete",
+    "addStaff": "Add to staff",
+    "jersey": "Shirt",
+    "position": "Position",
+    "role": "Role",
+    "noPlayers": "No athletes in the roster.",
+    "noStaff": "No staff yet.",
+    "guardians": "Guardians",
+    "settings": "Team details",
+    "archive": "Archive team",
+    "needSeason": "Create a season first.",
+    "staffRoles": {
+      "HEAD_COACH": "Head coach",
+      "ASSISTANT_COACH": "Assistant coach",
+      "FITNESS_COACH": "Fitness coach",
+      "GOALKEEPER_COACH": "Goalkeeper coach",
+      "TEAM_MANAGER": "Team manager"
+    },
+    "availability": {
+      "AVAILABLE": "Available",
+      "INJURED": "Injured",
+      "SUSPENDED": "Suspended",
+      "OTHER": "Unavailable"
+    },
+    "noAccountHint": "No account: can't use the app."
+  },
+  "import": {
+    "title": "Import people",
+    "subtitle": "From an Excel (.xlsx) or CSV file exported from your system or spreadsheet.",
+    "step1": "1. Choose the file",
+    "step2": "2. Match the columns",
+    "step3": "3. Review and import",
+    "file": "File",
+    "sheetRows": "{n} rows found",
+    "column": "File column",
+    "field": "Huddle field",
+    "ignore": "Ignore",
+    "mappingHint": "Recognised columns are already matched. Check and fix if needed.",
+    "check": "Check",
+    "rows": "Rows",
+    "toCreate": "To create",
+    "toUpdate": "To update",
+    "withErrors": "With errors",
+    "fixFile": "Fix the rows with errors in the file and upload it again: the import runs only if every row is valid.",
+    "commit": "Import {n} rows",
+    "done": "Import complete: {created} created, {updated} updated, {guardians} guardians linked, {teams} added to teams.",
+    "openSeasonHint": "The team column uses the teams of the open season.",
+    "row": "Row",
+    "status": "Result",
+    "statuses": {
+      "CREATE": "New",
+      "UPDATE": "Update",
+      "ERROR": "Error"
+    },
+    "fields": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "birthDate": "Date of birth",
+      "birthPlace": "Place of birth",
+      "taxCode": "Tax code",
+      "gender": "Sex",
+      "email": "Email",
+      "phone": "Phone",
+      "addressLine": "Address",
+      "city": "City",
+      "province": "Province",
+      "postalCode": "Postal code",
+      "teamName": "Team",
+      "jerseyNumber": "Shirt number",
+      "guardianFirstName": "Guardian first name",
+      "guardianLastName": "Guardian last name",
+      "guardianEmail": "Guardian email",
+      "guardianPhone": "Guardian phone"
+    },
+    "errors": {
+      "FIRST_NAME_REQUIRED": "Missing first name",
+      "LAST_NAME_REQUIRED": "Missing last name",
+      "BIRTH_DATE_INVALID": "Invalid date of birth",
+      "TAX_CODE_INVALID": "Invalid tax code",
+      "TAX_CODE_DUPLICATED_IN_FILE": "Tax code repeated in the file",
+      "GENDER_INVALID": "Invalid sex (F or M)",
+      "EMAIL_INVALID": "Invalid email",
+      "PROVINCE_INVALID": "Invalid province",
+      "POSTAL_CODE_INVALID": "Invalid postal code",
+      "NO_OPEN_SEASON": "No open season",
+      "TEAM_NOT_FOUND": "Team not found",
+      "GUARDIAN_NAME_REQUIRED": "Guardian first and last name required",
+      "GUARDIAN_EMAIL_INVALID": "Invalid guardian email"
+    },
+    "unreadable": "Can't read the file. Use an .xlsx or .csv file."
   }
 }

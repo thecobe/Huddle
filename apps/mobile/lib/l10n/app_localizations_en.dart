@@ -149,4 +149,125 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorUNKNOWN => 'Something went wrong. Please try again.';
+
+  @override
+  String get myData => 'My details and my children';
+
+  @override
+  String get myTeams => 'My teams';
+
+  @override
+  String get noTeamsYet => 'No team assigned yet.';
+
+  @override
+  String get contacts => 'Contacts';
+
+  @override
+  String get phone => 'Phone';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get city => 'City';
+
+  @override
+  String get province => 'Province';
+
+  @override
+  String get postalCode => 'Postal code';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get saved => 'Changes saved';
+
+  @override
+  String get teamsLabel => 'Teams';
+
+  @override
+  String get guardiansLabel => 'Guardians';
+
+  @override
+  String get athlete => 'Athlete';
+
+  @override
+  String yearsOld(int n) {
+    return '$n years old';
+  }
+
+  @override
+  String jerseyNumber(int n) {
+    return 'no. $n';
+  }
+
+  @override
+  String get players => 'Athletes';
+
+  @override
+  String get staff => 'Staff';
+
+  @override
+  String get call => 'Call';
+
+  @override
+  String get sendEmail => 'Email';
+
+  @override
+  String activateAccountTitle(String name) {
+    return '$name\'s account';
+  }
+
+  @override
+  String get activateAccountHint =>
+      'From age 14 you can activate an account for your child: they\'ll get an email with a sign-in link.';
+
+  @override
+  String get activateAccount => 'Activate account';
+
+  @override
+  String get accountActive => 'Already has a Huddle account.';
+
+  @override
+  String invitationSent(String email) {
+    return 'Invitation sent to $email';
+  }
+
+  @override
+  String get availabilityINJURED => 'Injured';
+
+  @override
+  String get availabilitySUSPENDED => 'Suspended';
+
+  @override
+  String get availabilityOTHER => 'Unavailable';
+
+  @override
+  String get staffHEAD_COACH => 'Head coach';
+
+  @override
+  String get staffASSISTANT_COACH => 'Assistant coach';
+
+  @override
+  String get staffFITNESS_COACH => 'Fitness coach';
+
+  @override
+  String get staffGOALKEEPER_COACH => 'Goalkeeper coach';
+
+  @override
+  String get staffTEAM_MANAGER => 'Team manager';
+
+  @override
+  String get errorATHLETE_TOO_YOUNG =>
+      'Athletes under 14 can\'t have an account.';
+
+  @override
+  String get errorPERSON_ALREADY_LINKED => 'Already has a linked account.';
+
+  @override
+  String get errorFORBIDDEN => 'You don\'t have permission for this action.';
+
+  @override
+  String get errorBAD_USER_INPUT => 'Please check the data you entered.';
 }

@@ -583,13 +583,145 @@ class _CopyWithStubImpl$Input$ClubInput<TRes>
   }) => _res;
 }
 
+class Input$CopyTeamsInput {
+  factory Input$CopyTeamsInput({
+    required String fromSeasonId,
+    required bool includePlayers,
+    required String toSeasonId,
+  }) => Input$CopyTeamsInput._({
+    r'fromSeasonId': fromSeasonId,
+    r'includePlayers': includePlayers,
+    r'toSeasonId': toSeasonId,
+  });
+
+  Input$CopyTeamsInput._(this._$data);
+
+  factory Input$CopyTeamsInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$fromSeasonId = data['fromSeasonId'];
+    result$data['fromSeasonId'] = (l$fromSeasonId as String);
+    final l$includePlayers = data['includePlayers'];
+    result$data['includePlayers'] = (l$includePlayers as bool);
+    final l$toSeasonId = data['toSeasonId'];
+    result$data['toSeasonId'] = (l$toSeasonId as String);
+    return Input$CopyTeamsInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get fromSeasonId => (_$data['fromSeasonId'] as String);
+
+  bool get includePlayers => (_$data['includePlayers'] as bool);
+
+  String get toSeasonId => (_$data['toSeasonId'] as String);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$fromSeasonId = fromSeasonId;
+    result$data['fromSeasonId'] = l$fromSeasonId;
+    final l$includePlayers = includePlayers;
+    result$data['includePlayers'] = l$includePlayers;
+    final l$toSeasonId = toSeasonId;
+    result$data['toSeasonId'] = l$toSeasonId;
+    return result$data;
+  }
+
+  CopyWith$Input$CopyTeamsInput<Input$CopyTeamsInput> get copyWith =>
+      CopyWith$Input$CopyTeamsInput(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$CopyTeamsInput || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$fromSeasonId = fromSeasonId;
+    final lOther$fromSeasonId = other.fromSeasonId;
+    if (l$fromSeasonId != lOther$fromSeasonId) {
+      return false;
+    }
+    final l$includePlayers = includePlayers;
+    final lOther$includePlayers = other.includePlayers;
+    if (l$includePlayers != lOther$includePlayers) {
+      return false;
+    }
+    final l$toSeasonId = toSeasonId;
+    final lOther$toSeasonId = other.toSeasonId;
+    if (l$toSeasonId != lOther$toSeasonId) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$fromSeasonId = fromSeasonId;
+    final l$includePlayers = includePlayers;
+    final l$toSeasonId = toSeasonId;
+    return Object.hashAll([l$fromSeasonId, l$includePlayers, l$toSeasonId]);
+  }
+}
+
+abstract class CopyWith$Input$CopyTeamsInput<TRes> {
+  factory CopyWith$Input$CopyTeamsInput(
+    Input$CopyTeamsInput instance,
+    TRes Function(Input$CopyTeamsInput) then,
+  ) = _CopyWithImpl$Input$CopyTeamsInput;
+
+  factory CopyWith$Input$CopyTeamsInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$CopyTeamsInput;
+
+  TRes call({String? fromSeasonId, bool? includePlayers, String? toSeasonId});
+}
+
+class _CopyWithImpl$Input$CopyTeamsInput<TRes>
+    implements CopyWith$Input$CopyTeamsInput<TRes> {
+  _CopyWithImpl$Input$CopyTeamsInput(this._instance, this._then);
+
+  final Input$CopyTeamsInput _instance;
+
+  final TRes Function(Input$CopyTeamsInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? fromSeasonId = _undefined,
+    Object? includePlayers = _undefined,
+    Object? toSeasonId = _undefined,
+  }) => _then(
+    Input$CopyTeamsInput._({
+      ..._instance._$data,
+      if (fromSeasonId != _undefined && fromSeasonId != null)
+        'fromSeasonId': (fromSeasonId as String),
+      if (includePlayers != _undefined && includePlayers != null)
+        'includePlayers': (includePlayers as bool),
+      if (toSeasonId != _undefined && toSeasonId != null)
+        'toSeasonId': (toSeasonId as String),
+    }),
+  );
+}
+
+class _CopyWithStubImpl$Input$CopyTeamsInput<TRes>
+    implements CopyWith$Input$CopyTeamsInput<TRes> {
+  _CopyWithStubImpl$Input$CopyTeamsInput(this._res);
+
+  TRes _res;
+
+  call({String? fromSeasonId, bool? includePlayers, String? toSeasonId}) =>
+      _res;
+}
+
 class Input$InviteMemberInput {
   factory Input$InviteMemberInput({
     required String email,
+    String? personId,
     required Enum$MembershipRole role,
     String? teamId,
   }) => Input$InviteMemberInput._({
     r'email': email,
+    if (personId != null) r'personId': personId,
     r'role': role,
     if (teamId != null) r'teamId': teamId,
   });
@@ -600,6 +732,10 @@ class Input$InviteMemberInput {
     final result$data = <String, dynamic>{};
     final l$email = data['email'];
     result$data['email'] = (l$email as String);
+    if (data.containsKey('personId')) {
+      final l$personId = data['personId'];
+      result$data['personId'] = (l$personId as String?);
+    }
     final l$role = data['role'];
     result$data['role'] = fromJson$Enum$MembershipRole((l$role as String));
     if (data.containsKey('teamId')) {
@@ -613,6 +749,8 @@ class Input$InviteMemberInput {
 
   String get email => (_$data['email'] as String);
 
+  String? get personId => (_$data['personId'] as String?);
+
   Enum$MembershipRole get role => (_$data['role'] as Enum$MembershipRole);
 
   String? get teamId => (_$data['teamId'] as String?);
@@ -621,6 +759,10 @@ class Input$InviteMemberInput {
     final result$data = <String, dynamic>{};
     final l$email = email;
     result$data['email'] = l$email;
+    if (_$data.containsKey('personId')) {
+      final l$personId = personId;
+      result$data['personId'] = l$personId;
+    }
     final l$role = role;
     result$data['role'] = toJson$Enum$MembershipRole(l$role);
     if (_$data.containsKey('teamId')) {
@@ -646,6 +788,15 @@ class Input$InviteMemberInput {
     if (l$email != lOther$email) {
       return false;
     }
+    final l$personId = personId;
+    final lOther$personId = other.personId;
+    if (_$data.containsKey('personId') !=
+        other._$data.containsKey('personId')) {
+      return false;
+    }
+    if (l$personId != lOther$personId) {
+      return false;
+    }
     final l$role = role;
     final lOther$role = other.role;
     if (l$role != lOther$role) {
@@ -665,10 +816,12 @@ class Input$InviteMemberInput {
   @override
   int get hashCode {
     final l$email = email;
+    final l$personId = personId;
     final l$role = role;
     final l$teamId = teamId;
     return Object.hashAll([
       l$email,
+      _$data.containsKey('personId') ? l$personId : const {},
       l$role,
       _$data.containsKey('teamId') ? l$teamId : const {},
     ]);
@@ -684,7 +837,12 @@ abstract class CopyWith$Input$InviteMemberInput<TRes> {
   factory CopyWith$Input$InviteMemberInput.stub(TRes res) =
       _CopyWithStubImpl$Input$InviteMemberInput;
 
-  TRes call({String? email, Enum$MembershipRole? role, String? teamId});
+  TRes call({
+    String? email,
+    String? personId,
+    Enum$MembershipRole? role,
+    String? teamId,
+  });
 }
 
 class _CopyWithImpl$Input$InviteMemberInput<TRes>
@@ -699,12 +857,14 @@ class _CopyWithImpl$Input$InviteMemberInput<TRes>
 
   TRes call({
     Object? email = _undefined,
+    Object? personId = _undefined,
     Object? role = _undefined,
     Object? teamId = _undefined,
   }) => _then(
     Input$InviteMemberInput._({
       ..._instance._$data,
       if (email != _undefined && email != null) 'email': (email as String),
+      if (personId != _undefined) 'personId': (personId as String?),
       if (role != _undefined && role != null)
         'role': (role as Enum$MembershipRole),
       if (teamId != _undefined) 'teamId': (teamId as String?),
@@ -718,7 +878,12 @@ class _CopyWithStubImpl$Input$InviteMemberInput<TRes>
 
   TRes _res;
 
-  call({String? email, Enum$MembershipRole? role, String? teamId}) => _res;
+  call({
+    String? email,
+    String? personId,
+    Enum$MembershipRole? role,
+    String? teamId,
+  }) => _res;
 }
 
 class Input$LoginInput {
@@ -823,6 +988,1598 @@ class _CopyWithStubImpl$Input$LoginInput<TRes>
   TRes _res;
 
   call({String? email, String? password}) => _res;
+}
+
+class Input$PeopleFilter {
+  factory Input$PeopleFilter({
+    Enum$PersonCategory? category,
+    bool? includeArchived,
+    String? search,
+    String? teamId,
+  }) => Input$PeopleFilter._({
+    if (category != null) r'category': category,
+    if (includeArchived != null) r'includeArchived': includeArchived,
+    if (search != null) r'search': search,
+    if (teamId != null) r'teamId': teamId,
+  });
+
+  Input$PeopleFilter._(this._$data);
+
+  factory Input$PeopleFilter.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('category')) {
+      final l$category = data['category'];
+      result$data['category'] = l$category == null
+          ? null
+          : fromJson$Enum$PersonCategory((l$category as String));
+    }
+    if (data.containsKey('includeArchived')) {
+      final l$includeArchived = data['includeArchived'];
+      result$data['includeArchived'] = (l$includeArchived as bool?);
+    }
+    if (data.containsKey('search')) {
+      final l$search = data['search'];
+      result$data['search'] = (l$search as String?);
+    }
+    if (data.containsKey('teamId')) {
+      final l$teamId = data['teamId'];
+      result$data['teamId'] = (l$teamId as String?);
+    }
+    return Input$PeopleFilter._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  Enum$PersonCategory? get category =>
+      (_$data['category'] as Enum$PersonCategory?);
+
+  bool? get includeArchived => (_$data['includeArchived'] as bool?);
+
+  String? get search => (_$data['search'] as String?);
+
+  String? get teamId => (_$data['teamId'] as String?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('category')) {
+      final l$category = category;
+      result$data['category'] = l$category == null
+          ? null
+          : toJson$Enum$PersonCategory(l$category);
+    }
+    if (_$data.containsKey('includeArchived')) {
+      final l$includeArchived = includeArchived;
+      result$data['includeArchived'] = l$includeArchived;
+    }
+    if (_$data.containsKey('search')) {
+      final l$search = search;
+      result$data['search'] = l$search;
+    }
+    if (_$data.containsKey('teamId')) {
+      final l$teamId = teamId;
+      result$data['teamId'] = l$teamId;
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$PeopleFilter<Input$PeopleFilter> get copyWith =>
+      CopyWith$Input$PeopleFilter(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$PeopleFilter || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$category = category;
+    final lOther$category = other.category;
+    if (_$data.containsKey('category') !=
+        other._$data.containsKey('category')) {
+      return false;
+    }
+    if (l$category != lOther$category) {
+      return false;
+    }
+    final l$includeArchived = includeArchived;
+    final lOther$includeArchived = other.includeArchived;
+    if (_$data.containsKey('includeArchived') !=
+        other._$data.containsKey('includeArchived')) {
+      return false;
+    }
+    if (l$includeArchived != lOther$includeArchived) {
+      return false;
+    }
+    final l$search = search;
+    final lOther$search = other.search;
+    if (_$data.containsKey('search') != other._$data.containsKey('search')) {
+      return false;
+    }
+    if (l$search != lOther$search) {
+      return false;
+    }
+    final l$teamId = teamId;
+    final lOther$teamId = other.teamId;
+    if (_$data.containsKey('teamId') != other._$data.containsKey('teamId')) {
+      return false;
+    }
+    if (l$teamId != lOther$teamId) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$category = category;
+    final l$includeArchived = includeArchived;
+    final l$search = search;
+    final l$teamId = teamId;
+    return Object.hashAll([
+      _$data.containsKey('category') ? l$category : const {},
+      _$data.containsKey('includeArchived') ? l$includeArchived : const {},
+      _$data.containsKey('search') ? l$search : const {},
+      _$data.containsKey('teamId') ? l$teamId : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$PeopleFilter<TRes> {
+  factory CopyWith$Input$PeopleFilter(
+    Input$PeopleFilter instance,
+    TRes Function(Input$PeopleFilter) then,
+  ) = _CopyWithImpl$Input$PeopleFilter;
+
+  factory CopyWith$Input$PeopleFilter.stub(TRes res) =
+      _CopyWithStubImpl$Input$PeopleFilter;
+
+  TRes call({
+    Enum$PersonCategory? category,
+    bool? includeArchived,
+    String? search,
+    String? teamId,
+  });
+}
+
+class _CopyWithImpl$Input$PeopleFilter<TRes>
+    implements CopyWith$Input$PeopleFilter<TRes> {
+  _CopyWithImpl$Input$PeopleFilter(this._instance, this._then);
+
+  final Input$PeopleFilter _instance;
+
+  final TRes Function(Input$PeopleFilter) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? category = _undefined,
+    Object? includeArchived = _undefined,
+    Object? search = _undefined,
+    Object? teamId = _undefined,
+  }) => _then(
+    Input$PeopleFilter._({
+      ..._instance._$data,
+      if (category != _undefined)
+        'category': (category as Enum$PersonCategory?),
+      if (includeArchived != _undefined)
+        'includeArchived': (includeArchived as bool?),
+      if (search != _undefined) 'search': (search as String?),
+      if (teamId != _undefined) 'teamId': (teamId as String?),
+    }),
+  );
+}
+
+class _CopyWithStubImpl$Input$PeopleFilter<TRes>
+    implements CopyWith$Input$PeopleFilter<TRes> {
+  _CopyWithStubImpl$Input$PeopleFilter(this._res);
+
+  TRes _res;
+
+  call({
+    Enum$PersonCategory? category,
+    bool? includeArchived,
+    String? search,
+    String? teamId,
+  }) => _res;
+}
+
+class Input$PersonContactsInput {
+  factory Input$PersonContactsInput({
+    String? addressLine,
+    String? city,
+    String? email,
+    String? phone,
+    String? postalCode,
+    String? province,
+  }) => Input$PersonContactsInput._({
+    if (addressLine != null) r'addressLine': addressLine,
+    if (city != null) r'city': city,
+    if (email != null) r'email': email,
+    if (phone != null) r'phone': phone,
+    if (postalCode != null) r'postalCode': postalCode,
+    if (province != null) r'province': province,
+  });
+
+  Input$PersonContactsInput._(this._$data);
+
+  factory Input$PersonContactsInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('addressLine')) {
+      final l$addressLine = data['addressLine'];
+      result$data['addressLine'] = (l$addressLine as String?);
+    }
+    if (data.containsKey('city')) {
+      final l$city = data['city'];
+      result$data['city'] = (l$city as String?);
+    }
+    if (data.containsKey('email')) {
+      final l$email = data['email'];
+      result$data['email'] = (l$email as String?);
+    }
+    if (data.containsKey('phone')) {
+      final l$phone = data['phone'];
+      result$data['phone'] = (l$phone as String?);
+    }
+    if (data.containsKey('postalCode')) {
+      final l$postalCode = data['postalCode'];
+      result$data['postalCode'] = (l$postalCode as String?);
+    }
+    if (data.containsKey('province')) {
+      final l$province = data['province'];
+      result$data['province'] = (l$province as String?);
+    }
+    return Input$PersonContactsInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String? get addressLine => (_$data['addressLine'] as String?);
+
+  String? get city => (_$data['city'] as String?);
+
+  String? get email => (_$data['email'] as String?);
+
+  String? get phone => (_$data['phone'] as String?);
+
+  String? get postalCode => (_$data['postalCode'] as String?);
+
+  String? get province => (_$data['province'] as String?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('addressLine')) {
+      final l$addressLine = addressLine;
+      result$data['addressLine'] = l$addressLine;
+    }
+    if (_$data.containsKey('city')) {
+      final l$city = city;
+      result$data['city'] = l$city;
+    }
+    if (_$data.containsKey('email')) {
+      final l$email = email;
+      result$data['email'] = l$email;
+    }
+    if (_$data.containsKey('phone')) {
+      final l$phone = phone;
+      result$data['phone'] = l$phone;
+    }
+    if (_$data.containsKey('postalCode')) {
+      final l$postalCode = postalCode;
+      result$data['postalCode'] = l$postalCode;
+    }
+    if (_$data.containsKey('province')) {
+      final l$province = province;
+      result$data['province'] = l$province;
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$PersonContactsInput<Input$PersonContactsInput> get copyWith =>
+      CopyWith$Input$PersonContactsInput(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$PersonContactsInput ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$addressLine = addressLine;
+    final lOther$addressLine = other.addressLine;
+    if (_$data.containsKey('addressLine') !=
+        other._$data.containsKey('addressLine')) {
+      return false;
+    }
+    if (l$addressLine != lOther$addressLine) {
+      return false;
+    }
+    final l$city = city;
+    final lOther$city = other.city;
+    if (_$data.containsKey('city') != other._$data.containsKey('city')) {
+      return false;
+    }
+    if (l$city != lOther$city) {
+      return false;
+    }
+    final l$email = email;
+    final lOther$email = other.email;
+    if (_$data.containsKey('email') != other._$data.containsKey('email')) {
+      return false;
+    }
+    if (l$email != lOther$email) {
+      return false;
+    }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
+      return false;
+    }
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    final l$postalCode = postalCode;
+    final lOther$postalCode = other.postalCode;
+    if (_$data.containsKey('postalCode') !=
+        other._$data.containsKey('postalCode')) {
+      return false;
+    }
+    if (l$postalCode != lOther$postalCode) {
+      return false;
+    }
+    final l$province = province;
+    final lOther$province = other.province;
+    if (_$data.containsKey('province') !=
+        other._$data.containsKey('province')) {
+      return false;
+    }
+    if (l$province != lOther$province) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$addressLine = addressLine;
+    final l$city = city;
+    final l$email = email;
+    final l$phone = phone;
+    final l$postalCode = postalCode;
+    final l$province = province;
+    return Object.hashAll([
+      _$data.containsKey('addressLine') ? l$addressLine : const {},
+      _$data.containsKey('city') ? l$city : const {},
+      _$data.containsKey('email') ? l$email : const {},
+      _$data.containsKey('phone') ? l$phone : const {},
+      _$data.containsKey('postalCode') ? l$postalCode : const {},
+      _$data.containsKey('province') ? l$province : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$PersonContactsInput<TRes> {
+  factory CopyWith$Input$PersonContactsInput(
+    Input$PersonContactsInput instance,
+    TRes Function(Input$PersonContactsInput) then,
+  ) = _CopyWithImpl$Input$PersonContactsInput;
+
+  factory CopyWith$Input$PersonContactsInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$PersonContactsInput;
+
+  TRes call({
+    String? addressLine,
+    String? city,
+    String? email,
+    String? phone,
+    String? postalCode,
+    String? province,
+  });
+}
+
+class _CopyWithImpl$Input$PersonContactsInput<TRes>
+    implements CopyWith$Input$PersonContactsInput<TRes> {
+  _CopyWithImpl$Input$PersonContactsInput(this._instance, this._then);
+
+  final Input$PersonContactsInput _instance;
+
+  final TRes Function(Input$PersonContactsInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? addressLine = _undefined,
+    Object? city = _undefined,
+    Object? email = _undefined,
+    Object? phone = _undefined,
+    Object? postalCode = _undefined,
+    Object? province = _undefined,
+  }) => _then(
+    Input$PersonContactsInput._({
+      ..._instance._$data,
+      if (addressLine != _undefined) 'addressLine': (addressLine as String?),
+      if (city != _undefined) 'city': (city as String?),
+      if (email != _undefined) 'email': (email as String?),
+      if (phone != _undefined) 'phone': (phone as String?),
+      if (postalCode != _undefined) 'postalCode': (postalCode as String?),
+      if (province != _undefined) 'province': (province as String?),
+    }),
+  );
+}
+
+class _CopyWithStubImpl$Input$PersonContactsInput<TRes>
+    implements CopyWith$Input$PersonContactsInput<TRes> {
+  _CopyWithStubImpl$Input$PersonContactsInput(this._res);
+
+  TRes _res;
+
+  call({
+    String? addressLine,
+    String? city,
+    String? email,
+    String? phone,
+    String? postalCode,
+    String? province,
+  }) => _res;
+}
+
+class Input$PersonImportRow {
+  factory Input$PersonImportRow({
+    String? addressLine,
+    String? birthDate,
+    String? birthPlace,
+    String? city,
+    String? email,
+    String? firstName,
+    String? gender,
+    String? guardianEmail,
+    String? guardianFirstName,
+    String? guardianLastName,
+    String? guardianPhone,
+    int? jerseyNumber,
+    String? lastName,
+    String? phone,
+    String? postalCode,
+    String? province,
+    String? taxCode,
+    String? teamName,
+  }) => Input$PersonImportRow._({
+    if (addressLine != null) r'addressLine': addressLine,
+    if (birthDate != null) r'birthDate': birthDate,
+    if (birthPlace != null) r'birthPlace': birthPlace,
+    if (city != null) r'city': city,
+    if (email != null) r'email': email,
+    if (firstName != null) r'firstName': firstName,
+    if (gender != null) r'gender': gender,
+    if (guardianEmail != null) r'guardianEmail': guardianEmail,
+    if (guardianFirstName != null) r'guardianFirstName': guardianFirstName,
+    if (guardianLastName != null) r'guardianLastName': guardianLastName,
+    if (guardianPhone != null) r'guardianPhone': guardianPhone,
+    if (jerseyNumber != null) r'jerseyNumber': jerseyNumber,
+    if (lastName != null) r'lastName': lastName,
+    if (phone != null) r'phone': phone,
+    if (postalCode != null) r'postalCode': postalCode,
+    if (province != null) r'province': province,
+    if (taxCode != null) r'taxCode': taxCode,
+    if (teamName != null) r'teamName': teamName,
+  });
+
+  Input$PersonImportRow._(this._$data);
+
+  factory Input$PersonImportRow.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('addressLine')) {
+      final l$addressLine = data['addressLine'];
+      result$data['addressLine'] = (l$addressLine as String?);
+    }
+    if (data.containsKey('birthDate')) {
+      final l$birthDate = data['birthDate'];
+      result$data['birthDate'] = (l$birthDate as String?);
+    }
+    if (data.containsKey('birthPlace')) {
+      final l$birthPlace = data['birthPlace'];
+      result$data['birthPlace'] = (l$birthPlace as String?);
+    }
+    if (data.containsKey('city')) {
+      final l$city = data['city'];
+      result$data['city'] = (l$city as String?);
+    }
+    if (data.containsKey('email')) {
+      final l$email = data['email'];
+      result$data['email'] = (l$email as String?);
+    }
+    if (data.containsKey('firstName')) {
+      final l$firstName = data['firstName'];
+      result$data['firstName'] = (l$firstName as String?);
+    }
+    if (data.containsKey('gender')) {
+      final l$gender = data['gender'];
+      result$data['gender'] = (l$gender as String?);
+    }
+    if (data.containsKey('guardianEmail')) {
+      final l$guardianEmail = data['guardianEmail'];
+      result$data['guardianEmail'] = (l$guardianEmail as String?);
+    }
+    if (data.containsKey('guardianFirstName')) {
+      final l$guardianFirstName = data['guardianFirstName'];
+      result$data['guardianFirstName'] = (l$guardianFirstName as String?);
+    }
+    if (data.containsKey('guardianLastName')) {
+      final l$guardianLastName = data['guardianLastName'];
+      result$data['guardianLastName'] = (l$guardianLastName as String?);
+    }
+    if (data.containsKey('guardianPhone')) {
+      final l$guardianPhone = data['guardianPhone'];
+      result$data['guardianPhone'] = (l$guardianPhone as String?);
+    }
+    if (data.containsKey('jerseyNumber')) {
+      final l$jerseyNumber = data['jerseyNumber'];
+      result$data['jerseyNumber'] = (l$jerseyNumber as int?);
+    }
+    if (data.containsKey('lastName')) {
+      final l$lastName = data['lastName'];
+      result$data['lastName'] = (l$lastName as String?);
+    }
+    if (data.containsKey('phone')) {
+      final l$phone = data['phone'];
+      result$data['phone'] = (l$phone as String?);
+    }
+    if (data.containsKey('postalCode')) {
+      final l$postalCode = data['postalCode'];
+      result$data['postalCode'] = (l$postalCode as String?);
+    }
+    if (data.containsKey('province')) {
+      final l$province = data['province'];
+      result$data['province'] = (l$province as String?);
+    }
+    if (data.containsKey('taxCode')) {
+      final l$taxCode = data['taxCode'];
+      result$data['taxCode'] = (l$taxCode as String?);
+    }
+    if (data.containsKey('teamName')) {
+      final l$teamName = data['teamName'];
+      result$data['teamName'] = (l$teamName as String?);
+    }
+    return Input$PersonImportRow._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String? get addressLine => (_$data['addressLine'] as String?);
+
+  String? get birthDate => (_$data['birthDate'] as String?);
+
+  String? get birthPlace => (_$data['birthPlace'] as String?);
+
+  String? get city => (_$data['city'] as String?);
+
+  String? get email => (_$data['email'] as String?);
+
+  String? get firstName => (_$data['firstName'] as String?);
+
+  String? get gender => (_$data['gender'] as String?);
+
+  String? get guardianEmail => (_$data['guardianEmail'] as String?);
+
+  String? get guardianFirstName => (_$data['guardianFirstName'] as String?);
+
+  String? get guardianLastName => (_$data['guardianLastName'] as String?);
+
+  String? get guardianPhone => (_$data['guardianPhone'] as String?);
+
+  int? get jerseyNumber => (_$data['jerseyNumber'] as int?);
+
+  String? get lastName => (_$data['lastName'] as String?);
+
+  String? get phone => (_$data['phone'] as String?);
+
+  String? get postalCode => (_$data['postalCode'] as String?);
+
+  String? get province => (_$data['province'] as String?);
+
+  String? get taxCode => (_$data['taxCode'] as String?);
+
+  String? get teamName => (_$data['teamName'] as String?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('addressLine')) {
+      final l$addressLine = addressLine;
+      result$data['addressLine'] = l$addressLine;
+    }
+    if (_$data.containsKey('birthDate')) {
+      final l$birthDate = birthDate;
+      result$data['birthDate'] = l$birthDate;
+    }
+    if (_$data.containsKey('birthPlace')) {
+      final l$birthPlace = birthPlace;
+      result$data['birthPlace'] = l$birthPlace;
+    }
+    if (_$data.containsKey('city')) {
+      final l$city = city;
+      result$data['city'] = l$city;
+    }
+    if (_$data.containsKey('email')) {
+      final l$email = email;
+      result$data['email'] = l$email;
+    }
+    if (_$data.containsKey('firstName')) {
+      final l$firstName = firstName;
+      result$data['firstName'] = l$firstName;
+    }
+    if (_$data.containsKey('gender')) {
+      final l$gender = gender;
+      result$data['gender'] = l$gender;
+    }
+    if (_$data.containsKey('guardianEmail')) {
+      final l$guardianEmail = guardianEmail;
+      result$data['guardianEmail'] = l$guardianEmail;
+    }
+    if (_$data.containsKey('guardianFirstName')) {
+      final l$guardianFirstName = guardianFirstName;
+      result$data['guardianFirstName'] = l$guardianFirstName;
+    }
+    if (_$data.containsKey('guardianLastName')) {
+      final l$guardianLastName = guardianLastName;
+      result$data['guardianLastName'] = l$guardianLastName;
+    }
+    if (_$data.containsKey('guardianPhone')) {
+      final l$guardianPhone = guardianPhone;
+      result$data['guardianPhone'] = l$guardianPhone;
+    }
+    if (_$data.containsKey('jerseyNumber')) {
+      final l$jerseyNumber = jerseyNumber;
+      result$data['jerseyNumber'] = l$jerseyNumber;
+    }
+    if (_$data.containsKey('lastName')) {
+      final l$lastName = lastName;
+      result$data['lastName'] = l$lastName;
+    }
+    if (_$data.containsKey('phone')) {
+      final l$phone = phone;
+      result$data['phone'] = l$phone;
+    }
+    if (_$data.containsKey('postalCode')) {
+      final l$postalCode = postalCode;
+      result$data['postalCode'] = l$postalCode;
+    }
+    if (_$data.containsKey('province')) {
+      final l$province = province;
+      result$data['province'] = l$province;
+    }
+    if (_$data.containsKey('taxCode')) {
+      final l$taxCode = taxCode;
+      result$data['taxCode'] = l$taxCode;
+    }
+    if (_$data.containsKey('teamName')) {
+      final l$teamName = teamName;
+      result$data['teamName'] = l$teamName;
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$PersonImportRow<Input$PersonImportRow> get copyWith =>
+      CopyWith$Input$PersonImportRow(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$PersonImportRow || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$addressLine = addressLine;
+    final lOther$addressLine = other.addressLine;
+    if (_$data.containsKey('addressLine') !=
+        other._$data.containsKey('addressLine')) {
+      return false;
+    }
+    if (l$addressLine != lOther$addressLine) {
+      return false;
+    }
+    final l$birthDate = birthDate;
+    final lOther$birthDate = other.birthDate;
+    if (_$data.containsKey('birthDate') !=
+        other._$data.containsKey('birthDate')) {
+      return false;
+    }
+    if (l$birthDate != lOther$birthDate) {
+      return false;
+    }
+    final l$birthPlace = birthPlace;
+    final lOther$birthPlace = other.birthPlace;
+    if (_$data.containsKey('birthPlace') !=
+        other._$data.containsKey('birthPlace')) {
+      return false;
+    }
+    if (l$birthPlace != lOther$birthPlace) {
+      return false;
+    }
+    final l$city = city;
+    final lOther$city = other.city;
+    if (_$data.containsKey('city') != other._$data.containsKey('city')) {
+      return false;
+    }
+    if (l$city != lOther$city) {
+      return false;
+    }
+    final l$email = email;
+    final lOther$email = other.email;
+    if (_$data.containsKey('email') != other._$data.containsKey('email')) {
+      return false;
+    }
+    if (l$email != lOther$email) {
+      return false;
+    }
+    final l$firstName = firstName;
+    final lOther$firstName = other.firstName;
+    if (_$data.containsKey('firstName') !=
+        other._$data.containsKey('firstName')) {
+      return false;
+    }
+    if (l$firstName != lOther$firstName) {
+      return false;
+    }
+    final l$gender = gender;
+    final lOther$gender = other.gender;
+    if (_$data.containsKey('gender') != other._$data.containsKey('gender')) {
+      return false;
+    }
+    if (l$gender != lOther$gender) {
+      return false;
+    }
+    final l$guardianEmail = guardianEmail;
+    final lOther$guardianEmail = other.guardianEmail;
+    if (_$data.containsKey('guardianEmail') !=
+        other._$data.containsKey('guardianEmail')) {
+      return false;
+    }
+    if (l$guardianEmail != lOther$guardianEmail) {
+      return false;
+    }
+    final l$guardianFirstName = guardianFirstName;
+    final lOther$guardianFirstName = other.guardianFirstName;
+    if (_$data.containsKey('guardianFirstName') !=
+        other._$data.containsKey('guardianFirstName')) {
+      return false;
+    }
+    if (l$guardianFirstName != lOther$guardianFirstName) {
+      return false;
+    }
+    final l$guardianLastName = guardianLastName;
+    final lOther$guardianLastName = other.guardianLastName;
+    if (_$data.containsKey('guardianLastName') !=
+        other._$data.containsKey('guardianLastName')) {
+      return false;
+    }
+    if (l$guardianLastName != lOther$guardianLastName) {
+      return false;
+    }
+    final l$guardianPhone = guardianPhone;
+    final lOther$guardianPhone = other.guardianPhone;
+    if (_$data.containsKey('guardianPhone') !=
+        other._$data.containsKey('guardianPhone')) {
+      return false;
+    }
+    if (l$guardianPhone != lOther$guardianPhone) {
+      return false;
+    }
+    final l$jerseyNumber = jerseyNumber;
+    final lOther$jerseyNumber = other.jerseyNumber;
+    if (_$data.containsKey('jerseyNumber') !=
+        other._$data.containsKey('jerseyNumber')) {
+      return false;
+    }
+    if (l$jerseyNumber != lOther$jerseyNumber) {
+      return false;
+    }
+    final l$lastName = lastName;
+    final lOther$lastName = other.lastName;
+    if (_$data.containsKey('lastName') !=
+        other._$data.containsKey('lastName')) {
+      return false;
+    }
+    if (l$lastName != lOther$lastName) {
+      return false;
+    }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
+      return false;
+    }
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    final l$postalCode = postalCode;
+    final lOther$postalCode = other.postalCode;
+    if (_$data.containsKey('postalCode') !=
+        other._$data.containsKey('postalCode')) {
+      return false;
+    }
+    if (l$postalCode != lOther$postalCode) {
+      return false;
+    }
+    final l$province = province;
+    final lOther$province = other.province;
+    if (_$data.containsKey('province') !=
+        other._$data.containsKey('province')) {
+      return false;
+    }
+    if (l$province != lOther$province) {
+      return false;
+    }
+    final l$taxCode = taxCode;
+    final lOther$taxCode = other.taxCode;
+    if (_$data.containsKey('taxCode') != other._$data.containsKey('taxCode')) {
+      return false;
+    }
+    if (l$taxCode != lOther$taxCode) {
+      return false;
+    }
+    final l$teamName = teamName;
+    final lOther$teamName = other.teamName;
+    if (_$data.containsKey('teamName') !=
+        other._$data.containsKey('teamName')) {
+      return false;
+    }
+    if (l$teamName != lOther$teamName) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$addressLine = addressLine;
+    final l$birthDate = birthDate;
+    final l$birthPlace = birthPlace;
+    final l$city = city;
+    final l$email = email;
+    final l$firstName = firstName;
+    final l$gender = gender;
+    final l$guardianEmail = guardianEmail;
+    final l$guardianFirstName = guardianFirstName;
+    final l$guardianLastName = guardianLastName;
+    final l$guardianPhone = guardianPhone;
+    final l$jerseyNumber = jerseyNumber;
+    final l$lastName = lastName;
+    final l$phone = phone;
+    final l$postalCode = postalCode;
+    final l$province = province;
+    final l$taxCode = taxCode;
+    final l$teamName = teamName;
+    return Object.hashAll([
+      _$data.containsKey('addressLine') ? l$addressLine : const {},
+      _$data.containsKey('birthDate') ? l$birthDate : const {},
+      _$data.containsKey('birthPlace') ? l$birthPlace : const {},
+      _$data.containsKey('city') ? l$city : const {},
+      _$data.containsKey('email') ? l$email : const {},
+      _$data.containsKey('firstName') ? l$firstName : const {},
+      _$data.containsKey('gender') ? l$gender : const {},
+      _$data.containsKey('guardianEmail') ? l$guardianEmail : const {},
+      _$data.containsKey('guardianFirstName') ? l$guardianFirstName : const {},
+      _$data.containsKey('guardianLastName') ? l$guardianLastName : const {},
+      _$data.containsKey('guardianPhone') ? l$guardianPhone : const {},
+      _$data.containsKey('jerseyNumber') ? l$jerseyNumber : const {},
+      _$data.containsKey('lastName') ? l$lastName : const {},
+      _$data.containsKey('phone') ? l$phone : const {},
+      _$data.containsKey('postalCode') ? l$postalCode : const {},
+      _$data.containsKey('province') ? l$province : const {},
+      _$data.containsKey('taxCode') ? l$taxCode : const {},
+      _$data.containsKey('teamName') ? l$teamName : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$PersonImportRow<TRes> {
+  factory CopyWith$Input$PersonImportRow(
+    Input$PersonImportRow instance,
+    TRes Function(Input$PersonImportRow) then,
+  ) = _CopyWithImpl$Input$PersonImportRow;
+
+  factory CopyWith$Input$PersonImportRow.stub(TRes res) =
+      _CopyWithStubImpl$Input$PersonImportRow;
+
+  TRes call({
+    String? addressLine,
+    String? birthDate,
+    String? birthPlace,
+    String? city,
+    String? email,
+    String? firstName,
+    String? gender,
+    String? guardianEmail,
+    String? guardianFirstName,
+    String? guardianLastName,
+    String? guardianPhone,
+    int? jerseyNumber,
+    String? lastName,
+    String? phone,
+    String? postalCode,
+    String? province,
+    String? taxCode,
+    String? teamName,
+  });
+}
+
+class _CopyWithImpl$Input$PersonImportRow<TRes>
+    implements CopyWith$Input$PersonImportRow<TRes> {
+  _CopyWithImpl$Input$PersonImportRow(this._instance, this._then);
+
+  final Input$PersonImportRow _instance;
+
+  final TRes Function(Input$PersonImportRow) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? addressLine = _undefined,
+    Object? birthDate = _undefined,
+    Object? birthPlace = _undefined,
+    Object? city = _undefined,
+    Object? email = _undefined,
+    Object? firstName = _undefined,
+    Object? gender = _undefined,
+    Object? guardianEmail = _undefined,
+    Object? guardianFirstName = _undefined,
+    Object? guardianLastName = _undefined,
+    Object? guardianPhone = _undefined,
+    Object? jerseyNumber = _undefined,
+    Object? lastName = _undefined,
+    Object? phone = _undefined,
+    Object? postalCode = _undefined,
+    Object? province = _undefined,
+    Object? taxCode = _undefined,
+    Object? teamName = _undefined,
+  }) => _then(
+    Input$PersonImportRow._({
+      ..._instance._$data,
+      if (addressLine != _undefined) 'addressLine': (addressLine as String?),
+      if (birthDate != _undefined) 'birthDate': (birthDate as String?),
+      if (birthPlace != _undefined) 'birthPlace': (birthPlace as String?),
+      if (city != _undefined) 'city': (city as String?),
+      if (email != _undefined) 'email': (email as String?),
+      if (firstName != _undefined) 'firstName': (firstName as String?),
+      if (gender != _undefined) 'gender': (gender as String?),
+      if (guardianEmail != _undefined)
+        'guardianEmail': (guardianEmail as String?),
+      if (guardianFirstName != _undefined)
+        'guardianFirstName': (guardianFirstName as String?),
+      if (guardianLastName != _undefined)
+        'guardianLastName': (guardianLastName as String?),
+      if (guardianPhone != _undefined)
+        'guardianPhone': (guardianPhone as String?),
+      if (jerseyNumber != _undefined) 'jerseyNumber': (jerseyNumber as int?),
+      if (lastName != _undefined) 'lastName': (lastName as String?),
+      if (phone != _undefined) 'phone': (phone as String?),
+      if (postalCode != _undefined) 'postalCode': (postalCode as String?),
+      if (province != _undefined) 'province': (province as String?),
+      if (taxCode != _undefined) 'taxCode': (taxCode as String?),
+      if (teamName != _undefined) 'teamName': (teamName as String?),
+    }),
+  );
+}
+
+class _CopyWithStubImpl$Input$PersonImportRow<TRes>
+    implements CopyWith$Input$PersonImportRow<TRes> {
+  _CopyWithStubImpl$Input$PersonImportRow(this._res);
+
+  TRes _res;
+
+  call({
+    String? addressLine,
+    String? birthDate,
+    String? birthPlace,
+    String? city,
+    String? email,
+    String? firstName,
+    String? gender,
+    String? guardianEmail,
+    String? guardianFirstName,
+    String? guardianLastName,
+    String? guardianPhone,
+    int? jerseyNumber,
+    String? lastName,
+    String? phone,
+    String? postalCode,
+    String? province,
+    String? taxCode,
+    String? teamName,
+  }) => _res;
+}
+
+class Input$PersonInput {
+  factory Input$PersonInput({
+    String? addressLine,
+    String? birthDate,
+    String? birthPlace,
+    List<Enum$PersonCategory>? categories,
+    String? city,
+    String? email,
+    required String firstName,
+    Enum$PersonGender? gender,
+    required String lastName,
+    String? notes,
+    String? phone,
+    String? postalCode,
+    String? province,
+    String? taxCode,
+  }) => Input$PersonInput._({
+    if (addressLine != null) r'addressLine': addressLine,
+    if (birthDate != null) r'birthDate': birthDate,
+    if (birthPlace != null) r'birthPlace': birthPlace,
+    if (categories != null) r'categories': categories,
+    if (city != null) r'city': city,
+    if (email != null) r'email': email,
+    r'firstName': firstName,
+    if (gender != null) r'gender': gender,
+    r'lastName': lastName,
+    if (notes != null) r'notes': notes,
+    if (phone != null) r'phone': phone,
+    if (postalCode != null) r'postalCode': postalCode,
+    if (province != null) r'province': province,
+    if (taxCode != null) r'taxCode': taxCode,
+  });
+
+  Input$PersonInput._(this._$data);
+
+  factory Input$PersonInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('addressLine')) {
+      final l$addressLine = data['addressLine'];
+      result$data['addressLine'] = (l$addressLine as String?);
+    }
+    if (data.containsKey('birthDate')) {
+      final l$birthDate = data['birthDate'];
+      result$data['birthDate'] = (l$birthDate as String?);
+    }
+    if (data.containsKey('birthPlace')) {
+      final l$birthPlace = data['birthPlace'];
+      result$data['birthPlace'] = (l$birthPlace as String?);
+    }
+    if (data.containsKey('categories')) {
+      final l$categories = data['categories'];
+      result$data['categories'] = (l$categories as List<dynamic>?)
+          ?.map((e) => fromJson$Enum$PersonCategory((e as String)))
+          .toList();
+    }
+    if (data.containsKey('city')) {
+      final l$city = data['city'];
+      result$data['city'] = (l$city as String?);
+    }
+    if (data.containsKey('email')) {
+      final l$email = data['email'];
+      result$data['email'] = (l$email as String?);
+    }
+    final l$firstName = data['firstName'];
+    result$data['firstName'] = (l$firstName as String);
+    if (data.containsKey('gender')) {
+      final l$gender = data['gender'];
+      result$data['gender'] = l$gender == null
+          ? null
+          : fromJson$Enum$PersonGender((l$gender as String));
+    }
+    final l$lastName = data['lastName'];
+    result$data['lastName'] = (l$lastName as String);
+    if (data.containsKey('notes')) {
+      final l$notes = data['notes'];
+      result$data['notes'] = (l$notes as String?);
+    }
+    if (data.containsKey('phone')) {
+      final l$phone = data['phone'];
+      result$data['phone'] = (l$phone as String?);
+    }
+    if (data.containsKey('postalCode')) {
+      final l$postalCode = data['postalCode'];
+      result$data['postalCode'] = (l$postalCode as String?);
+    }
+    if (data.containsKey('province')) {
+      final l$province = data['province'];
+      result$data['province'] = (l$province as String?);
+    }
+    if (data.containsKey('taxCode')) {
+      final l$taxCode = data['taxCode'];
+      result$data['taxCode'] = (l$taxCode as String?);
+    }
+    return Input$PersonInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String? get addressLine => (_$data['addressLine'] as String?);
+
+  String? get birthDate => (_$data['birthDate'] as String?);
+
+  String? get birthPlace => (_$data['birthPlace'] as String?);
+
+  List<Enum$PersonCategory>? get categories =>
+      (_$data['categories'] as List<Enum$PersonCategory>?);
+
+  String? get city => (_$data['city'] as String?);
+
+  String? get email => (_$data['email'] as String?);
+
+  String get firstName => (_$data['firstName'] as String);
+
+  Enum$PersonGender? get gender => (_$data['gender'] as Enum$PersonGender?);
+
+  String get lastName => (_$data['lastName'] as String);
+
+  String? get notes => (_$data['notes'] as String?);
+
+  String? get phone => (_$data['phone'] as String?);
+
+  String? get postalCode => (_$data['postalCode'] as String?);
+
+  String? get province => (_$data['province'] as String?);
+
+  String? get taxCode => (_$data['taxCode'] as String?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('addressLine')) {
+      final l$addressLine = addressLine;
+      result$data['addressLine'] = l$addressLine;
+    }
+    if (_$data.containsKey('birthDate')) {
+      final l$birthDate = birthDate;
+      result$data['birthDate'] = l$birthDate;
+    }
+    if (_$data.containsKey('birthPlace')) {
+      final l$birthPlace = birthPlace;
+      result$data['birthPlace'] = l$birthPlace;
+    }
+    if (_$data.containsKey('categories')) {
+      final l$categories = categories;
+      result$data['categories'] = l$categories
+          ?.map((e) => toJson$Enum$PersonCategory(e))
+          .toList();
+    }
+    if (_$data.containsKey('city')) {
+      final l$city = city;
+      result$data['city'] = l$city;
+    }
+    if (_$data.containsKey('email')) {
+      final l$email = email;
+      result$data['email'] = l$email;
+    }
+    final l$firstName = firstName;
+    result$data['firstName'] = l$firstName;
+    if (_$data.containsKey('gender')) {
+      final l$gender = gender;
+      result$data['gender'] = l$gender == null
+          ? null
+          : toJson$Enum$PersonGender(l$gender);
+    }
+    final l$lastName = lastName;
+    result$data['lastName'] = l$lastName;
+    if (_$data.containsKey('notes')) {
+      final l$notes = notes;
+      result$data['notes'] = l$notes;
+    }
+    if (_$data.containsKey('phone')) {
+      final l$phone = phone;
+      result$data['phone'] = l$phone;
+    }
+    if (_$data.containsKey('postalCode')) {
+      final l$postalCode = postalCode;
+      result$data['postalCode'] = l$postalCode;
+    }
+    if (_$data.containsKey('province')) {
+      final l$province = province;
+      result$data['province'] = l$province;
+    }
+    if (_$data.containsKey('taxCode')) {
+      final l$taxCode = taxCode;
+      result$data['taxCode'] = l$taxCode;
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$PersonInput<Input$PersonInput> get copyWith =>
+      CopyWith$Input$PersonInput(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$PersonInput || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$addressLine = addressLine;
+    final lOther$addressLine = other.addressLine;
+    if (_$data.containsKey('addressLine') !=
+        other._$data.containsKey('addressLine')) {
+      return false;
+    }
+    if (l$addressLine != lOther$addressLine) {
+      return false;
+    }
+    final l$birthDate = birthDate;
+    final lOther$birthDate = other.birthDate;
+    if (_$data.containsKey('birthDate') !=
+        other._$data.containsKey('birthDate')) {
+      return false;
+    }
+    if (l$birthDate != lOther$birthDate) {
+      return false;
+    }
+    final l$birthPlace = birthPlace;
+    final lOther$birthPlace = other.birthPlace;
+    if (_$data.containsKey('birthPlace') !=
+        other._$data.containsKey('birthPlace')) {
+      return false;
+    }
+    if (l$birthPlace != lOther$birthPlace) {
+      return false;
+    }
+    final l$categories = categories;
+    final lOther$categories = other.categories;
+    if (_$data.containsKey('categories') !=
+        other._$data.containsKey('categories')) {
+      return false;
+    }
+    if (l$categories != null && lOther$categories != null) {
+      if (l$categories.length != lOther$categories.length) {
+        return false;
+      }
+      for (int i = 0; i < l$categories.length; i++) {
+        final l$categories$entry = l$categories[i];
+        final lOther$categories$entry = lOther$categories[i];
+        if (l$categories$entry != lOther$categories$entry) {
+          return false;
+        }
+      }
+    } else if (l$categories != lOther$categories) {
+      return false;
+    }
+    final l$city = city;
+    final lOther$city = other.city;
+    if (_$data.containsKey('city') != other._$data.containsKey('city')) {
+      return false;
+    }
+    if (l$city != lOther$city) {
+      return false;
+    }
+    final l$email = email;
+    final lOther$email = other.email;
+    if (_$data.containsKey('email') != other._$data.containsKey('email')) {
+      return false;
+    }
+    if (l$email != lOther$email) {
+      return false;
+    }
+    final l$firstName = firstName;
+    final lOther$firstName = other.firstName;
+    if (l$firstName != lOther$firstName) {
+      return false;
+    }
+    final l$gender = gender;
+    final lOther$gender = other.gender;
+    if (_$data.containsKey('gender') != other._$data.containsKey('gender')) {
+      return false;
+    }
+    if (l$gender != lOther$gender) {
+      return false;
+    }
+    final l$lastName = lastName;
+    final lOther$lastName = other.lastName;
+    if (l$lastName != lOther$lastName) {
+      return false;
+    }
+    final l$notes = notes;
+    final lOther$notes = other.notes;
+    if (_$data.containsKey('notes') != other._$data.containsKey('notes')) {
+      return false;
+    }
+    if (l$notes != lOther$notes) {
+      return false;
+    }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
+      return false;
+    }
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    final l$postalCode = postalCode;
+    final lOther$postalCode = other.postalCode;
+    if (_$data.containsKey('postalCode') !=
+        other._$data.containsKey('postalCode')) {
+      return false;
+    }
+    if (l$postalCode != lOther$postalCode) {
+      return false;
+    }
+    final l$province = province;
+    final lOther$province = other.province;
+    if (_$data.containsKey('province') !=
+        other._$data.containsKey('province')) {
+      return false;
+    }
+    if (l$province != lOther$province) {
+      return false;
+    }
+    final l$taxCode = taxCode;
+    final lOther$taxCode = other.taxCode;
+    if (_$data.containsKey('taxCode') != other._$data.containsKey('taxCode')) {
+      return false;
+    }
+    if (l$taxCode != lOther$taxCode) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$addressLine = addressLine;
+    final l$birthDate = birthDate;
+    final l$birthPlace = birthPlace;
+    final l$categories = categories;
+    final l$city = city;
+    final l$email = email;
+    final l$firstName = firstName;
+    final l$gender = gender;
+    final l$lastName = lastName;
+    final l$notes = notes;
+    final l$phone = phone;
+    final l$postalCode = postalCode;
+    final l$province = province;
+    final l$taxCode = taxCode;
+    return Object.hashAll([
+      _$data.containsKey('addressLine') ? l$addressLine : const {},
+      _$data.containsKey('birthDate') ? l$birthDate : const {},
+      _$data.containsKey('birthPlace') ? l$birthPlace : const {},
+      _$data.containsKey('categories')
+          ? l$categories == null
+                ? null
+                : Object.hashAll(l$categories.map((v) => v))
+          : const {},
+      _$data.containsKey('city') ? l$city : const {},
+      _$data.containsKey('email') ? l$email : const {},
+      l$firstName,
+      _$data.containsKey('gender') ? l$gender : const {},
+      l$lastName,
+      _$data.containsKey('notes') ? l$notes : const {},
+      _$data.containsKey('phone') ? l$phone : const {},
+      _$data.containsKey('postalCode') ? l$postalCode : const {},
+      _$data.containsKey('province') ? l$province : const {},
+      _$data.containsKey('taxCode') ? l$taxCode : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$PersonInput<TRes> {
+  factory CopyWith$Input$PersonInput(
+    Input$PersonInput instance,
+    TRes Function(Input$PersonInput) then,
+  ) = _CopyWithImpl$Input$PersonInput;
+
+  factory CopyWith$Input$PersonInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$PersonInput;
+
+  TRes call({
+    String? addressLine,
+    String? birthDate,
+    String? birthPlace,
+    List<Enum$PersonCategory>? categories,
+    String? city,
+    String? email,
+    String? firstName,
+    Enum$PersonGender? gender,
+    String? lastName,
+    String? notes,
+    String? phone,
+    String? postalCode,
+    String? province,
+    String? taxCode,
+  });
+}
+
+class _CopyWithImpl$Input$PersonInput<TRes>
+    implements CopyWith$Input$PersonInput<TRes> {
+  _CopyWithImpl$Input$PersonInput(this._instance, this._then);
+
+  final Input$PersonInput _instance;
+
+  final TRes Function(Input$PersonInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? addressLine = _undefined,
+    Object? birthDate = _undefined,
+    Object? birthPlace = _undefined,
+    Object? categories = _undefined,
+    Object? city = _undefined,
+    Object? email = _undefined,
+    Object? firstName = _undefined,
+    Object? gender = _undefined,
+    Object? lastName = _undefined,
+    Object? notes = _undefined,
+    Object? phone = _undefined,
+    Object? postalCode = _undefined,
+    Object? province = _undefined,
+    Object? taxCode = _undefined,
+  }) => _then(
+    Input$PersonInput._({
+      ..._instance._$data,
+      if (addressLine != _undefined) 'addressLine': (addressLine as String?),
+      if (birthDate != _undefined) 'birthDate': (birthDate as String?),
+      if (birthPlace != _undefined) 'birthPlace': (birthPlace as String?),
+      if (categories != _undefined)
+        'categories': (categories as List<Enum$PersonCategory>?),
+      if (city != _undefined) 'city': (city as String?),
+      if (email != _undefined) 'email': (email as String?),
+      if (firstName != _undefined && firstName != null)
+        'firstName': (firstName as String),
+      if (gender != _undefined) 'gender': (gender as Enum$PersonGender?),
+      if (lastName != _undefined && lastName != null)
+        'lastName': (lastName as String),
+      if (notes != _undefined) 'notes': (notes as String?),
+      if (phone != _undefined) 'phone': (phone as String?),
+      if (postalCode != _undefined) 'postalCode': (postalCode as String?),
+      if (province != _undefined) 'province': (province as String?),
+      if (taxCode != _undefined) 'taxCode': (taxCode as String?),
+    }),
+  );
+}
+
+class _CopyWithStubImpl$Input$PersonInput<TRes>
+    implements CopyWith$Input$PersonInput<TRes> {
+  _CopyWithStubImpl$Input$PersonInput(this._res);
+
+  TRes _res;
+
+  call({
+    String? addressLine,
+    String? birthDate,
+    String? birthPlace,
+    List<Enum$PersonCategory>? categories,
+    String? city,
+    String? email,
+    String? firstName,
+    Enum$PersonGender? gender,
+    String? lastName,
+    String? notes,
+    String? phone,
+    String? postalCode,
+    String? province,
+    String? taxCode,
+  }) => _res;
+}
+
+class Input$PlayerInput {
+  factory Input$PlayerInput({int? jerseyNumber, String? position}) =>
+      Input$PlayerInput._({
+        if (jerseyNumber != null) r'jerseyNumber': jerseyNumber,
+        if (position != null) r'position': position,
+      });
+
+  Input$PlayerInput._(this._$data);
+
+  factory Input$PlayerInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('jerseyNumber')) {
+      final l$jerseyNumber = data['jerseyNumber'];
+      result$data['jerseyNumber'] = (l$jerseyNumber as int?);
+    }
+    if (data.containsKey('position')) {
+      final l$position = data['position'];
+      result$data['position'] = (l$position as String?);
+    }
+    return Input$PlayerInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  int? get jerseyNumber => (_$data['jerseyNumber'] as int?);
+
+  String? get position => (_$data['position'] as String?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('jerseyNumber')) {
+      final l$jerseyNumber = jerseyNumber;
+      result$data['jerseyNumber'] = l$jerseyNumber;
+    }
+    if (_$data.containsKey('position')) {
+      final l$position = position;
+      result$data['position'] = l$position;
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$PlayerInput<Input$PlayerInput> get copyWith =>
+      CopyWith$Input$PlayerInput(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$PlayerInput || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$jerseyNumber = jerseyNumber;
+    final lOther$jerseyNumber = other.jerseyNumber;
+    if (_$data.containsKey('jerseyNumber') !=
+        other._$data.containsKey('jerseyNumber')) {
+      return false;
+    }
+    if (l$jerseyNumber != lOther$jerseyNumber) {
+      return false;
+    }
+    final l$position = position;
+    final lOther$position = other.position;
+    if (_$data.containsKey('position') !=
+        other._$data.containsKey('position')) {
+      return false;
+    }
+    if (l$position != lOther$position) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$jerseyNumber = jerseyNumber;
+    final l$position = position;
+    return Object.hashAll([
+      _$data.containsKey('jerseyNumber') ? l$jerseyNumber : const {},
+      _$data.containsKey('position') ? l$position : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$PlayerInput<TRes> {
+  factory CopyWith$Input$PlayerInput(
+    Input$PlayerInput instance,
+    TRes Function(Input$PlayerInput) then,
+  ) = _CopyWithImpl$Input$PlayerInput;
+
+  factory CopyWith$Input$PlayerInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$PlayerInput;
+
+  TRes call({int? jerseyNumber, String? position});
+}
+
+class _CopyWithImpl$Input$PlayerInput<TRes>
+    implements CopyWith$Input$PlayerInput<TRes> {
+  _CopyWithImpl$Input$PlayerInput(this._instance, this._then);
+
+  final Input$PlayerInput _instance;
+
+  final TRes Function(Input$PlayerInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? jerseyNumber = _undefined,
+    Object? position = _undefined,
+  }) => _then(
+    Input$PlayerInput._({
+      ..._instance._$data,
+      if (jerseyNumber != _undefined) 'jerseyNumber': (jerseyNumber as int?),
+      if (position != _undefined) 'position': (position as String?),
+    }),
+  );
+}
+
+class _CopyWithStubImpl$Input$PlayerInput<TRes>
+    implements CopyWith$Input$PlayerInput<TRes> {
+  _CopyWithStubImpl$Input$PlayerInput(this._res);
+
+  TRes _res;
+
+  call({int? jerseyNumber, String? position}) => _res;
 }
 
 class Input$RegisterDeviceInput {
@@ -1282,6 +3039,233 @@ class _CopyWithStubImpl$Input$SeasonInput<TRes>
   call({String? endsOn, String? name, String? startsOn}) => _res;
 }
 
+class Input$TeamInput {
+  factory Input$TeamInput({
+    int? birthYearFrom,
+    int? birthYearTo,
+    String? category,
+    String? color,
+    required String name,
+    required String seasonId,
+  }) => Input$TeamInput._({
+    if (birthYearFrom != null) r'birthYearFrom': birthYearFrom,
+    if (birthYearTo != null) r'birthYearTo': birthYearTo,
+    if (category != null) r'category': category,
+    if (color != null) r'color': color,
+    r'name': name,
+    r'seasonId': seasonId,
+  });
+
+  Input$TeamInput._(this._$data);
+
+  factory Input$TeamInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('birthYearFrom')) {
+      final l$birthYearFrom = data['birthYearFrom'];
+      result$data['birthYearFrom'] = (l$birthYearFrom as int?);
+    }
+    if (data.containsKey('birthYearTo')) {
+      final l$birthYearTo = data['birthYearTo'];
+      result$data['birthYearTo'] = (l$birthYearTo as int?);
+    }
+    if (data.containsKey('category')) {
+      final l$category = data['category'];
+      result$data['category'] = (l$category as String?);
+    }
+    if (data.containsKey('color')) {
+      final l$color = data['color'];
+      result$data['color'] = (l$color as String?);
+    }
+    final l$name = data['name'];
+    result$data['name'] = (l$name as String);
+    final l$seasonId = data['seasonId'];
+    result$data['seasonId'] = (l$seasonId as String);
+    return Input$TeamInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  int? get birthYearFrom => (_$data['birthYearFrom'] as int?);
+
+  int? get birthYearTo => (_$data['birthYearTo'] as int?);
+
+  String? get category => (_$data['category'] as String?);
+
+  String? get color => (_$data['color'] as String?);
+
+  String get name => (_$data['name'] as String);
+
+  String get seasonId => (_$data['seasonId'] as String);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('birthYearFrom')) {
+      final l$birthYearFrom = birthYearFrom;
+      result$data['birthYearFrom'] = l$birthYearFrom;
+    }
+    if (_$data.containsKey('birthYearTo')) {
+      final l$birthYearTo = birthYearTo;
+      result$data['birthYearTo'] = l$birthYearTo;
+    }
+    if (_$data.containsKey('category')) {
+      final l$category = category;
+      result$data['category'] = l$category;
+    }
+    if (_$data.containsKey('color')) {
+      final l$color = color;
+      result$data['color'] = l$color;
+    }
+    final l$name = name;
+    result$data['name'] = l$name;
+    final l$seasonId = seasonId;
+    result$data['seasonId'] = l$seasonId;
+    return result$data;
+  }
+
+  CopyWith$Input$TeamInput<Input$TeamInput> get copyWith =>
+      CopyWith$Input$TeamInput(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$TeamInput || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$birthYearFrom = birthYearFrom;
+    final lOther$birthYearFrom = other.birthYearFrom;
+    if (_$data.containsKey('birthYearFrom') !=
+        other._$data.containsKey('birthYearFrom')) {
+      return false;
+    }
+    if (l$birthYearFrom != lOther$birthYearFrom) {
+      return false;
+    }
+    final l$birthYearTo = birthYearTo;
+    final lOther$birthYearTo = other.birthYearTo;
+    if (_$data.containsKey('birthYearTo') !=
+        other._$data.containsKey('birthYearTo')) {
+      return false;
+    }
+    if (l$birthYearTo != lOther$birthYearTo) {
+      return false;
+    }
+    final l$category = category;
+    final lOther$category = other.category;
+    if (_$data.containsKey('category') !=
+        other._$data.containsKey('category')) {
+      return false;
+    }
+    if (l$category != lOther$category) {
+      return false;
+    }
+    final l$color = color;
+    final lOther$color = other.color;
+    if (_$data.containsKey('color') != other._$data.containsKey('color')) {
+      return false;
+    }
+    if (l$color != lOther$color) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$seasonId = seasonId;
+    final lOther$seasonId = other.seasonId;
+    if (l$seasonId != lOther$seasonId) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$birthYearFrom = birthYearFrom;
+    final l$birthYearTo = birthYearTo;
+    final l$category = category;
+    final l$color = color;
+    final l$name = name;
+    final l$seasonId = seasonId;
+    return Object.hashAll([
+      _$data.containsKey('birthYearFrom') ? l$birthYearFrom : const {},
+      _$data.containsKey('birthYearTo') ? l$birthYearTo : const {},
+      _$data.containsKey('category') ? l$category : const {},
+      _$data.containsKey('color') ? l$color : const {},
+      l$name,
+      l$seasonId,
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$TeamInput<TRes> {
+  factory CopyWith$Input$TeamInput(
+    Input$TeamInput instance,
+    TRes Function(Input$TeamInput) then,
+  ) = _CopyWithImpl$Input$TeamInput;
+
+  factory CopyWith$Input$TeamInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$TeamInput;
+
+  TRes call({
+    int? birthYearFrom,
+    int? birthYearTo,
+    String? category,
+    String? color,
+    String? name,
+    String? seasonId,
+  });
+}
+
+class _CopyWithImpl$Input$TeamInput<TRes>
+    implements CopyWith$Input$TeamInput<TRes> {
+  _CopyWithImpl$Input$TeamInput(this._instance, this._then);
+
+  final Input$TeamInput _instance;
+
+  final TRes Function(Input$TeamInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? birthYearFrom = _undefined,
+    Object? birthYearTo = _undefined,
+    Object? category = _undefined,
+    Object? color = _undefined,
+    Object? name = _undefined,
+    Object? seasonId = _undefined,
+  }) => _then(
+    Input$TeamInput._({
+      ..._instance._$data,
+      if (birthYearFrom != _undefined) 'birthYearFrom': (birthYearFrom as int?),
+      if (birthYearTo != _undefined) 'birthYearTo': (birthYearTo as int?),
+      if (category != _undefined) 'category': (category as String?),
+      if (color != _undefined) 'color': (color as String?),
+      if (name != _undefined && name != null) 'name': (name as String),
+      if (seasonId != _undefined && seasonId != null)
+        'seasonId': (seasonId as String),
+    }),
+  );
+}
+
+class _CopyWithStubImpl$Input$TeamInput<TRes>
+    implements CopyWith$Input$TeamInput<TRes> {
+  _CopyWithStubImpl$Input$TeamInput(this._res);
+
+  TRes _res;
+
+  call({
+    int? birthYearFrom,
+    int? birthYearTo,
+    String? category,
+    String? color,
+    String? name,
+    String? seasonId,
+  }) => _res;
+}
+
 class Input$UpdateMeInput {
   factory Input$UpdateMeInput({String? fullName, String? locale}) =>
       Input$UpdateMeInput._({
@@ -1520,6 +3504,87 @@ Enum$DevicePlatform fromJson$Enum$DevicePlatform(String value) {
   }
 }
 
+enum Enum$GuardianRelation {
+  FATHER,
+  GUARDIAN,
+  MOTHER,
+  OTHER,
+  $unknown;
+
+  factory Enum$GuardianRelation.fromJson(String value) =>
+      fromJson$Enum$GuardianRelation(value);
+
+  String toJson() => toJson$Enum$GuardianRelation(this);
+}
+
+String toJson$Enum$GuardianRelation(Enum$GuardianRelation e) {
+  switch (e) {
+    case Enum$GuardianRelation.FATHER:
+      return r'FATHER';
+    case Enum$GuardianRelation.GUARDIAN:
+      return r'GUARDIAN';
+    case Enum$GuardianRelation.MOTHER:
+      return r'MOTHER';
+    case Enum$GuardianRelation.OTHER:
+      return r'OTHER';
+    case Enum$GuardianRelation.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$GuardianRelation fromJson$Enum$GuardianRelation(String value) {
+  switch (value) {
+    case r'FATHER':
+      return Enum$GuardianRelation.FATHER;
+    case r'GUARDIAN':
+      return Enum$GuardianRelation.GUARDIAN;
+    case r'MOTHER':
+      return Enum$GuardianRelation.MOTHER;
+    case r'OTHER':
+      return Enum$GuardianRelation.OTHER;
+    default:
+      return Enum$GuardianRelation.$unknown;
+  }
+}
+
+enum Enum$ImportRowStatus {
+  CREATE,
+  ERROR,
+  UPDATE,
+  $unknown;
+
+  factory Enum$ImportRowStatus.fromJson(String value) =>
+      fromJson$Enum$ImportRowStatus(value);
+
+  String toJson() => toJson$Enum$ImportRowStatus(this);
+}
+
+String toJson$Enum$ImportRowStatus(Enum$ImportRowStatus e) {
+  switch (e) {
+    case Enum$ImportRowStatus.CREATE:
+      return r'CREATE';
+    case Enum$ImportRowStatus.ERROR:
+      return r'ERROR';
+    case Enum$ImportRowStatus.UPDATE:
+      return r'UPDATE';
+    case Enum$ImportRowStatus.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$ImportRowStatus fromJson$Enum$ImportRowStatus(String value) {
+  switch (value) {
+    case r'CREATE':
+      return Enum$ImportRowStatus.CREATE;
+    case r'ERROR':
+      return Enum$ImportRowStatus.ERROR;
+    case r'UPDATE':
+      return Enum$ImportRowStatus.UPDATE;
+    default:
+      return Enum$ImportRowStatus.$unknown;
+  }
+}
+
 enum Enum$MembershipRole {
   ADMIN,
   ATHLETE,
@@ -1578,6 +3643,130 @@ Enum$MembershipRole fromJson$Enum$MembershipRole(String value) {
   }
 }
 
+enum Enum$PersonCategory {
+  ATHLETE,
+  GUARDIAN,
+  MANAGER,
+  STAFF,
+  VOLUNTEER,
+  $unknown;
+
+  factory Enum$PersonCategory.fromJson(String value) =>
+      fromJson$Enum$PersonCategory(value);
+
+  String toJson() => toJson$Enum$PersonCategory(this);
+}
+
+String toJson$Enum$PersonCategory(Enum$PersonCategory e) {
+  switch (e) {
+    case Enum$PersonCategory.ATHLETE:
+      return r'ATHLETE';
+    case Enum$PersonCategory.GUARDIAN:
+      return r'GUARDIAN';
+    case Enum$PersonCategory.MANAGER:
+      return r'MANAGER';
+    case Enum$PersonCategory.STAFF:
+      return r'STAFF';
+    case Enum$PersonCategory.VOLUNTEER:
+      return r'VOLUNTEER';
+    case Enum$PersonCategory.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$PersonCategory fromJson$Enum$PersonCategory(String value) {
+  switch (value) {
+    case r'ATHLETE':
+      return Enum$PersonCategory.ATHLETE;
+    case r'GUARDIAN':
+      return Enum$PersonCategory.GUARDIAN;
+    case r'MANAGER':
+      return Enum$PersonCategory.MANAGER;
+    case r'STAFF':
+      return Enum$PersonCategory.STAFF;
+    case r'VOLUNTEER':
+      return Enum$PersonCategory.VOLUNTEER;
+    default:
+      return Enum$PersonCategory.$unknown;
+  }
+}
+
+enum Enum$PersonGender {
+  F,
+  M,
+  $unknown;
+
+  factory Enum$PersonGender.fromJson(String value) =>
+      fromJson$Enum$PersonGender(value);
+
+  String toJson() => toJson$Enum$PersonGender(this);
+}
+
+String toJson$Enum$PersonGender(Enum$PersonGender e) {
+  switch (e) {
+    case Enum$PersonGender.F:
+      return r'F';
+    case Enum$PersonGender.M:
+      return r'M';
+    case Enum$PersonGender.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$PersonGender fromJson$Enum$PersonGender(String value) {
+  switch (value) {
+    case r'F':
+      return Enum$PersonGender.F;
+    case r'M':
+      return Enum$PersonGender.M;
+    default:
+      return Enum$PersonGender.$unknown;
+  }
+}
+
+enum Enum$PlayerAvailability {
+  AVAILABLE,
+  INJURED,
+  OTHER,
+  SUSPENDED,
+  $unknown;
+
+  factory Enum$PlayerAvailability.fromJson(String value) =>
+      fromJson$Enum$PlayerAvailability(value);
+
+  String toJson() => toJson$Enum$PlayerAvailability(this);
+}
+
+String toJson$Enum$PlayerAvailability(Enum$PlayerAvailability e) {
+  switch (e) {
+    case Enum$PlayerAvailability.AVAILABLE:
+      return r'AVAILABLE';
+    case Enum$PlayerAvailability.INJURED:
+      return r'INJURED';
+    case Enum$PlayerAvailability.OTHER:
+      return r'OTHER';
+    case Enum$PlayerAvailability.SUSPENDED:
+      return r'SUSPENDED';
+    case Enum$PlayerAvailability.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$PlayerAvailability fromJson$Enum$PlayerAvailability(String value) {
+  switch (value) {
+    case r'AVAILABLE':
+      return Enum$PlayerAvailability.AVAILABLE;
+    case r'INJURED':
+      return Enum$PlayerAvailability.INJURED;
+    case r'OTHER':
+      return Enum$PlayerAvailability.OTHER;
+    case r'SUSPENDED':
+      return Enum$PlayerAvailability.SUSPENDED;
+    default:
+      return Enum$PlayerAvailability.$unknown;
+  }
+}
+
 enum Enum$SeasonStatus {
   CLOSED,
   OPEN,
@@ -1613,6 +3802,54 @@ Enum$SeasonStatus fromJson$Enum$SeasonStatus(String value) {
       return Enum$SeasonStatus.PLANNED;
     default:
       return Enum$SeasonStatus.$unknown;
+  }
+}
+
+enum Enum$StaffRole {
+  ASSISTANT_COACH,
+  FITNESS_COACH,
+  GOALKEEPER_COACH,
+  HEAD_COACH,
+  TEAM_MANAGER,
+  $unknown;
+
+  factory Enum$StaffRole.fromJson(String value) =>
+      fromJson$Enum$StaffRole(value);
+
+  String toJson() => toJson$Enum$StaffRole(this);
+}
+
+String toJson$Enum$StaffRole(Enum$StaffRole e) {
+  switch (e) {
+    case Enum$StaffRole.ASSISTANT_COACH:
+      return r'ASSISTANT_COACH';
+    case Enum$StaffRole.FITNESS_COACH:
+      return r'FITNESS_COACH';
+    case Enum$StaffRole.GOALKEEPER_COACH:
+      return r'GOALKEEPER_COACH';
+    case Enum$StaffRole.HEAD_COACH:
+      return r'HEAD_COACH';
+    case Enum$StaffRole.TEAM_MANAGER:
+      return r'TEAM_MANAGER';
+    case Enum$StaffRole.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$StaffRole fromJson$Enum$StaffRole(String value) {
+  switch (value) {
+    case r'ASSISTANT_COACH':
+      return Enum$StaffRole.ASSISTANT_COACH;
+    case r'FITNESS_COACH':
+      return Enum$StaffRole.FITNESS_COACH;
+    case r'GOALKEEPER_COACH':
+      return Enum$StaffRole.GOALKEEPER_COACH;
+    case r'HEAD_COACH':
+      return Enum$StaffRole.HEAD_COACH;
+    case r'TEAM_MANAGER':
+      return Enum$StaffRole.TEAM_MANAGER;
+    default:
+      return Enum$StaffRole.$unknown;
   }
 }
 

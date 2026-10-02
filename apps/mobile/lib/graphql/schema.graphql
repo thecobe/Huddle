@@ -92,6 +92,14 @@ enum ConsentKind {
   TERMS_OF_SERVICE
 }
 
+input CopyTeamsInput {
+  fromSeasonId: ID!
+
+  """Copia anche gli atleti (lo staff viene sempre copiato)"""
+  includePlayers: Boolean!
+  toSeasonId: ID!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -101,6 +109,35 @@ enum DevicePlatform {
   ANDROID
   IOS
   WEB
+}
+
+"""Recapito di un tutore, per chi gestisce la squadra."""
+type GuardianContact {
+  email: String
+  name: String!
+  personId: ID!
+  phone: String
+  relation: GuardianRelation!
+}
+
+type GuardianLink {
+  """Id del legame di tutela"""
+  id: ID!
+  person: PersonRef!
+  relation: GuardianRelation!
+}
+
+enum GuardianRelation {
+  FATHER
+  GUARDIAN
+  MOTHER
+  OTHER
+}
+
+enum ImportRowStatus {
+  CREATE
+  ERROR
+  UPDATE
 }
 
 type Invitation {
@@ -127,6 +164,11 @@ type InvitationPreview {
 
 input InviteMemberInput {
   email: String!
+
+  """
+  Scheda da collegare all'account. Obbligatoria per il ruolo ATHLETE (dai 14 anni).
+  """
+  personId: ID
   role: MembershipRole!
   teamId: ID
 }
@@ -178,19 +220,44 @@ type MembershipSummary {
 
 type Mutation {
   acceptInvitation(input: AcceptInvitationInput!): AuthPayload!
+
+  """Restituisce la scheda del minore aggiornata."""
+  addGuardian(guardianId: ID!, minorId: ID!, relation: GuardianRelation! = GUARDIAN): Person!
+  addPlayer(input: PlayerInput, personId: ID!, teamId: ID!): TeamDetail!
+
+  """Se la persona ha un account, riceve l'accesso alla squadra."""
+  addStaff(personId: ID!, role: StaffRole!, teamId: ID!): TeamDetail!
   changePassword(currentPassword: String! = "", newPassword: String!): Boolean!
+
+  """Importa tutte le righe; rifiuta il file se una riga ha errori."""
+  commitPeopleImport(rows: [PersonImportRow!]!): PeopleImportSummary!
   consumeMagicLink(token: String!): AuthPayload!
+
+  """
+  Passaggio di stagione: copia squadre e staff, a richiesta anche gli atleti.
+  """
+  copyTeams(input: CopyTeamsInput!): [Team!]!
 
   """Crea una società; l'utente ne diventa amministratore."""
   createClub(input: ClubInput!): Club!
+  createPerson(input: PersonInput!): Person!
   createSeason(input: SeasonInput!): Season!
+  createTeam(input: TeamInput!): TeamDetail!
   disableTwoFactor(code: String!): Boolean!
 
   """Attiva il 2FA e restituisce i codici di recupero."""
   enableTwoFactor(code: String!): [String!]!
   inviteMember(input: InviteMemberInput!): Invitation!
+
+  """
+  Invita la persona ad attivare un account collegato alla scheda. La segreteria può usare ogni ruolo consentito; un tutore può solo attivare l'account ATHLETE di un figlio dai 14 anni.
+  """
+  invitePersonAccount(email: String!, personId: ID!, role: MembershipRole!): Invitation!
   login(input: LoginInput!): AuthPayload!
   logout(refreshToken: String): Boolean!
+
+  """Valida le righe senza scrivere nulla."""
+  previewPeopleImport(rows: [PersonImportRow!]!): [PersonImportResult!]!
 
   """
   Registra un consenso. IMAGE_RELEASE e MARKETING richiedono la società corrente.
@@ -203,7 +270,12 @@ type Mutation {
   refreshSession(refreshToken: String): AuthPayload!
   register(input: RegisterInput!): AuthPayload!
   registerDevice(input: RegisterDeviceInput!): Boolean!
+
+  """Restituisce la scheda del minore aggiornata."""
+  removeGuardian(guardianshipId: ID!): Person!
   removeMembership(membershipId: ID!): Boolean!
+  removePlayer(rosterId: ID!): TeamDetail!
+  removeStaff(staffId: ID!): TeamDetail!
 
   """Invia un link di accesso via e-mail. Restituisce sempre true."""
   requestMagicLink(email: String!): Boolean!
@@ -212,12 +284,182 @@ type Mutation {
   requestPasswordReset(email: String!): Boolean!
   resetPassword(newPassword: String!, token: String!): Boolean!
   revokeInvitation(id: ID!): Boolean!
+  setPersonArchived(archived: Boolean!, id: ID!): Person!
   setSeasonStatus(id: ID!, status: SeasonStatus!): Season!
+  setTeamArchived(archived: Boolean!, id: ID!): TeamDetail!
   setupTwoFactor: TwoFactorSetup!
   unregisterDevice(token: String!): Boolean!
   updateClub(input: ClubInput!): Club!
   updateMe(input: UpdateMeInput!): Me!
+  updatePerson(id: ID!, input: PersonInput!): Person!
+
+  """Recapiti: modificabili anche dalla persona stessa e dai suoi tutori."""
+  updatePersonContacts(id: ID!, input: PersonContactsInput!): Person!
+  updatePlayer(input: PlayerInput!, rosterId: ID!): TeamDetail!
+  updateTeam(id: ID!, input: TeamInput!): TeamDetail!
   verifyTwoFactor(challengeToken: String!, code: String!): AuthPayload!
+}
+
+input PeopleFilter {
+  category: PersonCategory
+  includeArchived: Boolean
+  search: String
+  teamId: ID
+}
+
+type PeopleImportSummary {
+  addedToTeams: Int!
+  created: Int!
+  guardiansLinked: Int!
+  updated: Int!
+}
+
+type PeoplePage {
+  items: [Person!]!
+  total: Int!
+}
+
+"""
+Scheda anagrafica. Codice fiscale, luogo di nascita, indirizzo e note sono visibili solo a chi gestisce l'anagrafica, alla persona stessa e ai suoi tutori; per gli altri sono null.
+"""
+type Person {
+  addressLine: String
+  age: Int
+  archivedAt: DateTime
+
+  """Data ISO (YYYY-MM-DD)"""
+  birthDate: String
+  birthPlace: String
+  categories: [PersonCategory!]!
+  city: String
+  email: String
+  firstName: String!
+  gender: PersonGender
+  guardians: [GuardianLink!]!
+
+  """Collegata a un account Huddle"""
+  hasAccount: Boolean!
+  id: ID!
+  isMinor: Boolean!
+  lastName: String!
+  notes: String
+  phone: String
+  postalCode: String
+  province: String
+  taxCode: String
+  teams: [PersonTeam!]!
+
+  """Minori di cui è tutore"""
+  wards: [GuardianLink!]!
+}
+
+enum PersonCategory {
+  ATHLETE
+  GUARDIAN
+  MANAGER
+  STAFF
+  VOLUNTEER
+}
+
+input PersonContactsInput {
+  addressLine: String
+  city: String
+  email: String
+  phone: String
+  postalCode: String
+  province: String
+}
+
+enum PersonGender {
+  F
+  M
+}
+
+type PersonImportResult {
+  """Codici errore: vedi errori di import nel client"""
+  errors: [String!]!
+
+  """Posizione della riga nel file inviato (da 0)"""
+  index: Int!
+  personId: String
+  status: ImportRowStatus!
+}
+
+input PersonImportRow {
+  addressLine: String
+
+  """YYYY-MM-DD oppure GG/MM/AAAA"""
+  birthDate: String
+  birthPlace: String
+  city: String
+  email: String
+  firstName: String
+
+  """F o M"""
+  gender: String
+  guardianEmail: String
+  guardianFirstName: String
+  guardianLastName: String
+  guardianPhone: String
+  jerseyNumber: Int
+  lastName: String
+  phone: String
+  postalCode: String
+  province: String
+  taxCode: String
+
+  """Squadra della stagione aperta in cui inserire la persona come atleta"""
+  teamName: String
+}
+
+input PersonInput {
+  addressLine: String
+  birthDate: String
+  birthPlace: String
+  categories: [PersonCategory!]
+  city: String
+  email: String
+  firstName: String!
+  gender: PersonGender
+  lastName: String!
+  notes: String
+  phone: String
+  postalCode: String
+  province: String
+
+  """Validato con il carattere di controllo"""
+  taxCode: String
+}
+
+"""Riferimento sintetico a una persona."""
+type PersonRef {
+  email: String
+  firstName: String!
+  id: ID!
+  lastName: String!
+  phone: String
+}
+
+"""Squadra in cui la persona gioca o fa parte dello staff."""
+type PersonTeam {
+  asPlayer: Boolean!
+  jerseyNumber: Int
+  seasonName: String!
+  staffRole: StaffRole
+  teamId: ID!
+  teamName: String!
+}
+
+enum PlayerAvailability {
+  AVAILABLE
+  INJURED
+  OTHER
+  SUSPENDED
+}
+
+input PlayerInput {
+  jerseyNumber: Int
+  position: String
 }
 
 type Query {
@@ -235,7 +477,22 @@ type Query {
 
   """Esportazione dei dati personali (GDPR art. 15)"""
   myDataExport: JSON!
+
+  """Scheda dell'utente e dei minori di cui è tutore."""
+  myPeople: [Person!]!
+
+  """
+  Persone visibili: tutte per la segreteria, quelle delle proprie squadre per lo staff.
+  """
+  people(filter: PeopleFilter, limit: Int! = 50, offset: Int! = 0): PeoplePage!
+  person(id: ID!): Person!
   seasons: [Season!]!
+  team(id: ID!): TeamDetail!
+
+  """
+  Squadre visibili: tutte per la direzione, le proprie per staff, atleti e famiglie.
+  """
+  teams(includeArchived: Boolean! = false, seasonId: ID): [Team!]!
 }
 
 input RegisterDeviceInput {
@@ -253,6 +510,36 @@ input RegisterInput {
   fullName: String!
   locale: String
   password: String!
+}
+
+type RosterPlayer {
+  availability: PlayerAvailability!
+  availabilityNote: String
+  birthDate: String
+  email: String
+  firstName: String!
+  guardians: [GuardianContact!]!
+
+  """Id della riga di rosa"""
+  id: ID!
+  jerseyNumber: Int
+  lastName: String!
+  personId: ID!
+  phone: String
+  position: String
+}
+
+type RosterStaff {
+  email: String
+  firstName: String!
+  hasAccount: Boolean!
+
+  """Id della riga di staff"""
+  id: ID!
+  lastName: String!
+  personId: ID!
+  phone: String
+  role: StaffRole!
 }
 
 type Season {
@@ -278,6 +565,53 @@ enum SeasonStatus {
   CLOSED
   OPEN
   PLANNED
+}
+
+enum StaffRole {
+  ASSISTANT_COACH
+  FITNESS_COACH
+  GOALKEEPER_COACH
+  HEAD_COACH
+  TEAM_MANAGER
+}
+
+type Team {
+  archivedAt: DateTime
+  birthYearFrom: Int
+  birthYearTo: Int
+  category: String
+  color: String
+  id: ID!
+  name: String!
+  playerCount: Int!
+  seasonId: ID!
+  seasonName: String!
+  staffCount: Int!
+}
+
+type TeamDetail {
+  archivedAt: DateTime
+  birthYearFrom: Int
+  birthYearTo: Int
+  category: String
+  color: String
+  id: ID!
+  name: String!
+  playerCount: Int!
+  players: [RosterPlayer!]!
+  seasonId: ID!
+  seasonName: String!
+  staff: [RosterStaff!]!
+  staffCount: Int!
+}
+
+input TeamInput {
+  birthYearFrom: Int
+  birthYearTo: Int
+  category: String
+  color: String
+  name: String!
+  seasonId: ID!
 }
 
 type TwoFactorSetup {

@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import 'auth/session.dart';
 import 'screens/accept_invitation_screen.dart';
+import 'screens/club/person_screen.dart';
+import 'screens/club/roster_screen.dart';
 import 'screens/clubs_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
@@ -52,7 +54,14 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, state) => AcceptInvitationScreen(token: state.uri.queryParameters['token'] ?? ''),
       ),
       GoRoute(path: '/clubs', builder: (_, _) => const ClubsScreen()),
-      GoRoute(path: '/home', builder: (_, _) => const HomeScreen()),
+      GoRoute(
+        path: '/home',
+        builder: (_, _) => const HomeScreen(),
+        routes: [
+          GoRoute(path: 'person/:id', builder: (_, state) => PersonScreen(personId: state.pathParameters['id']!)),
+          GoRoute(path: 'team/:id', builder: (_, state) => RosterScreen(teamId: state.pathParameters['id']!)),
+        ],
+      ),
     ],
     debugLogDiagnostics: kDebugMode,
   );

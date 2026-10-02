@@ -1,0 +1,50 @@
+fragment MyPersonFields on Person {
+  id
+  firstName
+  lastName
+  birthDate
+  age
+  isMinor
+  hasAccount
+  email
+  phone
+  addressLine
+  city
+  province
+  postalCode
+  teams {
+    teamId
+    teamName
+    seasonName
+    asPlayer
+    staffRole
+    jerseyNumber
+  }
+  guardians {
+    id
+    relation
+    person {
+      id
+      firstName
+      lastName
+    }
+  }
+}
+
+query MyPeople {
+  myPeople {
+    ...MyPersonFields
+  }
+}
+
+mutation UpdatePersonContacts($id: ID!, $input: PersonContactsInput!) {
+  updatePersonContacts(id: $id, input: $input) {
+    ...MyPersonFields
+  }
+}
+
+mutation InviteAthleteAccount($personId: ID!, $email: String!) {
+  invitePersonAccount(personId: $personId, email: $email, role: ATHLETE) {
+    id
+  }
+}

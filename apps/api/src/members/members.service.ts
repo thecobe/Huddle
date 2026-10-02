@@ -9,10 +9,13 @@ import type { MembershipRoleEnum } from '../common/enums.js';
 import type { TenantAccess } from '../common/request-context.js';
 import { ConsentsService } from '../consents/consents.service.js';
 import { DbContext } from '../database/db-context.js';
+import { assertInTenant } from '../database/tenant-guard.js';
 import type { InvitationRow } from '../database/types.js';
 import { MailService } from '../mail/mail.service.js';
 import { roleLabel } from '../mail/templates.js';
-import { ADMIN_ASSIGNED_ROLES } from '../permissions/permissions.js';
+import { ageOn, todayInZone } from '../common/dates.js';
+import type { MembershipRole, StaffRole } from '../database/types.js';
+import { ADMIN_ASSIGNED_ROLES, MIN_ATHLETE_ACCOUNT_AGE } from '../permissions/permissions.js';
 import type { AcceptInvitationInput, Invitation, InvitationPreview, InviteMemberInput, Member } from './member.model.js';
 
 const INVITATION_TTL_DAYS = 7;
@@ -89,6 +92,26 @@ export class MembersService {
     if (ADMIN_ASSIGNED_ROLES.includes(input.role) && !access.roles.includes('ADMIN')) {
       throw appError('FORBIDDEN', 'Solo un amministratore può assegnare questo ruolo');
     }
+    return this.createInvitation(access, inviterId, input);
+  }
+
+  /**
+   * Crea e invia un invito. Chi chiama ha già verificato di poterlo fare (segreteria, oppure tutore
+   * che attiva l'account del figlio). Regole comuni: un account atleta richiede una scheda e almeno
+   * 14 anni (D1); una scheda già collegata a un account non si può collegare a un altro.
+   */
+  async createInvitation(access: TenantAccess, inviterId: string, input: InviteMemberInput): Promise<Invitation> {
+    if (input.teamId) await assertInTenant(this.ctx, 'teams', [input.teamId]);
+    if (input.role === 'ATHLETE') await this.assertAthleteAccountAllowed(access.tenantId, input.personId ?? null);
+    if (input.personId) {
+      const person = await this.ctx.db
+        .selectFrom('people')
+        .select('user_id')
+        .where('id', '=', input.personId)
+        .executeTakeFirst();
+      if (!person) throw appError('NOT_FOUND');
+      if (person.user_id) throw appError('PERSON_ALREADY_LINKED');
+    }
     const token = randomToken();
     const row = await this.ctx.db
       .insertInto('invitations')
@@ -97,6 +120,7 @@ export class MembersService {
         email: input.email.trim(),
         role: input.role,
         team_id: input.teamId ?? null,
+        person_id: input.personId ?? null,
         token_hash: sha256(token),
         invited_by: inviterId,
         expires_at: new Date(Date.now() + INVITATION_TTL_DAYS * 86_400_000),
@@ -117,7 +141,7 @@ export class MembersService {
       action: 'member.invited',
       entityType: 'invitation',
       entityId: row.id,
-      metadata: { email: row.email, role: row.role, teamId: row.team_id },
+      metadata: { email: row.email, role: row.role, teamId: row.team_id, personId: row.person_id },
     });
     return toInvitation(row);
   }
@@ -172,6 +196,8 @@ export class MembersService {
       await this.consents.acceptPlatformTerms(userId, client.ip);
     }
     await this.ctx.withScope({ userId, tenantId: inv.tenant_id }, async () => {
+      if (inv.role === 'ATHLETE') await this.assertAthleteAccountAllowed(inv.tenant_id, inv.person_id);
+      if (inv.person_id) await this.linkPerson(inv.person_id, userId);
       await this.ctx.db
         .insertInto('memberships')
         .values({ tenant_id: inv.tenant_id, user_id: userId, role: inv.role, team_id: inv.team_id })
@@ -187,6 +213,66 @@ export class MembersService {
       });
     });
     return this.auth.completeLogin(userId, client);
+  }
+
+  /** Collega la scheda all'account e allinea gli accessi di squadra dello staff. */
+  private async linkPerson(personId: string, userId: string): Promise<void> {
+    const res = await this.ctx.db
+      .updateTable('people')
+      .set({ user_id: userId })
+      .where('id', '=', personId)
+      .where((eb) => eb.or([eb('user_id', 'is', null), eb('user_id', '=', userId)]))
+      .executeTakeFirst()
+      .catch((err: { code?: string }) => {
+        // L'account è già collegato a un'altra scheda di questa società.
+        if (err.code === '23505') throw appError('PERSON_ALREADY_LINKED');
+        throw err;
+      });
+    if (res.numUpdatedRows === 0n) throw appError('PERSON_ALREADY_LINKED');
+    await this.syncStaffMemberships(personId);
+  }
+
+  /**
+   * Gli accessi di squadra di allenatori e dirigenti derivano dalle rose (`team_staff`):
+   * crea quelli mancanti e rimuove quelli di squadre in cui la persona non è più nello staff.
+   */
+  async syncStaffMemberships(personId: string): Promise<void> {
+    const person = await this.ctx.db
+      .selectFrom('people')
+      .select(['user_id', 'tenant_id'])
+      .where('id', '=', personId)
+      .executeTakeFirst();
+    if (!person?.user_id) return;
+    const userId = person.user_id;
+    const staff = await this.ctx.db.selectFrom('team_staff').select(['team_id', 'role']).where('person_id', '=', personId).execute();
+    const desired = new Set(staff.map((s) => `${staffMembershipRole(s.role)}:${s.team_id}`));
+    const current = await this.ctx.db
+      .selectFrom('memberships')
+      .select(['id', 'role', 'team_id'])
+      .where('user_id', '=', userId)
+      .where('role', 'in', ['COACH', 'TEAM_MANAGER'])
+      .where('team_id', 'is not', null)
+      .execute();
+    const stale = current.filter((m) => !desired.has(`${m.role}:${m.team_id}`)).map((m) => m.id);
+    if (stale.length) await this.ctx.db.deleteFrom('memberships').where('id', 'in', stale).execute();
+    for (const s of staff) {
+      await this.ctx.db
+        .insertInto('memberships')
+        .values({ tenant_id: person.tenant_id, user_id: userId, role: staffMembershipRole(s.role), team_id: s.team_id })
+        .onConflict((oc) => oc.doNothing())
+        .execute();
+    }
+  }
+
+  private async assertAthleteAccountAllowed(tenantId: string, personId: string | null): Promise<void> {
+    if (!personId) throw appError('BAD_USER_INPUT', "L'account atleta va attivato dalla scheda della persona");
+    const person = await this.ctx.db.selectFrom('people').select('birth_date').where('id', '=', personId).executeTakeFirst();
+    if (!person) throw appError('NOT_FOUND');
+    if (!person.birth_date) throw appError('BAD_USER_INPUT', "Serve la data di nascita per attivare l'account atleta");
+    const club = await this.ctx.db.selectFrom('clubs').select('timezone').where('id', '=', tenantId).executeTakeFirstOrThrow();
+    if (ageOn(person.birth_date, todayInZone(club.timezone)) < MIN_ATHLETE_ACCOUNT_AGE) {
+      throw appError('ATHLETE_TOO_YOUNG');
+    }
   }
 
   private async findValidInvitation(token: string) {
@@ -208,6 +294,7 @@ interface InvitationLookup {
   email: string;
   role: InvitationRow['role'];
   team_id: string | null;
+  person_id: string | null;
   expires_at: Date;
   accepted_at: Date | null;
   revoked_at: Date | null;
@@ -224,4 +311,8 @@ function toInvitation(r: InvitationRow): Invitation {
     revokedAt: r.revoked_at,
     createdAt: r.created_at,
   };
+}
+
+function staffMembershipRole(role: StaffRole): MembershipRole {
+  return role === 'TEAM_MANAGER' ? 'TEAM_MANAGER' : 'COACH';
 }

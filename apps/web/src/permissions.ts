@@ -8,7 +8,10 @@ export type Permission =
   | 'member.view'
   | 'member.invite'
   | 'member.manage'
-  | 'audit.view';
+  | 'audit.view'
+  | 'people.view_all'
+  | 'people.manage'
+  | 'team.manage';
 
 const ROLE_PERMISSIONS: Record<Permission, MembershipRole[]> = {
   'club.manage': ['ADMIN'],
@@ -17,6 +20,9 @@ const ROLE_PERMISSIONS: Record<Permission, MembershipRole[]> = {
   'member.invite': ['ADMIN', 'SECRETARY'],
   'member.manage': ['ADMIN'],
   'audit.view': ['ADMIN'],
+  'people.view_all': ['ADMIN', 'SECRETARY', 'SPORTS_DIRECTOR'],
+  'people.manage': ['ADMIN', 'SECRETARY'],
+  'team.manage': ['ADMIN', 'SECRETARY', 'SPORTS_DIRECTOR'],
 };
 
 export const TWO_FACTOR_ROLES: MembershipRole[] = ['ADMIN', 'SECRETARY'];

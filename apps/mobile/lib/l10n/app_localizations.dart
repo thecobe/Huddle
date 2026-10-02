@@ -361,6 +361,228 @@ abstract class AppLocalizations {
   /// In it, this message translates to:
   /// **'Si è verificato un errore. Riprova.'**
   String get errorUNKNOWN;
+
+  /// No description provided for @myData.
+  ///
+  /// In it, this message translates to:
+  /// **'I miei dati e dei figli'**
+  String get myData;
+
+  /// No description provided for @myTeams.
+  ///
+  /// In it, this message translates to:
+  /// **'Le mie squadre'**
+  String get myTeams;
+
+  /// No description provided for @noTeamsYet.
+  ///
+  /// In it, this message translates to:
+  /// **'Nessuna squadra assegnata.'**
+  String get noTeamsYet;
+
+  /// No description provided for @contacts.
+  ///
+  /// In it, this message translates to:
+  /// **'Recapiti'**
+  String get contacts;
+
+  /// No description provided for @phone.
+  ///
+  /// In it, this message translates to:
+  /// **'Telefono'**
+  String get phone;
+
+  /// No description provided for @address.
+  ///
+  /// In it, this message translates to:
+  /// **'Indirizzo'**
+  String get address;
+
+  /// No description provided for @city.
+  ///
+  /// In it, this message translates to:
+  /// **'Comune'**
+  String get city;
+
+  /// No description provided for @province.
+  ///
+  /// In it, this message translates to:
+  /// **'Provincia'**
+  String get province;
+
+  /// No description provided for @postalCode.
+  ///
+  /// In it, this message translates to:
+  /// **'CAP'**
+  String get postalCode;
+
+  /// No description provided for @save.
+  ///
+  /// In it, this message translates to:
+  /// **'Salva'**
+  String get save;
+
+  /// No description provided for @saved.
+  ///
+  /// In it, this message translates to:
+  /// **'Modifiche salvate'**
+  String get saved;
+
+  /// No description provided for @teamsLabel.
+  ///
+  /// In it, this message translates to:
+  /// **'Squadre'**
+  String get teamsLabel;
+
+  /// No description provided for @guardiansLabel.
+  ///
+  /// In it, this message translates to:
+  /// **'Tutori'**
+  String get guardiansLabel;
+
+  /// No description provided for @athlete.
+  ///
+  /// In it, this message translates to:
+  /// **'Atleta'**
+  String get athlete;
+
+  /// No description provided for @yearsOld.
+  ///
+  /// In it, this message translates to:
+  /// **'{n} anni'**
+  String yearsOld(int n);
+
+  /// No description provided for @jerseyNumber.
+  ///
+  /// In it, this message translates to:
+  /// **'n. {n}'**
+  String jerseyNumber(int n);
+
+  /// No description provided for @players.
+  ///
+  /// In it, this message translates to:
+  /// **'Atleti'**
+  String get players;
+
+  /// No description provided for @staff.
+  ///
+  /// In it, this message translates to:
+  /// **'Staff'**
+  String get staff;
+
+  /// No description provided for @call.
+  ///
+  /// In it, this message translates to:
+  /// **'Chiama'**
+  String get call;
+
+  /// No description provided for @sendEmail.
+  ///
+  /// In it, this message translates to:
+  /// **'Scrivi'**
+  String get sendEmail;
+
+  /// No description provided for @activateAccountTitle.
+  ///
+  /// In it, this message translates to:
+  /// **'Account di {name}'**
+  String activateAccountTitle(String name);
+
+  /// No description provided for @activateAccountHint.
+  ///
+  /// In it, this message translates to:
+  /// **'Dai 14 anni puoi attivare un account per tuo figlio: riceverà un\'e-mail con il link di accesso.'**
+  String get activateAccountHint;
+
+  /// No description provided for @activateAccount.
+  ///
+  /// In it, this message translates to:
+  /// **'Attiva account'**
+  String get activateAccount;
+
+  /// No description provided for @accountActive.
+  ///
+  /// In it, this message translates to:
+  /// **'Ha già un account Huddle.'**
+  String get accountActive;
+
+  /// No description provided for @invitationSent.
+  ///
+  /// In it, this message translates to:
+  /// **'Invito inviato a {email}'**
+  String invitationSent(String email);
+
+  /// No description provided for @availabilityINJURED.
+  ///
+  /// In it, this message translates to:
+  /// **'Infortunato'**
+  String get availabilityINJURED;
+
+  /// No description provided for @availabilitySUSPENDED.
+  ///
+  /// In it, this message translates to:
+  /// **'Squalificato'**
+  String get availabilitySUSPENDED;
+
+  /// No description provided for @availabilityOTHER.
+  ///
+  /// In it, this message translates to:
+  /// **'Non disponibile'**
+  String get availabilityOTHER;
+
+  /// No description provided for @staffHEAD_COACH.
+  ///
+  /// In it, this message translates to:
+  /// **'Allenatore'**
+  String get staffHEAD_COACH;
+
+  /// No description provided for @staffASSISTANT_COACH.
+  ///
+  /// In it, this message translates to:
+  /// **'Vice allenatore'**
+  String get staffASSISTANT_COACH;
+
+  /// No description provided for @staffFITNESS_COACH.
+  ///
+  /// In it, this message translates to:
+  /// **'Preparatore atletico'**
+  String get staffFITNESS_COACH;
+
+  /// No description provided for @staffGOALKEEPER_COACH.
+  ///
+  /// In it, this message translates to:
+  /// **'Preparatore dei portieri'**
+  String get staffGOALKEEPER_COACH;
+
+  /// No description provided for @staffTEAM_MANAGER.
+  ///
+  /// In it, this message translates to:
+  /// **'Dirigente accompagnatore'**
+  String get staffTEAM_MANAGER;
+
+  /// No description provided for @errorATHLETE_TOO_YOUNG.
+  ///
+  /// In it, this message translates to:
+  /// **'Sotto i 14 anni l\'atleta non può avere un account.'**
+  String get errorATHLETE_TOO_YOUNG;
+
+  /// No description provided for @errorPERSON_ALREADY_LINKED.
+  ///
+  /// In it, this message translates to:
+  /// **'Ha già un account collegato.'**
+  String get errorPERSON_ALREADY_LINKED;
+
+  /// No description provided for @errorFORBIDDEN.
+  ///
+  /// In it, this message translates to:
+  /// **'Non hai i permessi per questa operazione.'**
+  String get errorFORBIDDEN;
+
+  /// No description provided for @errorBAD_USER_INPUT.
+  ///
+  /// In it, this message translates to:
+  /// **'Controlla i dati inseriti.'**
+  String get errorBAD_USER_INPUT;
 }
 
 class _AppLocalizationsDelegate

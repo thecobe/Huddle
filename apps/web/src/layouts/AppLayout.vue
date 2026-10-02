@@ -25,6 +25,8 @@ const clubNav = computed<NavItem[]>(() =>
       { name: 'home', label: 'nav.club' },
       { name: 'club', label: 'club.title' },
       { name: 'seasons', label: 'nav.seasons' },
+      { name: 'teams', label: 'nav.teams' },
+      { name: 'people', label: 'nav.people' },
       { name: 'members', label: 'nav.members', permission: 'member.view' },
       { name: 'audit', label: 'nav.audit', permission: 'audit.view' },
     ] as NavItem[]
@@ -64,7 +66,10 @@ async function logout() {
 
       <ul v-if="session.currentClub" class="sidebar__list">
         <li v-for="item in clubNav" :key="item.name">
-          <RouterLink :to="{ name: item.name }" exact-active-class="active">{{ $t(item.label) }}</RouterLink>
+          <!-- Le sottopagine (es. scheda di una persona) evidenziano la voce di sezione. -->
+          <RouterLink :to="{ name: item.name }" :active-class="item.name === 'home' ? '' : 'active'" exact-active-class="active">
+            {{ $t(item.label) }}
+          </RouterLink>
         </li>
       </ul>
 

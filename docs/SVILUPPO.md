@@ -21,6 +21,13 @@ pnpm dev:mobile                    # app su simulatore/emulatore
 
 Le e-mail (magic link, inviti, reset password) arrivano su Mailpit: http://localhost:8025.
 
+Dati demo (società con stagione aperta, due squadre, atleti con tutori, un allenatore e un genitore con account),
+con API in esecuzione:
+
+```bash
+pnpm --filter @huddle/api seed:demo   # stampa credenziali, segreto 2FA dell'admin e magic link per l'app
+```
+
 Emulatore Android: l'API locale è raggiungibile su `10.0.2.2`, quindi avviare con
 `--dart-define=API_URL=http://10.0.2.2:4000/graphql`.
 
@@ -41,8 +48,14 @@ Emulatore Android: l'API locale è raggiungibile su `10.0.2.2`, quindi avviare c
 - Ogni resolver GraphQL gira in una transazione che imposta `app.user_id` e `app.tenant_id`
   (`DbContext` + `DbScopeInterceptor`). La società arriva dall'header `X-Tenant-Id`, ma viene usata solo
   dopo che `AccessGuard` ha verificato l'appartenenza dell'utente.
-- I permessi sono per ruolo (`apps/api/src/permissions/permissions.ts`) con ambito squadra predisposto
-  (`teamScope`) per la Fase 1.
+- I permessi sono per ruolo (`apps/api/src/permissions/permissions.ts`). La visibilità di persone e squadre
+  (`apps/api/src/people/visibility.service.ts`): direzione e segreteria vedono tutto, lo staff le proprie squadre
+  e i tutori dei propri atleti, ogni utente la propria scheda e quelle dei minori di cui è tutore.
+  Codice fiscale, indirizzo e note sono visibili solo a segreteria, alla persona e ai suoi tutori.
+- Gli accessi di squadra di allenatori e dirigenti derivano dalle rose (`team_staff`): aggiungere o togliere una
+  persona dallo staff aggiorna i suoi permessi.
+- **Le chiavi esterne non applicano la RLS:** prima di collegare righe con id ricevuti dal client, usare
+  `assertInTenant` (`apps/api/src/database/tenant-guard.ts`), altrimenti si possono collegare dati di un'altra società.
 - Amministratori e segreteria devono attivare il 2FA prima di operare sulla società.
 - Gli eventi di errore (login fallito, riuso di refresh token) sono registrati in una transazione separata,
   così sopravvivono al rollback della richiesta.

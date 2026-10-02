@@ -15,7 +15,9 @@
     "language": "Lingua",
     "copy": "Copia"
   },
-  "brand": { "tagline": "La tua società, in un unico posto." },
+  "brand": {
+    "tagline": "La tua società, in un unico posto."
+  },
   "auth": {
     "login": {
       "title": "Accedi",
@@ -44,14 +46,21 @@
       "code": "Codice",
       "submit": "Verifica"
     },
-    "magic": { "verifying": "Verifica del link in corso…", "failed": "Il link non è valido o è scaduto." },
+    "magic": {
+      "verifying": "Verifica del link in corso…",
+      "failed": "Il link non è valido o è scaduto."
+    },
     "forgot": {
       "title": "Recupera password",
       "subtitle": "Ti inviamo un link per sceglierne una nuova.",
       "submit": "Invia link",
       "sent": "Se l'indirizzo è registrato, riceverai a breve un'e-mail."
     },
-    "reset": { "title": "Nuova password", "submit": "Imposta password", "done": "Password aggiornata. Ora puoi accedere." }
+    "reset": {
+      "title": "Nuova password",
+      "submit": "Imposta password",
+      "done": "Password aggiornata. Ora puoi accedere."
+    }
   },
   "invitation": {
     "title": "Sei stato invitato",
@@ -73,7 +82,7 @@
   "nav": {
     "club": "Società",
     "seasons": "Stagioni",
-    "members": "Persone",
+    "members": "Accessi e inviti",
     "audit": "Registro attività",
     "security": "Sicurezza",
     "privacy": "Privacy",
@@ -81,7 +90,9 @@
     "switchClub": "Cambia società",
     "logout": "Esci",
     "account": "Account",
-    "menu": "Menu"
+    "menu": "Menu",
+    "people": "Anagrafiche",
+    "teams": "Squadre"
   },
   "home": {
     "title": "Benvenuto, {name}",
@@ -106,7 +117,14 @@
     "contacts": "Contatti e sede",
     "readOnly": "Solo l'amministratore può modificare questi dati."
   },
-  "sports": { "FOOTBALL": "Calcio", "FUTSAL": "Calcio a 5", "VOLLEYBALL": "Pallavolo", "BASKETBALL": "Pallacanestro", "RUGBY": "Rugby", "OTHER": "Altro" },
+  "sports": {
+    "FOOTBALL": "Calcio",
+    "FUTSAL": "Calcio a 5",
+    "VOLLEYBALL": "Pallavolo",
+    "BASKETBALL": "Pallacanestro",
+    "RUGBY": "Rugby",
+    "OTHER": "Altro"
+  },
   "seasons": {
     "title": "Stagioni sportive",
     "subtitle": "Una sola stagione può essere aperta alla volta.",
@@ -119,11 +137,15 @@
     "open": "Apri",
     "close": "Chiudi",
     "empty": "Nessuna stagione. Crea la prima per iniziare.",
-    "statuses": { "PLANNED": "Pianificata", "OPEN": "Aperta", "CLOSED": "Chiusa" }
+    "statuses": {
+      "PLANNED": "Pianificata",
+      "OPEN": "Aperta",
+      "CLOSED": "Chiusa"
+    }
   },
   "members": {
-    "title": "Persone",
-    "subtitle": "Staff, atleti e famiglie con accesso alla società.",
+    "title": "Accessi e inviti",
+    "subtitle": "Account con accesso a Huddle per questa società.",
     "invite": "Invita",
     "inviteTitle": "Invita una persona",
     "inviteHint": "Riceverà un'e-mail con il link per accedere. L'invito scade dopo 7 giorni.",
@@ -160,7 +182,24 @@
       "member.invited": "Invito inviato",
       "member.invitation_revoked": "Invito revocato",
       "member.invitation_accepted": "Invito accettato",
-      "member.removed": "Persona rimossa"
+      "member.removed": "Persona rimossa",
+      "person.created": "Persona creata",
+      "person.updated": "Scheda aggiornata",
+      "person.contacts_updated": "Recapiti aggiornati",
+      "person.archived": "Persona archiviata",
+      "person.restored": "Persona ripristinata",
+      "person.guardian_added": "Tutore collegato",
+      "person.guardian_removed": "Tutore scollegato",
+      "person.imported": "Import anagrafiche",
+      "team.created": "Squadra creata",
+      "team.updated": "Squadra aggiornata",
+      "team.archived": "Squadra archiviata",
+      "team.restored": "Squadra ripristinata",
+      "team.season_copied": "Squadre copiate nella nuova stagione",
+      "team.player_added": "Atleta aggiunto in rosa",
+      "team.player_removed": "Atleta tolto dalla rosa",
+      "team.staff_added": "Staff aggiunto",
+      "team.staff_removed": "Staff rimosso"
     }
   },
   "security": {
@@ -187,7 +226,9 @@
     "changePassword": "Aggiorna password",
     "passwordChanged": "Password aggiornata"
   },
-  "profile": { "title": "Profilo" },
+  "profile": {
+    "title": "Profilo"
+  },
   "privacy": {
     "title": "Privacy e dati personali",
     "consents": "Consensi",
@@ -222,6 +263,188 @@
     "LAST_ADMIN": "Non puoi rimuovere l'ultimo amministratore.",
     "TOO_MANY_REQUESTS": "Troppi tentativi. Riprova tra un minuto.",
     "NETWORK": "Impossibile contattare il server. Controlla la connessione.",
-    "UNKNOWN": "Si è verificato un errore. Riprova."
+    "UNKNOWN": "Si è verificato un errore. Riprova.",
+    "TAX_CODE_TAKEN": "Esiste già una persona con questo codice fiscale.",
+    "JERSEY_TAKEN": "Numero di maglia già usato in questa squadra.",
+    "ALREADY_EXISTS": "Esiste già.",
+    "ATHLETE_TOO_YOUNG": "Sotto i 14 anni l'atleta non può avere un account.",
+    "PERSON_ALREADY_LINKED": "Questa scheda è già collegata a un account."
+  },
+  "people": {
+    "title": "Anagrafiche",
+    "subtitle": "Atleti, staff, dirigenti, volontari e tutori della società.",
+    "new": "Nuova persona",
+    "import": "Importa",
+    "search": "Cerca per nome, e-mail o codice fiscale",
+    "allCategories": "Tutte le categorie",
+    "allTeams": "Tutte le squadre",
+    "showArchived": "Mostra archiviati",
+    "empty": "Nessuna persona trovata.",
+    "age": "Età",
+    "years": "{n} anni",
+    "account": "Account",
+    "hasAccount": "Attivo",
+    "noAccount": "Nessuno",
+    "archived": "Archiviato",
+    "pageOf": "{from}–{to} di {total}",
+    "prev": "Precedenti",
+    "next": "Successivi",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "birthDate": "Data di nascita",
+    "birthPlace": "Luogo di nascita",
+    "taxCode": "Codice fiscale",
+    "gender": "Sesso",
+    "categories": "Categorie",
+    "notes": "Note riservate",
+    "personal": "Dati anagrafici",
+    "contacts": "Recapiti",
+    "minor": "Minorenne",
+    "genders": {
+      "F": "Femmina",
+      "M": "Maschio"
+    },
+    "categoryLabels": {
+      "ATHLETE": "Atleta",
+      "STAFF": "Staff tecnico",
+      "MANAGER": "Dirigente",
+      "VOLUNTEER": "Volontario",
+      "GUARDIAN": "Tutore"
+    },
+    "relations": {
+      "MOTHER": "Madre",
+      "FATHER": "Padre",
+      "GUARDIAN": "Tutore",
+      "OTHER": "Altro"
+    },
+    "guardians": "Tutori",
+    "noGuardians": "Nessun tutore collegato.",
+    "addGuardian": "Aggiungi tutore",
+    "relation": "Relazione",
+    "wards": "Minori seguiti",
+    "teams": "Squadre",
+    "noTeams": "Non è in nessuna squadra.",
+    "player": "Atleta",
+    "archive": "Archivia",
+    "restore": "Ripristina",
+    "created": "Persona creata",
+    "accountTitle": "Account Huddle",
+    "accountActive": "Questa persona accede a Huddle con il proprio account.",
+    "accountInvite": "Invita ad attivare l'account",
+    "accountInviteHint": "Riceverà un'e-mail con il link per accedere. L'account sarà collegato a questa scheda.",
+    "accountRole": "Ruolo",
+    "invited": "Invito inviato a {email}",
+    "athleteTooYoung": "Sotto i 14 anni l'atleta non ha un account: lo seguono i tutori.",
+    "pickPerson": "Cerca una persona…",
+    "noResults": "Nessun risultato"
+  },
+  "teams": {
+    "title": "Squadre",
+    "subtitle": "Squadre e rose per stagione.",
+    "season": "Stagione",
+    "new": "Nuova squadra",
+    "name": "Nome",
+    "category": "Categoria",
+    "birthYears": "Anni di nascita",
+    "from": "dal",
+    "to": "al",
+    "color": "Colore",
+    "players": "Atleti",
+    "staff": "Staff",
+    "empty": "Nessuna squadra in questa stagione.",
+    "copy": "Copia dalla stagione precedente",
+    "copyFrom": "Copia da",
+    "copyPlayers": "Copia anche gli atleti",
+    "copyHint": "Copia squadre e staff nella stagione selezionata; le squadre già presenti vengono saltate.",
+    "addPlayer": "Aggiungi atleta",
+    "addStaff": "Aggiungi allo staff",
+    "jersey": "Maglia",
+    "position": "Ruolo in campo",
+    "role": "Ruolo",
+    "noPlayers": "Nessun atleta in rosa.",
+    "noStaff": "Nessuno nello staff.",
+    "guardians": "Tutori",
+    "settings": "Dati squadra",
+    "archive": "Archivia squadra",
+    "needSeason": "Crea prima una stagione.",
+    "staffRoles": {
+      "HEAD_COACH": "Allenatore",
+      "ASSISTANT_COACH": "Vice allenatore",
+      "FITNESS_COACH": "Preparatore atletico",
+      "GOALKEEPER_COACH": "Preparatore dei portieri",
+      "TEAM_MANAGER": "Dirigente accompagnatore"
+    },
+    "availability": {
+      "AVAILABLE": "Disponibile",
+      "INJURED": "Infortunato",
+      "SUSPENDED": "Squalificato",
+      "OTHER": "Non disponibile"
+    },
+    "noAccountHint": "Senza account: non accede all'app."
+  },
+  "import": {
+    "title": "Importa anagrafiche",
+    "subtitle": "Da un file Excel (.xlsx) o CSV esportato dal gestionale o dal foglio della società.",
+    "step1": "1. Scegli il file",
+    "step2": "2. Collega le colonne",
+    "step3": "3. Controlla e importa",
+    "file": "File",
+    "sheetRows": "{n} righe trovate",
+    "column": "Colonna del file",
+    "field": "Campo Huddle",
+    "ignore": "Ignora",
+    "mappingHint": "Le colonne riconosciute sono già collegate. Controlla e correggi se serve.",
+    "check": "Controlla",
+    "rows": "Righe",
+    "toCreate": "Da creare",
+    "toUpdate": "Da aggiornare",
+    "withErrors": "Con errori",
+    "fixFile": "Correggi le righe con errori nel file e caricalo di nuovo: l'import parte solo se tutte le righe sono valide.",
+    "commit": "Importa {n} righe",
+    "done": "Import completato: {created} create, {updated} aggiornate, {guardians} tutori collegati, {teams} inserimenti in squadra.",
+    "openSeasonHint": "La colonna squadra usa le squadre della stagione aperta.",
+    "row": "Riga",
+    "status": "Esito",
+    "statuses": {
+      "CREATE": "Nuova",
+      "UPDATE": "Aggiorna",
+      "ERROR": "Errore"
+    },
+    "fields": {
+      "firstName": "Nome",
+      "lastName": "Cognome",
+      "birthDate": "Data di nascita",
+      "birthPlace": "Luogo di nascita",
+      "taxCode": "Codice fiscale",
+      "gender": "Sesso",
+      "email": "E-mail",
+      "phone": "Telefono",
+      "addressLine": "Indirizzo",
+      "city": "Comune",
+      "province": "Provincia",
+      "postalCode": "CAP",
+      "teamName": "Squadra",
+      "jerseyNumber": "Numero di maglia",
+      "guardianFirstName": "Nome tutore",
+      "guardianLastName": "Cognome tutore",
+      "guardianEmail": "E-mail tutore",
+      "guardianPhone": "Telefono tutore"
+    },
+    "errors": {
+      "FIRST_NAME_REQUIRED": "Nome mancante",
+      "LAST_NAME_REQUIRED": "Cognome mancante",
+      "BIRTH_DATE_INVALID": "Data di nascita non valida",
+      "TAX_CODE_INVALID": "Codice fiscale non valido",
+      "TAX_CODE_DUPLICATED_IN_FILE": "Codice fiscale ripetuto nel file",
+      "GENDER_INVALID": "Sesso non valido (F o M)",
+      "EMAIL_INVALID": "E-mail non valida",
+      "PROVINCE_INVALID": "Provincia non valida",
+      "POSTAL_CODE_INVALID": "CAP non valido",
+      "NO_OPEN_SEASON": "Nessuna stagione aperta",
+      "TEAM_NOT_FOUND": "Squadra non trovata",
+      "GUARDIAN_NAME_REQUIRED": "Nome e cognome del tutore obbligatori",
+      "GUARDIAN_EMAIL_INVALID": "E-mail del tutore non valida"
+    },
+    "unreadable": "Impossibile leggere il file. Usa un .xlsx o un .csv."
   }
 }

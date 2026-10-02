@@ -13,7 +13,12 @@ export type ErrorCode =
   | 'NOT_FOUND'
   | 'BAD_USER_INPUT'
   | 'SEASON_ALREADY_OPEN'
-  | 'LAST_ADMIN';
+  | 'LAST_ADMIN'
+  | 'TAX_CODE_TAKEN'
+  | 'JERSEY_TAKEN'
+  | 'ALREADY_EXISTS'
+  | 'ATHLETE_TOO_YOUNG'
+  | 'PERSON_ALREADY_LINKED';
 
 export function appError(code: ErrorCode, message?: string): GraphQLError {
   return new GraphQLError(message ?? code, { extensions: { code } });
