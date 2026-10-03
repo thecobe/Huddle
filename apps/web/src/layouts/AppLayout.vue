@@ -25,6 +25,7 @@ const clubNav = computed<NavItem[]>(() =>
       { name: 'home', label: 'nav.club' },
       { name: 'club', label: 'club.title' },
       { name: 'calendar', label: 'nav.calendar' },
+      { name: 'attendance', label: 'nav.attendance', permission: 'attendance.view' },
       { name: 'seasons', label: 'nav.seasons' },
       { name: 'teams', label: 'nav.teams' },
       { name: 'people', label: 'nav.people' },

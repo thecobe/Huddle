@@ -29,7 +29,9 @@ async function startSetup() {
   tfaError.value = errorCode(res.error);
   if (!res.data) return;
   const { secret, otpauthUri } = res.data.setupTwoFactor;
-  pending.value = { secret, qr: await QRCode.toDataURL(otpauthUri, { margin: 1, width: 200 }) };
+  // Senza QR resta comunque la chiave da inserire a mano.
+  const qr = await QRCode.toDataURL(otpauthUri, { margin: 1, width: 200 }).catch(() => '');
+  pending.value = { secret, qr };
 }
 
 async function confirmSetup() {
@@ -40,7 +42,7 @@ async function confirmSetup() {
   recoveryCodes.value = res.data.enableTwoFactor;
   pending.value = null;
   code.value = '';
-  await session.reloadUser();
+  await reload();
 }
 
 async function turnOff() {
@@ -49,7 +51,16 @@ async function turnOff() {
   tfaError.value = errorCode(res.error);
   if (res.error) return;
   code.value = '';
-  await session.reloadUser();
+  await reload();
+}
+
+/** Ricarica il profilo; un errore di rete non deve interrompere l'azione già riuscita. */
+async function reload() {
+  try {
+    await session.reloadUser();
+  } catch {
+    tfaError.value = 'NETWORK';
+  }
 }
 
 async function submitPassword() {
@@ -86,7 +97,7 @@ async function submitPassword() {
         </div>
 
         <form v-else-if="pending" class="setup" @submit.prevent="confirmSetup">
-          <img :src="pending.qr" alt="" width="200" height="200" class="qr" />
+          <img v-if="pending.qr" :src="pending.qr" alt="" width="200" height="200" class="qr" />
           <div class="stack">
             <p class="muted">{{ $t('security.scan') }}</p>
             <p>

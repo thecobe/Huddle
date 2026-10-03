@@ -14,6 +14,7 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
+    "\n  query AttendanceRegister($teamId: ID!, $from: DateTime!, $to: DateTime!, $kind: EventKind) {\n    attendanceRegister(teamId: $teamId, from: $from, to: $to, kind: $kind) {\n      events {\n        id\n        startsAt\n        kind\n        title\n        opponent\n        rollCallDone\n      }\n      players {\n        personId\n        firstName\n        lastName\n        jerseyNumber\n        recorded\n        attended\n        excused\n        percentage\n      }\n      cells {\n        eventId\n        personId\n        status\n        note\n      }\n    }\n  }\n": typeof types.AttendanceRegisterDocument,
     "\n  fragment EventFields on CalendarEvent {\n    id\n    teamId\n    teamName\n    teamColor\n    seriesId\n    detached\n    kind\n    title\n    startsAt\n    endsAt\n    location\n    notes\n    status\n    cancelReason\n    opponent\n    isHome\n    competition\n    canEdit\n  }\n": typeof types.EventFieldsFragmentDoc,
     "\n  query Calendar($from: DateTime!, $to: DateTime!, $teamId: ID) {\n    events(from: $from, to: $to, teamId: $teamId) {\n      ...EventFields\n    }\n  }\n": typeof types.CalendarDocument,
     "\n  query CalendarContext {\n    club {\n      id\n      timezone\n    }\n    manageableTeamIds\n    teams(includeArchived: false) {\n      id\n      name\n      seasonName\n      color\n    }\n  }\n": typeof types.CalendarContextDocument,
@@ -86,6 +87,7 @@ type Documents = {
     "\n  mutation RemoveStaff($staffId: ID!) {\n    removeStaff(staffId: $staffId) {\n      ...TeamDetailFields\n    }\n  }\n": typeof types.RemoveStaffDocument,
 };
 const documents: Documents = {
+    "\n  query AttendanceRegister($teamId: ID!, $from: DateTime!, $to: DateTime!, $kind: EventKind) {\n    attendanceRegister(teamId: $teamId, from: $from, to: $to, kind: $kind) {\n      events {\n        id\n        startsAt\n        kind\n        title\n        opponent\n        rollCallDone\n      }\n      players {\n        personId\n        firstName\n        lastName\n        jerseyNumber\n        recorded\n        attended\n        excused\n        percentage\n      }\n      cells {\n        eventId\n        personId\n        status\n        note\n      }\n    }\n  }\n": types.AttendanceRegisterDocument,
     "\n  fragment EventFields on CalendarEvent {\n    id\n    teamId\n    teamName\n    teamColor\n    seriesId\n    detached\n    kind\n    title\n    startsAt\n    endsAt\n    location\n    notes\n    status\n    cancelReason\n    opponent\n    isHome\n    competition\n    canEdit\n  }\n": types.EventFieldsFragmentDoc,
     "\n  query Calendar($from: DateTime!, $to: DateTime!, $teamId: ID) {\n    events(from: $from, to: $to, teamId: $teamId) {\n      ...EventFields\n    }\n  }\n": types.CalendarDocument,
     "\n  query CalendarContext {\n    club {\n      id\n      timezone\n    }\n    manageableTeamIds\n    teams(includeArchived: false) {\n      id\n      name\n      seasonName\n      color\n    }\n  }\n": types.CalendarContextDocument,
@@ -172,6 +174,10 @@ const documents: Documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query AttendanceRegister($teamId: ID!, $from: DateTime!, $to: DateTime!, $kind: EventKind) {\n    attendanceRegister(teamId: $teamId, from: $from, to: $to, kind: $kind) {\n      events {\n        id\n        startsAt\n        kind\n        title\n        opponent\n        rollCallDone\n      }\n      players {\n        personId\n        firstName\n        lastName\n        jerseyNumber\n        recorded\n        attended\n        excused\n        percentage\n      }\n      cells {\n        eventId\n        personId\n        status\n        note\n      }\n    }\n  }\n"): (typeof documents)["\n  query AttendanceRegister($teamId: ID!, $from: DateTime!, $to: DateTime!, $kind: EventKind) {\n    attendanceRegister(teamId: $teamId, from: $from, to: $to, kind: $kind) {\n      events {\n        id\n        startsAt\n        kind\n        title\n        opponent\n        rollCallDone\n      }\n      players {\n        personId\n        firstName\n        lastName\n        jerseyNumber\n        recorded\n        attended\n        excused\n        percentage\n      }\n      cells {\n        eventId\n        personId\n        status\n        note\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

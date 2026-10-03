@@ -173,6 +173,217 @@ class _CopyWithStubImpl$Input$AcceptInvitationInput<TRes>
   }) => _res;
 }
 
+class Input$AttendanceEntryInput {
+  factory Input$AttendanceEntryInput({
+    required String clientMutationId,
+    required String eventId,
+    String? note,
+    required String personId,
+    required String recordedAt,
+    required Enum$AttendanceStatus status,
+  }) => Input$AttendanceEntryInput._({
+    r'clientMutationId': clientMutationId,
+    r'eventId': eventId,
+    if (note != null) r'note': note,
+    r'personId': personId,
+    r'recordedAt': recordedAt,
+    r'status': status,
+  });
+
+  Input$AttendanceEntryInput._(this._$data);
+
+  factory Input$AttendanceEntryInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$clientMutationId = data['clientMutationId'];
+    result$data['clientMutationId'] = (l$clientMutationId as String);
+    final l$eventId = data['eventId'];
+    result$data['eventId'] = (l$eventId as String);
+    if (data.containsKey('note')) {
+      final l$note = data['note'];
+      result$data['note'] = (l$note as String?);
+    }
+    final l$personId = data['personId'];
+    result$data['personId'] = (l$personId as String);
+    final l$recordedAt = data['recordedAt'];
+    result$data['recordedAt'] = (l$recordedAt as String);
+    final l$status = data['status'];
+    result$data['status'] = fromJson$Enum$AttendanceStatus(
+      (l$status as String),
+    );
+    return Input$AttendanceEntryInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get clientMutationId => (_$data['clientMutationId'] as String);
+
+  String get eventId => (_$data['eventId'] as String);
+
+  String? get note => (_$data['note'] as String?);
+
+  String get personId => (_$data['personId'] as String);
+
+  String get recordedAt => (_$data['recordedAt'] as String);
+
+  Enum$AttendanceStatus get status =>
+      (_$data['status'] as Enum$AttendanceStatus);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$clientMutationId = clientMutationId;
+    result$data['clientMutationId'] = l$clientMutationId;
+    final l$eventId = eventId;
+    result$data['eventId'] = l$eventId;
+    if (_$data.containsKey('note')) {
+      final l$note = note;
+      result$data['note'] = l$note;
+    }
+    final l$personId = personId;
+    result$data['personId'] = l$personId;
+    final l$recordedAt = recordedAt;
+    result$data['recordedAt'] = l$recordedAt;
+    final l$status = status;
+    result$data['status'] = toJson$Enum$AttendanceStatus(l$status);
+    return result$data;
+  }
+
+  CopyWith$Input$AttendanceEntryInput<Input$AttendanceEntryInput>
+  get copyWith => CopyWith$Input$AttendanceEntryInput(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$AttendanceEntryInput ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$clientMutationId = clientMutationId;
+    final lOther$clientMutationId = other.clientMutationId;
+    if (l$clientMutationId != lOther$clientMutationId) {
+      return false;
+    }
+    final l$eventId = eventId;
+    final lOther$eventId = other.eventId;
+    if (l$eventId != lOther$eventId) {
+      return false;
+    }
+    final l$note = note;
+    final lOther$note = other.note;
+    if (_$data.containsKey('note') != other._$data.containsKey('note')) {
+      return false;
+    }
+    if (l$note != lOther$note) {
+      return false;
+    }
+    final l$personId = personId;
+    final lOther$personId = other.personId;
+    if (l$personId != lOther$personId) {
+      return false;
+    }
+    final l$recordedAt = recordedAt;
+    final lOther$recordedAt = other.recordedAt;
+    if (l$recordedAt != lOther$recordedAt) {
+      return false;
+    }
+    final l$status = status;
+    final lOther$status = other.status;
+    if (l$status != lOther$status) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$clientMutationId = clientMutationId;
+    final l$eventId = eventId;
+    final l$note = note;
+    final l$personId = personId;
+    final l$recordedAt = recordedAt;
+    final l$status = status;
+    return Object.hashAll([
+      l$clientMutationId,
+      l$eventId,
+      _$data.containsKey('note') ? l$note : const {},
+      l$personId,
+      l$recordedAt,
+      l$status,
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$AttendanceEntryInput<TRes> {
+  factory CopyWith$Input$AttendanceEntryInput(
+    Input$AttendanceEntryInput instance,
+    TRes Function(Input$AttendanceEntryInput) then,
+  ) = _CopyWithImpl$Input$AttendanceEntryInput;
+
+  factory CopyWith$Input$AttendanceEntryInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$AttendanceEntryInput;
+
+  TRes call({
+    String? clientMutationId,
+    String? eventId,
+    String? note,
+    String? personId,
+    String? recordedAt,
+    Enum$AttendanceStatus? status,
+  });
+}
+
+class _CopyWithImpl$Input$AttendanceEntryInput<TRes>
+    implements CopyWith$Input$AttendanceEntryInput<TRes> {
+  _CopyWithImpl$Input$AttendanceEntryInput(this._instance, this._then);
+
+  final Input$AttendanceEntryInput _instance;
+
+  final TRes Function(Input$AttendanceEntryInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? clientMutationId = _undefined,
+    Object? eventId = _undefined,
+    Object? note = _undefined,
+    Object? personId = _undefined,
+    Object? recordedAt = _undefined,
+    Object? status = _undefined,
+  }) => _then(
+    Input$AttendanceEntryInput._({
+      ..._instance._$data,
+      if (clientMutationId != _undefined && clientMutationId != null)
+        'clientMutationId': (clientMutationId as String),
+      if (eventId != _undefined && eventId != null)
+        'eventId': (eventId as String),
+      if (note != _undefined) 'note': (note as String?),
+      if (personId != _undefined && personId != null)
+        'personId': (personId as String),
+      if (recordedAt != _undefined && recordedAt != null)
+        'recordedAt': (recordedAt as String),
+      if (status != _undefined && status != null)
+        'status': (status as Enum$AttendanceStatus),
+    }),
+  );
+}
+
+class _CopyWithStubImpl$Input$AttendanceEntryInput<TRes>
+    implements CopyWith$Input$AttendanceEntryInput<TRes> {
+  _CopyWithStubImpl$Input$AttendanceEntryInput(this._res);
+
+  TRes _res;
+
+  call({
+    String? clientMutationId,
+    String? eventId,
+    String? note,
+    String? personId,
+    String? recordedAt,
+    Enum$AttendanceStatus? status,
+  }) => _res;
+}
+
 class Input$CancelRangeInput {
   factory Input$CancelRangeInput({
     required String fromDate,
@@ -4150,6 +4361,97 @@ class _CopyWithStubImpl$Input$UpdateMeInput<TRes>
   TRes _res;
 
   call({String? fullName, String? locale}) => _res;
+}
+
+enum Enum$AttendanceResult {
+  APPLIED,
+  DUPLICATE,
+  REJECTED,
+  SUPERSEDED,
+  $unknown;
+
+  factory Enum$AttendanceResult.fromJson(String value) =>
+      fromJson$Enum$AttendanceResult(value);
+
+  String toJson() => toJson$Enum$AttendanceResult(this);
+}
+
+String toJson$Enum$AttendanceResult(Enum$AttendanceResult e) {
+  switch (e) {
+    case Enum$AttendanceResult.APPLIED:
+      return r'APPLIED';
+    case Enum$AttendanceResult.DUPLICATE:
+      return r'DUPLICATE';
+    case Enum$AttendanceResult.REJECTED:
+      return r'REJECTED';
+    case Enum$AttendanceResult.SUPERSEDED:
+      return r'SUPERSEDED';
+    case Enum$AttendanceResult.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$AttendanceResult fromJson$Enum$AttendanceResult(String value) {
+  switch (value) {
+    case r'APPLIED':
+      return Enum$AttendanceResult.APPLIED;
+    case r'DUPLICATE':
+      return Enum$AttendanceResult.DUPLICATE;
+    case r'REJECTED':
+      return Enum$AttendanceResult.REJECTED;
+    case r'SUPERSEDED':
+      return Enum$AttendanceResult.SUPERSEDED;
+    default:
+      return Enum$AttendanceResult.$unknown;
+  }
+}
+
+enum Enum$AttendanceStatus {
+  ABSENT,
+  EXCUSED,
+  INJURED,
+  LATE,
+  PRESENT,
+  $unknown;
+
+  factory Enum$AttendanceStatus.fromJson(String value) =>
+      fromJson$Enum$AttendanceStatus(value);
+
+  String toJson() => toJson$Enum$AttendanceStatus(this);
+}
+
+String toJson$Enum$AttendanceStatus(Enum$AttendanceStatus e) {
+  switch (e) {
+    case Enum$AttendanceStatus.ABSENT:
+      return r'ABSENT';
+    case Enum$AttendanceStatus.EXCUSED:
+      return r'EXCUSED';
+    case Enum$AttendanceStatus.INJURED:
+      return r'INJURED';
+    case Enum$AttendanceStatus.LATE:
+      return r'LATE';
+    case Enum$AttendanceStatus.PRESENT:
+      return r'PRESENT';
+    case Enum$AttendanceStatus.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$AttendanceStatus fromJson$Enum$AttendanceStatus(String value) {
+  switch (value) {
+    case r'ABSENT':
+      return Enum$AttendanceStatus.ABSENT;
+    case r'EXCUSED':
+      return Enum$AttendanceStatus.EXCUSED;
+    case r'INJURED':
+      return Enum$AttendanceStatus.INJURED;
+    case r'LATE':
+      return Enum$AttendanceStatus.LATE;
+    case r'PRESENT':
+      return Enum$AttendanceStatus.PRESENT;
+    default:
+      return Enum$AttendanceStatus.$unknown;
+  }
 }
 
 enum Enum$AuthStatus {

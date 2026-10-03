@@ -85,3 +85,23 @@ export enum EventStatusEnum {
   CANCELLED = 'CANCELLED',
 }
 registerEnumType(EventStatusEnum, { name: 'EventStatus' });
+
+export enum AttendanceStatusEnum {
+  PRESENT = 'PRESENT',
+  ABSENT = 'ABSENT',
+  EXCUSED = 'EXCUSED',
+  INJURED = 'INJURED',
+  LATE = 'LATE',
+}
+registerEnumType(AttendanceStatusEnum, { name: 'AttendanceStatus' });
+
+export enum AttendanceResultEnum {
+  APPLIED = 'APPLIED',
+  DUPLICATE = 'DUPLICATE',
+  SUPERSEDED = 'SUPERSEDED',
+  REJECTED = 'REJECTED',
+}
+registerEnumType(AttendanceResultEnum, {
+  name: 'AttendanceResult',
+  description: 'APPLIED, DUPLICATE e SUPERSEDED sono esiti definitivi: il client toglie la riga dalla coda.',
+});

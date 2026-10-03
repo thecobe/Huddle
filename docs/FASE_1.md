@@ -142,12 +142,17 @@ Ogni traguardo elenca le storie con la piattaforma su cui vengono costruite e un
 
 ### M3 – Presenze
 
+> Piano dettagliato: [M3_PRESENZE.md](M3_PRESENZE.md).
+>
+> **Stato (2026-10-03): completato, in attesa della tua revisione e prova su dispositivo** (lista di prova in M3_PRESENZE.md §9).
+
 | Storia | Criteri di accettazione | Dove | Dim. |
 |---|---|---|---|
 | Struttura offline | Database locale (`drift`) e coda di operazioni in uscita, rinviate al ritorno della rete; conflitti registrati. | app | L |
 | Appello rapido | Dall'evento del giorno, rosa con tutti presenti per default; un tocco cambia stato; nota per atleta; meno di 30 secondi per 20 atleti; funziona senza rete. | API, app | M |
 | Registro presenze | Tabella atleti × date con percentuali; filtri per periodo e tipo evento; esportazione CSV. | API, web | M |
 | Assenza annunciata | Il genitore segnala in anticipo un'assenza con motivo; l'appello la propone come giustificata. | API, app | S |
+| Presenze del figlio (D10) | Il genitore vede in sola lettura le presenze recenti del figlio. | API, app | S |
 
 ### P – Pronti per il pilota
 

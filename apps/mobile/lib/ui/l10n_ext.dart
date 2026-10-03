@@ -34,6 +34,10 @@ String errorMessage(AppLocalizations l, Object error) {
     'PERSON_ALREADY_LINKED' => l.errorPERSON_ALREADY_LINKED,
     'FORBIDDEN' => l.errorFORBIDDEN,
     'BAD_USER_INPUT' => l.errorBAD_USER_INPUT,
+    'OUT_OF_WINDOW' => l.errorOUT_OF_WINDOW,
+    'EVENT_CANCELLED' => l.errorEVENT_CANCELLED,
+    'NOT_IN_ROSTER' => l.errorNOT_IN_ROSTER,
+    'EVENT_STARTED' => l.errorEVENT_STARTED,
     _ => l.errorUNKNOWN,
   };
 }
@@ -64,3 +68,13 @@ extension EventKindLabel on Enum$EventKind {
         _ => l.kindOTHER,
       };
 }
+
+/// Etichetta di uno stato di presenza (valori dell'enum AttendanceStatus dell'API).
+String attendanceLabel(AppLocalizations l, String status) => switch (status) {
+      'PRESENT' => l.statusPRESENT,
+      'ABSENT' => l.statusABSENT,
+      'EXCUSED' => l.statusEXCUSED,
+      'INJURED' => l.statusINJURED,
+      'LATE' => l.statusLATE,
+      _ => status,
+    };

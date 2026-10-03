@@ -93,7 +93,8 @@
     "menu": "Menu",
     "people": "Anagrafiche",
     "teams": "Squadre",
-    "calendar": "Calendario"
+    "calendar": "Calendario",
+    "attendance": "Presenze"
   },
   "home": {
     "title": "Benvenuto, {name}",
@@ -210,7 +211,8 @@
       "calendar.event_restored": "Evento ripristinato",
       "calendar.event_deleted": "Evento eliminato",
       "calendar.range_cancelled": "Eventi annullati per chiusura",
-      "calendar.feed_created": "Link calendario generato"
+      "calendar.feed_created": "Link calendario generato",
+      "attendance.late_correction": "Presenze corrette oltre i 7 giorni"
     }
   },
   "security": {
@@ -279,7 +281,11 @@
     "JERSEY_TAKEN": "Numero di maglia già usato in questa squadra.",
     "ALREADY_EXISTS": "Esiste già.",
     "ATHLETE_TOO_YOUNG": "Sotto i 14 anni l'atleta non può avere un account.",
-    "PERSON_ALREADY_LINKED": "Questa scheda è già collegata a un account."
+    "PERSON_ALREADY_LINKED": "Questa scheda è già collegata a un account.",
+    "OUT_OF_WINDOW": "Fuori dal periodo in cui l'appello è modificabile.",
+    "EVENT_CANCELLED": "L'evento è stato annullato.",
+    "NOT_IN_ROSTER": "L'atleta non è in rosa.",
+    "EVENT_STARTED": "L'evento è già iniziato."
   },
   "people": {
     "title": "Anagrafiche",
@@ -532,5 +538,35 @@
       "7": "Dom"
     },
     "more": "+{n} altri"
+  },
+  "attendance": {
+    "title": "Registro presenze",
+    "subtitle": "Presenze per squadra e periodo.",
+    "team": "Squadra",
+    "from": "Dal",
+    "to": "Al",
+    "kind": "Tipo di evento",
+    "allKinds": "Tutti",
+    "athlete": "Atleta",
+    "rate": "Presenze",
+    "noEvents": "Nessun evento nel periodo.",
+    "noTeams": "Non segui nessuna squadra.",
+    "missingRollCall": "Appello non confermato",
+    "export": "Esporta CSV",
+    "legend": "P presente · A assente · G giustificato · I infortunato · R ritardo",
+    "short": {
+      "PRESENT": "P",
+      "ABSENT": "A",
+      "EXCUSED": "G",
+      "INJURED": "I",
+      "LATE": "R"
+    },
+    "statuses": {
+      "PRESENT": "Presente",
+      "ABSENT": "Assente",
+      "EXCUSED": "Giustificato",
+      "INJURED": "Infortunato",
+      "LATE": "In ritardo"
+    }
   }
 }

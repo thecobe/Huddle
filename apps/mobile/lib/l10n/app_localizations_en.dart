@@ -305,4 +305,114 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notes => 'Notes';
+
+  @override
+  String get rollCall => 'Roll call';
+
+  @override
+  String get confirmRollCall => 'Confirm roll call';
+
+  @override
+  String get rollCallDone => 'Roll call confirmed';
+
+  @override
+  String get rollCallReadOnly => 'The roll call can no longer be changed.';
+
+  @override
+  String get rollCallHint =>
+      'Tap whoever is missing. Long-press for excused, injured, late or a note.';
+
+  @override
+  String get statusPRESENT => 'Present';
+
+  @override
+  String get statusABSENT => 'Absent';
+
+  @override
+  String get statusEXCUSED => 'Excused';
+
+  @override
+  String get statusINJURED => 'Injured';
+
+  @override
+  String get statusLATE => 'Late';
+
+  @override
+  String get noteLabel => 'Note';
+
+  @override
+  String absenceNotice(String reason) {
+    return 'Absence reported: $reason';
+  }
+
+  @override
+  String pendingChanges(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n changes to send',
+      one: '1 change to send',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get allSent => 'All sent';
+
+  @override
+  String get offlineNotCached =>
+      'Offline and no saved data for this event: try again with a connection.';
+
+  @override
+  String get rejectedChanges => 'Some changes were rejected by the server.';
+
+  @override
+  String get dismiss => 'Dismiss';
+
+  @override
+  String get participation => 'Attendance';
+
+  @override
+  String get reportAbsence => 'Report absence';
+
+  @override
+  String get withdrawAbsence => 'Withdraw';
+
+  @override
+  String get absenceReason => 'Reason (optional)';
+
+  @override
+  String get send => 'Send';
+
+  @override
+  String get absenceReported => 'Absence reported';
+
+  @override
+  String get recentAttendance => 'Recent attendance';
+
+  @override
+  String get noAttendanceYet => 'No attendance recorded yet.';
+
+  @override
+  String get logoutPendingTitle => 'Unsent changes';
+
+  @override
+  String get logoutPendingBody =>
+      'Some roll call changes haven\'t been sent yet. Signing out will discard them.';
+
+  @override
+  String get logoutAnyway => 'Sign out anyway';
+
+  @override
+  String get errorOUT_OF_WINDOW =>
+      'Outside the period when the roll call can be changed.';
+
+  @override
+  String get errorEVENT_CANCELLED => 'The event was cancelled.';
+
+  @override
+  String get errorNOT_IN_ROSTER => 'The athlete is no longer in the roster.';
+
+  @override
+  String get errorEVENT_STARTED => 'The event has already started.';
 }

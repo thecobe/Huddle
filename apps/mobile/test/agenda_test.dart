@@ -27,6 +27,7 @@ Map<String, dynamic> ev(String id, DateTime start, {String kind = 'TRAINING', St
       'opponent': opponent,
       'isHome': opponent == null ? null : true,
       'competition': null,
+      'canEdit': false,
     };
 
 void main() {

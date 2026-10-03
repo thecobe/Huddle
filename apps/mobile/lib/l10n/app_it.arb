@@ -143,5 +143,51 @@
   "homeMatch": "In casa",
   "awayMatch": "In trasferta",
   "clubWide": "Tutta la società",
-  "notes": "Note"
+  "notes": "Note",
+  "rollCall": "Appello",
+  "confirmRollCall": "Conferma appello",
+  "rollCallDone": "Appello confermato",
+  "rollCallReadOnly": "L'appello non è più modificabile.",
+  "rollCallHint": "Tocca chi manca. Tieni premuto per giustificato, infortunato, ritardo o una nota.",
+  "statusPRESENT": "Presente",
+  "statusABSENT": "Assente",
+  "statusEXCUSED": "Giustificato",
+  "statusINJURED": "Infortunato",
+  "statusLATE": "In ritardo",
+  "noteLabel": "Nota",
+  "absenceNotice": "Assenza annunciata: {reason}",
+  "@absenceNotice": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "pendingChanges": "{n, plural, =1{1 modifica da inviare} other{{n} modifiche da inviare}}",
+  "@pendingChanges": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "allSent": "Tutto inviato",
+  "offlineNotCached": "Senza rete e senza dati salvati per questo evento: riprova con la connessione.",
+  "rejectedChanges": "Alcune modifiche sono state rifiutate dal server.",
+  "dismiss": "Ignora",
+  "participation": "Partecipazione",
+  "reportAbsence": "Segnala assenza",
+  "withdrawAbsence": "Ritira",
+  "absenceReason": "Motivo (facoltativo)",
+  "send": "Invia",
+  "absenceReported": "Assenza segnalata",
+  "recentAttendance": "Presenze recenti",
+  "noAttendanceYet": "Nessuna presenza registrata.",
+  "logoutPendingTitle": "Modifiche non inviate",
+  "logoutPendingBody": "Ci sono modifiche all'appello non ancora inviate. Uscendo andranno perse.",
+  "logoutAnyway": "Esci comunque",
+  "errorOUT_OF_WINDOW": "Fuori dal periodo in cui l'appello è modificabile.",
+  "errorEVENT_CANCELLED": "L'evento è stato annullato.",
+  "errorNOT_IN_ROSTER": "L'atleta non è più in rosa.",
+  "errorEVENT_STARTED": "L'evento è già iniziato."
 }

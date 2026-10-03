@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { SentryModule } from '@sentry/nestjs/setup';
 import type { Request, Response } from 'express';
+import { AttendanceModule } from './attendance/attendance.module.js';
 import { AuditModule } from './audit/audit.module.js';
 import { AccessGuard } from './auth/access.guard.js';
 import { AuthModule } from './auth/auth.module.js';
@@ -57,6 +58,7 @@ const env = loadEnv();
     PeopleModule,
     TeamsModule,
     CalendarModule,
+    AttendanceModule,
     DevicesModule,
   ],
   controllers: [HealthController],

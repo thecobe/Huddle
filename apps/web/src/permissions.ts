@@ -11,7 +11,8 @@ export type Permission =
   | 'audit.view'
   | 'people.view_all'
   | 'people.manage'
-  | 'team.manage';
+  | 'team.manage'
+  | 'attendance.view';
 
 const ROLE_PERMISSIONS: Record<Permission, MembershipRole[]> = {
   'club.manage': ['ADMIN'],
@@ -23,6 +24,8 @@ const ROLE_PERMISSIONS: Record<Permission, MembershipRole[]> = {
   'people.view_all': ['ADMIN', 'SECRETARY', 'SPORTS_DIRECTOR'],
   'people.manage': ['ADMIN', 'SECRETARY'],
   'team.manage': ['ADMIN', 'SECRETARY', 'SPORTS_DIRECTOR'],
+  // Lo staff vede solo le proprie squadre: il filtro vero è sul server.
+  'attendance.view': ['ADMIN', 'SECRETARY', 'SPORTS_DIRECTOR', 'COACH', 'TEAM_MANAGER'],
 };
 
 export const TWO_FACTOR_ROLES: MembershipRole[] = ['ADMIN', 'SECRETARY'];

@@ -8,6 +8,9 @@ environment:
 
 dependencies:
   app_links: ^7.2.1
+  connectivity_plus: ^7.3.2
+  drift: ^2.35.1
+  drift_flutter: ^0.3.1
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -19,6 +22,7 @@ dependencies:
   graphql: ^5.2.4
   intl: ^0.20.3
   url_launcher: ^6.3.2
+  uuid: ^4.6.0
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +32,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   graphql_codegen: ^3.0.2
   build_runner: ^2.5.4
+  drift_dev: ^2.35.1
 
 flutter:
   generate: true

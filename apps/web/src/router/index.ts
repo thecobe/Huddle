@@ -43,6 +43,7 @@ export const router = createRouter({
         { path: 'people/import', name: 'people-import', component: () => import('@/pages/app/people/PeopleImportPage.vue') },
         { path: 'people/:id', name: 'person', component: () => import('@/pages/app/people/PersonPage.vue') },
         { path: 'calendar', name: 'calendar', component: () => import('@/pages/app/CalendarPage.vue') },
+        { path: 'attendance', name: 'attendance', component: () => import('@/pages/app/AttendancePage.vue') },
         { path: 'teams', name: 'teams', component: () => import('@/pages/app/teams/TeamsPage.vue') },
         { path: 'teams/:id', name: 'team', component: () => import('@/pages/app/teams/TeamPage.vue') },
         { path: 'members', name: 'members', component: () => import('@/pages/app/MembersPage.vue') },

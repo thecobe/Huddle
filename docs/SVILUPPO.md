@@ -37,6 +37,19 @@ degli allenamenti ricorrenti sono generate dal database (`CalendarService.genera
 dell'ora legale. Il web converte con `src/lib/zoned.ts`; l'app mostra l'ora del dispositivo.
 I link iCal sono serviti da `GET /calendar/<token>.ics` (in sviluppo Vite inoltra `/calendar` all'API).
 
+## Presenze offline (app)
+
+L'appello funziona senza rete (`apps/mobile/lib/offline/`): database locale `drift` con eventi e rose dei prossimi
+giorni, modifiche locali e coda in uscita. Ogni modifica ha un `clientMutationId` (UUID): il server
+(`recordAttendance`) risponde riga per riga e ignora i reinvii (`attendance_writes`), quindi la coda si può
+rimandare senza doppioni. La coda parte al ritorno della rete, al rientro in primo piano, dopo ogni modifica e ogni
+minuto. Al logout e al cambio account il database locale viene cancellato.
+
+## Limiti di frequenza in sviluppo
+
+Le operazioni di accesso (registrazione, login, magic link) sono limitate a 10 al minuto per IP. Lanciare gli e2e
+web due volte di seguito supera il limite ("Troppi tentativi"): attendere un minuto tra un giro e l'altro.
+
 Emulatore Android: l'API locale è raggiungibile su `10.0.2.2`, quindi avviare con
 `--dart-define=API_URL=http://10.0.2.2:4000/graphql`.
 

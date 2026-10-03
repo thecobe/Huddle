@@ -10,10 +10,12 @@ import '../../ui/l10n_ext.dart';
 import '../widgets.dart';
 
 /// Titolo di un evento: titolo esplicito, "vs avversario" per le gare, altrimenti il tipo.
-String eventTitle(AppLocalizations l, AgendaEvent e) {
-  if (e.title != null && e.title!.isNotEmpty) return e.title!;
-  if (e.kind == Enum$EventKind.MATCH && e.opponent != null) return l.versus(e.opponent!);
-  return e.kind.label(l);
+String eventTitle(AppLocalizations l, AgendaEvent e) => eventKindTitle(l, e.kind, e.title, e.opponent);
+
+String eventKindTitle(AppLocalizations l, Enum$EventKind kind, String? title, String? opponent) {
+  if (title != null && title.isNotEmpty) return title;
+  if (kind == Enum$EventKind.MATCH && opponent != null) return l.versus(opponent);
+  return kind.label(l);
 }
 
 Color teamColor(BuildContext context, String? hex) {

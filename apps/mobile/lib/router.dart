@@ -6,6 +6,7 @@ import 'auth/session.dart';
 import 'screens/accept_invitation_screen.dart';
 import 'screens/club/event_screen.dart';
 import 'screens/club/person_screen.dart';
+import 'screens/club/roll_call_screen.dart';
 import 'screens/club/roster_screen.dart';
 import 'screens/clubs_screen.dart';
 import 'screens/home_screen.dart';
@@ -62,6 +63,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: 'person/:id', builder: (_, state) => PersonScreen(personId: state.pathParameters['id']!)),
           GoRoute(path: 'team/:id', builder: (_, state) => RosterScreen(teamId: state.pathParameters['id']!)),
           GoRoute(path: 'event/:id', builder: (_, state) => EventScreen(eventId: state.pathParameters['id']!)),
+          GoRoute(path: 'rollcall/:id', builder: (_, state) => RollCallScreen(eventId: state.pathParameters['id']!)),
         ],
       ),
     ],

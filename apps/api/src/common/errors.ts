@@ -18,7 +18,11 @@ export type ErrorCode =
   | 'JERSEY_TAKEN'
   | 'ALREADY_EXISTS'
   | 'ATHLETE_TOO_YOUNG'
-  | 'PERSON_ALREADY_LINKED';
+  | 'PERSON_ALREADY_LINKED'
+  | 'OUT_OF_WINDOW'
+  | 'EVENT_CANCELLED'
+  | 'NOT_IN_ROSTER'
+  | 'EVENT_STARTED';
 
 export function appError(code: ErrorCode, message?: string): GraphQLError {
   return new GraphQLError(message ?? code, { extensions: { code } });

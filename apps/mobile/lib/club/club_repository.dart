@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../auth/session.dart';
+import '../graphql/attendance.graphql.dart';
 import '../graphql/calendar.graphql.dart';
 import '../graphql/people.graphql.dart';
 import '../graphql/schema.graphql.dart';
@@ -10,6 +11,8 @@ typedef MyPerson = Fragment$MyPersonFields;
 typedef TeamSummary = Query$MyTeams$teams;
 typedef Roster = Query$TeamRoster$team;
 typedef AgendaEvent = Fragment$AgendaEvent;
+typedef Participation = Fragment$ParticipationFields;
+typedef AttendanceHistoryItem = Query$PersonAttendance$personAttendance;
 
 /// Dati della società selezionata. I provider dipendono dalla società: cambiandola si ricaricano.
 class ClubRepository {
@@ -55,6 +58,32 @@ class ClubRepository {
     return Query$EventDetail.fromJson(data).event;
   }
 
+  Future<List<Participation>> participation(String eventId) async {
+    final data = await _ref.read(apiClientProvider).query(
+          documentNodeQueryMyParticipation,
+          variables: Variables$Query$MyParticipation(eventId: eventId).toJson(),
+        );
+    return Query$MyParticipation.fromJson(data).myParticipation;
+  }
+
+  Future<void> reportAbsence(String eventId, String personId, String? reason) => _ref.read(apiClientProvider).mutate(
+        documentNodeMutationReportAbsence,
+        variables: Variables$Mutation$ReportAbsence(eventId: eventId, personId: personId, reason: reason).toJson(),
+      );
+
+  Future<void> withdrawAbsence(String noticeId) => _ref.read(apiClientProvider).mutate(
+        documentNodeMutationWithdrawAbsence,
+        variables: Variables$Mutation$WithdrawAbsence(noticeId: noticeId).toJson(),
+      );
+
+  Future<List<AttendanceHistoryItem>> attendanceHistory(String personId) async {
+    final data = await _ref.read(apiClientProvider).query(
+          documentNodeQueryPersonAttendance,
+          variables: Variables$Query$PersonAttendance(personId: personId).toJson(),
+        );
+    return Query$PersonAttendance.fromJson(data).personAttendance;
+  }
+
   Future<Roster> roster(String teamId) async {
     final data = await _ref.read(apiClientProvider).query(
           documentNodeQueryTeamRoster,
@@ -95,4 +124,14 @@ final agendaProvider = FutureProvider<List<AgendaEvent>>((ref) {
 final eventProvider = FutureProvider.family<AgendaEvent, String>((ref, id) {
   _club(ref);
   return ref.read(clubRepositoryProvider).event(id);
+});
+
+final participationProvider = FutureProvider.family<List<Participation>, String>((ref, eventId) {
+  _club(ref);
+  return ref.read(clubRepositoryProvider).participation(eventId);
+});
+
+final attendanceHistoryProvider = FutureProvider.family<List<AttendanceHistoryItem>, String>((ref, personId) {
+  _club(ref);
+  return ref.read(clubRepositoryProvider).attendanceHistory(personId);
 });

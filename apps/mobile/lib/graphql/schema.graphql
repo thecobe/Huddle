@@ -1,3 +1,9 @@
+type AbsenceNotice {
+  createdAt: DateTime!
+  id: ID!
+  reason: String
+}
+
 input AcceptInvitationInput {
   acceptTerms: Boolean!
 
@@ -7,6 +13,50 @@ input AcceptInvitationInput {
   """Facoltativa: le famiglie possono accedere solo con magic link"""
   password: String
   token: String!
+}
+
+input AttendanceEntryInput {
+  """UUID generato dal client: rende idempotente il reinvio"""
+  clientMutationId: ID!
+  eventId: ID!
+  note: String
+  personId: ID!
+
+  """Momento della registrazione sul dispositivo"""
+  recordedAt: DateTime!
+  status: AttendanceStatus!
+}
+
+type AttendanceEntryResult {
+  clientMutationId: ID!
+
+  """Codice errore se REJECTED"""
+  code: String
+  result: AttendanceResult!
+}
+
+type AttendanceRegister {
+  cells: [RegisterCell!]!
+  events: [RegisterEvent!]!
+  players: [RegisterPlayer!]!
+}
+
+"""
+APPLIED, DUPLICATE e SUPERSEDED sono esiti definitivi: il client toglie la riga dalla coda.
+"""
+enum AttendanceResult {
+  APPLIED
+  DUPLICATE
+  REJECTED
+  SUPERSEDED
+}
+
+enum AttendanceStatus {
+  ABSENT
+  EXCUSED
+  INJURED
+  LATE
+  PRESENT
 }
 
 type AuditEvent {
@@ -324,6 +374,7 @@ type Mutation {
 
   """Importa tutte le righe; rifiuta il file se una riga ha errori."""
   commitPeopleImport(rows: [PersonImportRow!]!): PeopleImportSummary!
+  completeRollCall(eventId: ID!): RollCall!
   consumeMagicLink(token: String!): AuthPayload!
 
   """
@@ -362,6 +413,11 @@ type Mutation {
   previewPeopleImport(rows: [PersonImportRow!]!): [PersonImportResult!]!
 
   """
+  Registra presenze (anche da coda offline). Idempotente per clientMutationId; esito riga per riga.
+  """
+  recordAttendance(entries: [AttendanceEntryInput!]!): [AttendanceEntryResult!]!
+
+  """
   Registra un consenso. IMAGE_RELEASE e MARKETING richiedono la società corrente.
   """
   recordConsent(granted: Boolean!, kind: ConsentKind!): Consent!
@@ -378,6 +434,7 @@ type Mutation {
   removeMembership(membershipId: ID!): Boolean!
   removePlayer(rosterId: ID!): TeamDetail!
   removeStaff(staffId: ID!): TeamDetail!
+  reportAbsence(eventId: ID!, personId: ID!, reason: String): [Participation!]!
 
   """Invia un link di accesso via e-mail. Restituisce sempre true."""
   requestMagicLink(email: String!): Boolean!
@@ -410,6 +467,19 @@ type Mutation {
   updatePlayer(input: PlayerInput!, rosterId: ID!): TeamDetail!
   updateTeam(id: ID!, input: TeamInput!): TeamDetail!
   verifyTwoFactor(challengeToken: String!, code: String!): AuthPayload!
+  withdrawAbsence(noticeId: ID!): [Participation!]!
+}
+
+"""Partecipazione di una persona (sé stessi o un figlio) a un evento."""
+type Participation {
+  absenceNotice: AbsenceNotice
+
+  """Si può ancora segnalare o ritirare un’assenza"""
+  canReport: Boolean!
+  firstName: String!
+  lastName: String!
+  personId: ID!
+  status: AttendanceStatus
 }
 
 input PeopleFilter {
@@ -463,6 +533,16 @@ type Person {
 
   """Minori di cui è tutore"""
   wards: [GuardianLink!]!
+}
+
+type PersonAttendance {
+  eventId: ID!
+  kind: EventKind!
+  opponent: String
+  startsAt: DateTime!
+  status: AttendanceStatus!
+  teamName: String!
+  title: String
 }
 
 enum PersonCategory {
@@ -575,6 +655,7 @@ input PlayerInput {
 }
 
 type Query {
+  attendanceRegister(from: DateTime!, kind: EventKind, teamId: ID!, to: DateTime!): AttendanceRegister!
   auditEvents(beforeId: String, limit: Int! = 50): [AuditEvent!]!
 
   """Società corrente (header X-Tenant-Id)."""
@@ -605,6 +686,9 @@ type Query {
   """Esportazione dei dati personali (GDPR art. 15)"""
   myDataExport: JSON!
 
+  """Partecipazione all'evento dell'utente e dei suoi figli."""
+  myParticipation(eventId: ID!): [Participation!]!
+
   """Scheda dell'utente e dei minori di cui è tutore."""
   myPeople: [Person!]!
 
@@ -613,6 +697,12 @@ type Query {
   """
   people(filter: PeopleFilter, limit: Int! = 50, offset: Int! = 0): PeoplePage!
   person(id: ID!): Person!
+
+  """Presenze recenti della persona stessa o di un figlio."""
+  personAttendance(limit: Int! = 20, personId: ID!): [PersonAttendance!]!
+
+  """Appello di un evento: rosa, presenze registrate e assenze annunciate."""
+  rollCall(eventId: ID!): RollCall!
   seasons: [Season!]!
   team(id: ID!): TeamDetail!
 
@@ -620,6 +710,13 @@ type Query {
   Squadre visibili: tutte per la direzione, le proprie per staff, atleti e famiglie.
   """
   teams(includeArchived: Boolean! = false, seasonId: ID): [Team!]!
+}
+
+type RegisterCell {
+  eventId: ID!
+  note: String
+  personId: ID!
+  status: AttendanceStatus!
 }
 
 input RegisterDeviceInput {
@@ -630,6 +727,15 @@ input RegisterDeviceInput {
   token: String!
 }
 
+type RegisterEvent {
+  id: ID!
+  kind: EventKind!
+  opponent: String
+  rollCallDone: Boolean!
+  startsAt: DateTime!
+  title: String
+}
+
 input RegisterInput {
   """Accettazione di informativa privacy e termini di servizio"""
   acceptTerms: Boolean!
@@ -637,6 +743,57 @@ input RegisterInput {
   fullName: String!
   locale: String
   password: String!
+}
+
+type RegisterPlayer {
+  """Presenti o in ritardo"""
+  attended: Int!
+  excused: Int!
+  firstName: String!
+  jerseyNumber: Int
+  lastName: String!
+
+  """attended / recorded in percentuale; null se nessuna registrazione"""
+  percentage: Int
+  personId: ID!
+
+  """Eventi con presenza registrata"""
+  recorded: Int!
+}
+
+type RollCall {
+  cancelled: Boolean!
+  completedAt: DateTime
+
+  """L'utente può modificare l'appello adesso"""
+  editable: Boolean!
+
+  """Fine della finestra di modifica per lo staff"""
+  editableUntil: DateTime
+  endsAt: DateTime!
+  eventId: ID!
+  kind: EventKind!
+  opponent: String
+  players: [RollCallPlayer!]!
+  startsAt: DateTime!
+  teamId: ID!
+  teamName: String!
+  title: String
+}
+
+type RollCallPlayer {
+  absenceNotice: AbsenceNotice
+  firstName: String!
+
+  """Non più in rosa ma con una presenza registrata"""
+  formerPlayer: Boolean!
+  jerseyNumber: Int
+  lastName: String!
+  note: String
+  personId: ID!
+
+  """Null se non ancora registrato"""
+  status: AttendanceStatus
 }
 
 type RosterPlayer {

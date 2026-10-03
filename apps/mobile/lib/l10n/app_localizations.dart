@@ -649,6 +649,198 @@ abstract class AppLocalizations {
   /// In it, this message translates to:
   /// **'Note'**
   String get notes;
+
+  /// No description provided for @rollCall.
+  ///
+  /// In it, this message translates to:
+  /// **'Appello'**
+  String get rollCall;
+
+  /// No description provided for @confirmRollCall.
+  ///
+  /// In it, this message translates to:
+  /// **'Conferma appello'**
+  String get confirmRollCall;
+
+  /// No description provided for @rollCallDone.
+  ///
+  /// In it, this message translates to:
+  /// **'Appello confermato'**
+  String get rollCallDone;
+
+  /// No description provided for @rollCallReadOnly.
+  ///
+  /// In it, this message translates to:
+  /// **'L\'appello non è più modificabile.'**
+  String get rollCallReadOnly;
+
+  /// No description provided for @rollCallHint.
+  ///
+  /// In it, this message translates to:
+  /// **'Tocca chi manca. Tieni premuto per giustificato, infortunato, ritardo o una nota.'**
+  String get rollCallHint;
+
+  /// No description provided for @statusPRESENT.
+  ///
+  /// In it, this message translates to:
+  /// **'Presente'**
+  String get statusPRESENT;
+
+  /// No description provided for @statusABSENT.
+  ///
+  /// In it, this message translates to:
+  /// **'Assente'**
+  String get statusABSENT;
+
+  /// No description provided for @statusEXCUSED.
+  ///
+  /// In it, this message translates to:
+  /// **'Giustificato'**
+  String get statusEXCUSED;
+
+  /// No description provided for @statusINJURED.
+  ///
+  /// In it, this message translates to:
+  /// **'Infortunato'**
+  String get statusINJURED;
+
+  /// No description provided for @statusLATE.
+  ///
+  /// In it, this message translates to:
+  /// **'In ritardo'**
+  String get statusLATE;
+
+  /// No description provided for @noteLabel.
+  ///
+  /// In it, this message translates to:
+  /// **'Nota'**
+  String get noteLabel;
+
+  /// No description provided for @absenceNotice.
+  ///
+  /// In it, this message translates to:
+  /// **'Assenza annunciata: {reason}'**
+  String absenceNotice(String reason);
+
+  /// No description provided for @pendingChanges.
+  ///
+  /// In it, this message translates to:
+  /// **'{n, plural, =1{1 modifica da inviare} other{{n} modifiche da inviare}}'**
+  String pendingChanges(int n);
+
+  /// No description provided for @allSent.
+  ///
+  /// In it, this message translates to:
+  /// **'Tutto inviato'**
+  String get allSent;
+
+  /// No description provided for @offlineNotCached.
+  ///
+  /// In it, this message translates to:
+  /// **'Senza rete e senza dati salvati per questo evento: riprova con la connessione.'**
+  String get offlineNotCached;
+
+  /// No description provided for @rejectedChanges.
+  ///
+  /// In it, this message translates to:
+  /// **'Alcune modifiche sono state rifiutate dal server.'**
+  String get rejectedChanges;
+
+  /// No description provided for @dismiss.
+  ///
+  /// In it, this message translates to:
+  /// **'Ignora'**
+  String get dismiss;
+
+  /// No description provided for @participation.
+  ///
+  /// In it, this message translates to:
+  /// **'Partecipazione'**
+  String get participation;
+
+  /// No description provided for @reportAbsence.
+  ///
+  /// In it, this message translates to:
+  /// **'Segnala assenza'**
+  String get reportAbsence;
+
+  /// No description provided for @withdrawAbsence.
+  ///
+  /// In it, this message translates to:
+  /// **'Ritira'**
+  String get withdrawAbsence;
+
+  /// No description provided for @absenceReason.
+  ///
+  /// In it, this message translates to:
+  /// **'Motivo (facoltativo)'**
+  String get absenceReason;
+
+  /// No description provided for @send.
+  ///
+  /// In it, this message translates to:
+  /// **'Invia'**
+  String get send;
+
+  /// No description provided for @absenceReported.
+  ///
+  /// In it, this message translates to:
+  /// **'Assenza segnalata'**
+  String get absenceReported;
+
+  /// No description provided for @recentAttendance.
+  ///
+  /// In it, this message translates to:
+  /// **'Presenze recenti'**
+  String get recentAttendance;
+
+  /// No description provided for @noAttendanceYet.
+  ///
+  /// In it, this message translates to:
+  /// **'Nessuna presenza registrata.'**
+  String get noAttendanceYet;
+
+  /// No description provided for @logoutPendingTitle.
+  ///
+  /// In it, this message translates to:
+  /// **'Modifiche non inviate'**
+  String get logoutPendingTitle;
+
+  /// No description provided for @logoutPendingBody.
+  ///
+  /// In it, this message translates to:
+  /// **'Ci sono modifiche all\'appello non ancora inviate. Uscendo andranno perse.'**
+  String get logoutPendingBody;
+
+  /// No description provided for @logoutAnyway.
+  ///
+  /// In it, this message translates to:
+  /// **'Esci comunque'**
+  String get logoutAnyway;
+
+  /// No description provided for @errorOUT_OF_WINDOW.
+  ///
+  /// In it, this message translates to:
+  /// **'Fuori dal periodo in cui l\'appello è modificabile.'**
+  String get errorOUT_OF_WINDOW;
+
+  /// No description provided for @errorEVENT_CANCELLED.
+  ///
+  /// In it, this message translates to:
+  /// **'L\'evento è stato annullato.'**
+  String get errorEVENT_CANCELLED;
+
+  /// No description provided for @errorNOT_IN_ROSTER.
+  ///
+  /// In it, this message translates to:
+  /// **'L\'atleta non è più in rosa.'**
+  String get errorNOT_IN_ROSTER;
+
+  /// No description provided for @errorEVENT_STARTED.
+  ///
+  /// In it, this message translates to:
+  /// **'L\'evento è già iniziato.'**
+  String get errorEVENT_STARTED;
 }
 
 class _AppLocalizationsDelegate

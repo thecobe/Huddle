@@ -1,0 +1,85 @@
+query RollCall($eventId: ID!) {
+  rollCall(eventId: $eventId) {
+    eventId
+    teamId
+    teamName
+    kind
+    title
+    opponent
+    startsAt
+    endsAt
+    cancelled
+    completedAt
+    editable
+    players {
+      personId
+      firstName
+      lastName
+      jerseyNumber
+      status
+      note
+      formerPlayer
+      absenceNotice {
+        id
+        reason
+      }
+    }
+  }
+}
+
+mutation RecordAttendance($entries: [AttendanceEntryInput!]!) {
+  recordAttendance(entries: $entries) {
+    clientMutationId
+    result
+    code
+  }
+}
+
+mutation CompleteRollCall($eventId: ID!) {
+  completeRollCall(eventId: $eventId) {
+    eventId
+    completedAt
+  }
+}
+
+fragment ParticipationFields on Participation {
+  personId
+  firstName
+  lastName
+  status
+  canReport
+  absenceNotice {
+    id
+    reason
+  }
+}
+
+query MyParticipation($eventId: ID!) {
+  myParticipation(eventId: $eventId) {
+    ...ParticipationFields
+  }
+}
+
+mutation ReportAbsence($eventId: ID!, $personId: ID!, $reason: String) {
+  reportAbsence(eventId: $eventId, personId: $personId, reason: $reason) {
+    ...ParticipationFields
+  }
+}
+
+mutation WithdrawAbsence($noticeId: ID!) {
+  withdrawAbsence(noticeId: $noticeId) {
+    ...ParticipationFields
+  }
+}
+
+query PersonAttendance($personId: ID!) {
+  personAttendance(personId: $personId, limit: 20) {
+    eventId
+    startsAt
+    kind
+    title
+    opponent
+    teamName
+    status
+  }
+}

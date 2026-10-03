@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'auth/session.dart';
 import 'deep_links.dart';
 import 'l10n/app_localizations.dart';
+import 'offline/sync_providers.dart';
 import 'router.dart';
 import 'ui/theme.dart';
 
@@ -25,6 +26,7 @@ class _HuddleAppState extends ConsumerState<HuddleApp> {
   void initState() {
     super.initState();
     ref.read(sessionProvider.notifier).bootstrap();
+    bindOfflineToSession(ref);
     listenToDeepLinks(ref.read(routerProvider));
   }
 

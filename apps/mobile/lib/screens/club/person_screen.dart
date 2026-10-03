@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../../club/club_repository.dart';
 import '../../graphql/schema.graphql.dart';
 import '../../ui/l10n_ext.dart';
 import '../widgets.dart';
+import 'agenda_tab.dart' show eventKindTitle;
 
 /// Età minima per l'account di un atleta (D1). La regola vera è sul server.
 const minAthleteAccountAge = 14;
@@ -135,6 +137,7 @@ class _PersonScreenState extends ConsumerState<PersonScreen> {
                   ].join(' · ')),
                 ),
               if (person.teams.isEmpty) Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: Text(l.noTeamsYet)),
+              _RecentAttendance(personId: person.id),
               const SizedBox(height: 16),
               Text(l.contacts, style: text.titleSmall),
               const SizedBox(height: 8),
@@ -188,4 +191,34 @@ class _PersonScreenState extends ConsumerState<PersonScreen> {
           decoration: InputDecoration(labelText: label, counterText: ''),
         ),
       );
+}
+
+/// D10: presenze recenti della persona (o del figlio), in sola lettura.
+class _RecentAttendance extends ConsumerWidget {
+  const _RecentAttendance({required this.personId});
+  final String personId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = context.l10n;
+    final items = ref.watch(attendanceHistoryProvider(personId)).value;
+    if (items == null) return const SizedBox.shrink();
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 16),
+        Text(l.recentAttendance, style: Theme.of(context).textTheme.titleSmall),
+        if (items.isEmpty) Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: Text(l.noAttendanceYet)),
+        for (final a in items.take(10))
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            dense: true,
+            title: Text(eventKindTitle(l, a.kind, a.title, a.opponent)),
+            subtitle: Text('${DateFormat.MMMEd(locale).format(DateTime.parse(a.startsAt).toLocal())} · ${a.teamName}'),
+            trailing: Text(attendanceLabel(l, a.status.toJson())),
+          ),
+      ],
+    );
+  }
 }

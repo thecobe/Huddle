@@ -19,6 +19,7 @@ class Fragment$AgendaEvent {
     this.opponent,
     this.isHome,
     this.competition,
+    required this.canEdit,
     this.$__typename = 'CalendarEvent',
   });
 
@@ -38,6 +39,7 @@ class Fragment$AgendaEvent {
     final l$opponent = json['opponent'];
     final l$isHome = json['isHome'];
     final l$competition = json['competition'];
+    final l$canEdit = json['canEdit'];
     final l$$__typename = json['__typename'];
     return Fragment$AgendaEvent(
       id: (l$id as String),
@@ -55,6 +57,7 @@ class Fragment$AgendaEvent {
       opponent: (l$opponent as String?),
       isHome: (l$isHome as bool?),
       competition: (l$competition as String?),
+      canEdit: (l$canEdit as bool),
       $__typename: (l$$__typename as String),
     );
   }
@@ -88,6 +91,8 @@ class Fragment$AgendaEvent {
   final bool? isHome;
 
   final String? competition;
+
+  final bool canEdit;
 
   final String $__typename;
 
@@ -123,6 +128,8 @@ class Fragment$AgendaEvent {
     _resultData['isHome'] = l$isHome;
     final l$competition = competition;
     _resultData['competition'] = l$competition;
+    final l$canEdit = canEdit;
+    _resultData['canEdit'] = l$canEdit;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -145,6 +152,7 @@ class Fragment$AgendaEvent {
     final l$opponent = opponent;
     final l$isHome = isHome;
     final l$competition = competition;
+    final l$canEdit = canEdit;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$id,
@@ -162,6 +170,7 @@ class Fragment$AgendaEvent {
       l$opponent,
       l$isHome,
       l$competition,
+      l$canEdit,
       l$$__typename,
     ]);
   }
@@ -249,6 +258,11 @@ class Fragment$AgendaEvent {
     if (l$competition != lOther$competition) {
       return false;
     }
+    final l$canEdit = canEdit;
+    final lOther$canEdit = other.canEdit;
+    if (l$canEdit != lOther$canEdit) {
+      return false;
+    }
     final l$$__typename = $__typename;
     final lOther$$__typename = other.$__typename;
     if (l$$__typename != lOther$$__typename) {
@@ -288,6 +302,7 @@ abstract class CopyWith$Fragment$AgendaEvent<TRes> {
     String? opponent,
     bool? isHome,
     String? competition,
+    bool? canEdit,
     String? $__typename,
   });
 }
@@ -318,6 +333,7 @@ class _CopyWithImpl$Fragment$AgendaEvent<TRes>
     Object? opponent = _undefined,
     Object? isHome = _undefined,
     Object? competition = _undefined,
+    Object? canEdit = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Fragment$AgendaEvent(
@@ -356,6 +372,9 @@ class _CopyWithImpl$Fragment$AgendaEvent<TRes>
       competition: competition == _undefined
           ? _instance.competition
           : (competition as String?),
+      canEdit: canEdit == _undefined || canEdit == null
+          ? _instance.canEdit
+          : (canEdit as bool),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -385,6 +404,7 @@ class _CopyWithStubImpl$Fragment$AgendaEvent<TRes>
     String? opponent,
     bool? isHome,
     String? competition,
+    bool? canEdit,
     String? $__typename,
   }) => _res;
 }
@@ -497,6 +517,13 @@ const fragmentDefinitionAgendaEvent = FragmentDefinitionNode(
       ),
       FieldNode(
         name: NameNode(value: 'competition'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: 'canEdit'),
         alias: null,
         arguments: [],
         directives: [],

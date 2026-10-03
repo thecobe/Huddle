@@ -14,6 +14,7 @@ fragment AgendaEvent on CalendarEvent {
   opponent
   isHome
   competition
+  canEdit
 }
 
 query MyAgenda($from: DateTime!, $to: DateTime!) {

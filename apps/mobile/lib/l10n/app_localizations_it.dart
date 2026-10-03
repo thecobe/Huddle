@@ -307,4 +307,115 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get notes => 'Note';
+
+  @override
+  String get rollCall => 'Appello';
+
+  @override
+  String get confirmRollCall => 'Conferma appello';
+
+  @override
+  String get rollCallDone => 'Appello confermato';
+
+  @override
+  String get rollCallReadOnly => 'L\'appello non è più modificabile.';
+
+  @override
+  String get rollCallHint =>
+      'Tocca chi manca. Tieni premuto per giustificato, infortunato, ritardo o una nota.';
+
+  @override
+  String get statusPRESENT => 'Presente';
+
+  @override
+  String get statusABSENT => 'Assente';
+
+  @override
+  String get statusEXCUSED => 'Giustificato';
+
+  @override
+  String get statusINJURED => 'Infortunato';
+
+  @override
+  String get statusLATE => 'In ritardo';
+
+  @override
+  String get noteLabel => 'Nota';
+
+  @override
+  String absenceNotice(String reason) {
+    return 'Assenza annunciata: $reason';
+  }
+
+  @override
+  String pendingChanges(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n modifiche da inviare',
+      one: '1 modifica da inviare',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get allSent => 'Tutto inviato';
+
+  @override
+  String get offlineNotCached =>
+      'Senza rete e senza dati salvati per questo evento: riprova con la connessione.';
+
+  @override
+  String get rejectedChanges =>
+      'Alcune modifiche sono state rifiutate dal server.';
+
+  @override
+  String get dismiss => 'Ignora';
+
+  @override
+  String get participation => 'Partecipazione';
+
+  @override
+  String get reportAbsence => 'Segnala assenza';
+
+  @override
+  String get withdrawAbsence => 'Ritira';
+
+  @override
+  String get absenceReason => 'Motivo (facoltativo)';
+
+  @override
+  String get send => 'Invia';
+
+  @override
+  String get absenceReported => 'Assenza segnalata';
+
+  @override
+  String get recentAttendance => 'Presenze recenti';
+
+  @override
+  String get noAttendanceYet => 'Nessuna presenza registrata.';
+
+  @override
+  String get logoutPendingTitle => 'Modifiche non inviate';
+
+  @override
+  String get logoutPendingBody =>
+      'Ci sono modifiche all\'appello non ancora inviate. Uscendo andranno perse.';
+
+  @override
+  String get logoutAnyway => 'Esci comunque';
+
+  @override
+  String get errorOUT_OF_WINDOW =>
+      'Fuori dal periodo in cui l\'appello è modificabile.';
+
+  @override
+  String get errorEVENT_CANCELLED => 'L\'evento è stato annullato.';
+
+  @override
+  String get errorNOT_IN_ROSTER => 'L\'atleta non è più in rosa.';
+
+  @override
+  String get errorEVENT_STARTED => 'L\'evento è già iniziato.';
 }

@@ -13,6 +13,19 @@ const PASSWORD = 'password-demo-123';
 
 type Headers = Record<string, string>;
 
+/** Lo script parla con API e Mailpit in esecuzione: se mancano, lo dice invece di fallire con un errore di rete. */
+async function assertReachable(url: string, hint: string): Promise<void> {
+  try {
+    await fetch(url, { signal: AbortSignal.timeout(3000) });
+  } catch {
+    console.error(`Impossibile raggiungere ${url}.\n${hint}`);
+    process.exit(1);
+  }
+}
+
+await assertReachable(new URL('/health', API).toString(), "Avvia l'API con `pnpm dev:api` (e Docker con `pnpm dev:infra`), poi riprova.");
+await assertReachable(MAILPIT, 'Avvia Mailpit con `pnpm dev:infra`, poi riprova.');
+
 async function gql<T = Record<string, never>>(query: string, variables: object = {}, headers: Headers = {}): Promise<T> {
   const res = await fetch(API, {
     method: 'POST',
@@ -129,6 +142,18 @@ await gql(`mutation ($i: EventInput!) { createEvent(input: $i) { id } }`, {
   },
 }, h);
 
+// Allenamento in corso: l'appello è già aperto (D8) per provarlo subito, anche senza rete.
+const nowTraining = await gql<{ createEvent: { id: string } }>(`mutation ($i: EventInput!) { createEvent(input: $i) { id } }`, {
+  i: {
+    teamId: u15,
+    kind: 'TRAINING',
+    title: 'Allenamento di oggi',
+    location: 'Campo comunale, via dello Sport 1',
+    startsAt: new Date(now.getTime() - 3_600_000).toISOString(),
+    endsAt: new Date(now.getTime() + 1_800_000).toISOString(),
+  },
+}, h);
+
 const coach = await gql<{ createPerson: { id: string } }>(
   `mutation { createPerson(input: { firstName: "Luca", lastName: "Allenatore", phone: "3489990000", categories: [STAFF] }) { id } }`,
   {},
@@ -170,8 +195,9 @@ console.log(
   JSON.stringify(
     {
       club: 'ASD Aurora',
+      rollCallEventId: nowTraining.createEvent.id,
       admin: { email: adminEmail, password: PASSWORD, totpSecret: setup.setupTwoFactor.secret },
-      coach: { email: coachEmail, magicLink: await magicLink(coachEmail) },
+      coach: { email: coachEmail, magicLink: await magicLink(coachEmail), magicLink2: await magicLink(coachEmail) },
       // I magic link sono monouso: due link per due sessioni di prova del genitore.
       parent: { email: parentEmail, magicLink: await magicLink(parentEmail), magicLink2: await magicLink(parentEmail) },
     },

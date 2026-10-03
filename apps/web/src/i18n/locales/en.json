@@ -93,7 +93,8 @@
     "menu": "Menu",
     "people": "People",
     "teams": "Teams",
-    "calendar": "Calendar"
+    "calendar": "Calendar",
+    "attendance": "Attendance"
   },
   "home": {
     "title": "Welcome, {name}",
@@ -210,7 +211,8 @@
       "calendar.event_restored": "Event restored",
       "calendar.event_deleted": "Event deleted",
       "calendar.range_cancelled": "Events cancelled for closure",
-      "calendar.feed_created": "Calendar link generated"
+      "calendar.feed_created": "Calendar link generated",
+      "attendance.late_correction": "Attendance corrected after 7 days"
     }
   },
   "security": {
@@ -279,7 +281,11 @@
     "JERSEY_TAKEN": "Shirt number already used in this team.",
     "ALREADY_EXISTS": "Already exists.",
     "ATHLETE_TOO_YOUNG": "Athletes under 14 can't have an account.",
-    "PERSON_ALREADY_LINKED": "This record is already linked to an account."
+    "PERSON_ALREADY_LINKED": "This record is already linked to an account.",
+    "OUT_OF_WINDOW": "Outside the period when the roll call can be changed.",
+    "EVENT_CANCELLED": "The event was cancelled.",
+    "NOT_IN_ROSTER": "The athlete isn't in the roster.",
+    "EVENT_STARTED": "The event has already started."
   },
   "people": {
     "title": "People",
@@ -532,5 +538,35 @@
       "7": "Sun"
     },
     "more": "+{n} more"
+  },
+  "attendance": {
+    "title": "Attendance register",
+    "subtitle": "Attendance by team and period.",
+    "team": "Team",
+    "from": "From",
+    "to": "To",
+    "kind": "Event type",
+    "allKinds": "All",
+    "athlete": "Athlete",
+    "rate": "Attendance",
+    "noEvents": "No events in this period.",
+    "noTeams": "You don't follow any team.",
+    "missingRollCall": "Roll call not confirmed",
+    "export": "Export CSV",
+    "legend": "P present · A absent · E excused · I injured · L late",
+    "short": {
+      "PRESENT": "P",
+      "ABSENT": "A",
+      "EXCUSED": "E",
+      "INJURED": "I",
+      "LATE": "L"
+    },
+    "statuses": {
+      "PRESENT": "Present",
+      "ABSENT": "Absent",
+      "EXCUSED": "Excused",
+      "INJURED": "Injured",
+      "LATE": "Late"
+    }
   }
 }

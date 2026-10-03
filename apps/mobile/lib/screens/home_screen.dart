@@ -5,7 +5,9 @@ import 'package:go_router/go_router.dart';
 import '../auth/session.dart';
 import '../club/club_repository.dart';
 import 'club/agenda_tab.dart';
+import 'club/sync_indicator.dart';
 import 'club/teams_tab.dart';
+import '../offline/sync_providers.dart';
 import '../push/push_service.dart';
 import '../ui/l10n_ext.dart';
 
@@ -47,6 +49,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       appBar: AppBar(
         title: Text(club.name),
         actions: [
+          const SyncIndicator(),
           if ((session.user?.clubs.length ?? 0) > 1)
             IconButton(
               tooltip: l.switchClub,
@@ -144,6 +147,22 @@ class _Profile extends ConsumerWidget {
           leading: const Icon(Icons.logout),
           title: Text(l.signOut),
           onTap: () async {
+            // D9: al logout i dati offline vengono cancellati; avvisa se ci sono modifiche non inviate.
+            final pending = ref.read(pendingChangesProvider).value ?? 0;
+            if (pending > 0) {
+              final ok = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text(l.logoutPendingTitle),
+                  content: Text(l.logoutPendingBody),
+                  actions: [
+                    TextButton(onPressed: () => Navigator.pop(context, false), child: Text(MaterialLocalizations.of(context).cancelButtonLabel)),
+                    TextButton(onPressed: () => Navigator.pop(context, true), child: Text(l.logoutAnyway)),
+                  ],
+                ),
+              );
+              if (ok != true) return;
+            }
             await ref.read(pushRegistrarProvider).unregister();
             await ref.read(sessionProvider.notifier).logout();
           },

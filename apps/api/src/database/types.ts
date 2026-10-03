@@ -18,6 +18,8 @@ export type GuardianRelation = 'MOTHER' | 'FATHER' | 'GUARDIAN' | 'OTHER';
 export type PlayerAvailability = 'AVAILABLE' | 'INJURED' | 'SUSPENDED' | 'OTHER';
 export type EventKind = 'TRAINING' | 'MATCH' | 'OTHER';
 export type EventStatus = 'SCHEDULED' | 'CANCELLED';
+export type AttendanceStatus = 'PRESENT' | 'ABSENT' | 'EXCUSED' | 'INJURED' | 'LATE';
+export type AttendanceOutcome = 'APPLIED' | 'DUPLICATE' | 'SUPERSEDED';
 export type StaffRole = 'HEAD_COACH' | 'ASSISTANT_COACH' | 'FITNESS_COACH' | 'GOALKEEPER_COACH' | 'TEAM_MANAGER';
 
 type Timestamp = ColumnType<Date, Date | string | undefined, Date | string>;
@@ -251,9 +253,48 @@ export interface EventsTable {
   opponent: string | null;
   is_home: boolean | null;
   competition: string | null;
+  roll_call_at: Timestamp | null;
+  roll_call_by: string | null;
   created_by: string | null;
   created_at: CreatedAt;
   updated_at: CreatedAt;
+}
+
+export interface AttendanceTable {
+  id: Generated<string>;
+  tenant_id: string;
+  event_id: string;
+  person_id: string;
+  status: AttendanceStatus;
+  note: string | null;
+  recorded_by: string | null;
+  recorded_at: Timestamp;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface AttendanceWritesTable {
+  id: Generated<string>;
+  tenant_id: string;
+  client_mutation_id: string;
+  event_id: string;
+  person_id: string;
+  status: AttendanceStatus;
+  note: string | null;
+  recorded_by: string | null;
+  recorded_at: Timestamp;
+  received_at: Generated<Timestamp>;
+  outcome: AttendanceOutcome;
+}
+
+export interface AbsenceNoticesTable {
+  id: Generated<string>;
+  tenant_id: string;
+  event_id: string;
+  person_id: string;
+  reason: string | null;
+  created_by: string | null;
+  created_at: CreatedAt;
+  withdrawn_at: Timestamp | null;
 }
 
 export interface CalendarFeedsTable {
@@ -285,6 +326,9 @@ export interface Database {
   event_series: EventSeriesTable;
   events: EventsTable;
   calendar_feeds: CalendarFeedsTable;
+  attendance: AttendanceTable;
+  attendance_writes: AttendanceWritesTable;
+  absence_notices: AbsenceNoticesTable;
 }
 
 export type UserRow = Selectable<UsersTable>;
